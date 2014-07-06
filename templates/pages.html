@@ -1,0 +1,364 @@
+<section class="main">
+
+    <nav>
+        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+        
+        <div class="fs-container">
+    
+			<div class="fs">
+			
+		        <ul>
+		        	<li ng-repeat="pageType in pageTypes"
+		        		ng-class="{'active': (pageType.PageTypeId == pageTypeId), 'has-action':(pageType.PageTypeId != -1)}"> 
+		    			<a ng-click="setPageType(pageType)">
+		    				/{{pageType.FriendlyId}}
+		    				<span ng-show="(pageType.IsSecure == 1)" class="fa fa-lock"></span>
+		    			</a> 
+						
+			    		<i ng-show="(pageType.PageTypeId != -1)"
+							ng-click="showRemovePageType(pageType)"
+			    			class="fa fa-minus-circle" 
+			    			title="{{'Remove Page Type' | i18next}}"></i>
+		    		</li>
+		    		
+		    		<li class="add">
+		    			<i ng-click="showAddPageType()"
+		    				class="fa fa-plus-circle" title="{{'Add Page Type' | i18next}}"></i>
+		    		</li>
+		        </ul>
+	        
+			</div>
+			<!-- /.fs -->
+        
+        </div>
+        <!-- /.fs-container -->
+        
+        <a id="add-page" 
+        	ng-click="showAddPage()"
+        	class="primary-action" title="{{'Add Page' | i18next}}"><i class="fa fa-plus-circle"></i></a>
+  
+    </nav>
+    
+    <div class="list-menu">
+    	
+		<div class="list-menu-actions">
+
+    		<a title="{{'Sort by Last Modified' | i18next}}" 
+    			ng-click="setPredicate('LastModifiedDate')"
+    			ng-class="{'active': (predicate == 'LastModifiedDate')}">
+    				<i class="fa fa-sort-amount-desc"></i></a>
+			<a title="{{'Sort by Name' | i18next}}"
+				ng-click="setPredicate('Name')"
+				ng-class="{'active': (predicate == 'Name')}">
+				<i class="fa fa-sort-alpha-asc"></i></a>
+			
+			<a ng-show="(pageTypeId != -1)"
+				ng-click="showEditPageType()">
+				<i class="fa fa-cog"></i>
+			</a>
+		</div>
+    </div>
+
+    <div class="list">
+    
+    	<div class="listItem" 
+    		ng-repeat="page in pages | filter: {PageTypeId: pageTypeId} | orderBy: predicate"
+    		ng-class="{'has-thumb': (page.Thumb != '')}">
+    		
+            <span class="image" ng-show="page.Thumb != ''"><img height="75" width="75" ng-src="{{page.Thumb}}"></span>
+            
+    		<a 	ng-click="showRemovePage(page)"
+    			class="remove">
+                <i class="fa fa-minus-circle"></i>
+            </a>
+            
+    		<h2>
+    			<a ng-show="(page.CanEdit || page.CanPublish)" ng-href="#/app/content/{{page.PageId}}">{{page.Name}}</a>
+				<span ng-show="!(page.CanEdit || page.CanPublish)">{{page.Name}}</span>
+				
+    		</h2>
+    		
+    		<small>
+    			{{page.Url}}
+				<span class="tags">
+					<i class="fa fa-tags"></i> 
+					<a ng-click="showEditTags(page)">{{page.Tags|notags}}</a>
+				</span>
+    		
+    		</small>
+    		
+			<span class="draft-tag" ng-show="page.HasDraft">{{'Draft' | i18next}}</span></h2>
+			<p>{{page.Description}}</p>
+			<em>{{'Last updated' | i18next}} {{page.LastModifiedDate | fromNow}} {{'by' | i18next}} {{page.LastModifiedFullName}}</em>
+		
+    		<span class="status"
+    			ng-click="togglePublished(page)"
+    			ng-show="(page.CanPublish == true)"
+    			ng-class="{'published': (page.IsActive == 1), 'not-published': (page.IsActive == 0)}">
+    			<i class="not-published fa fa-circle-o"></i>
+    			<i class="published fa fa-check-circle"></i>
+    		</span>
+    		
+    	</div>
+    	<!-- /.listItem -->
+    
+    </div>
+    <!-- /.list -->
+    
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
+    
+    <p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length == 0" class="list-none">{{'No pages here. Click Add Page to get started.' | i18next}}</p>
+      
+</section>
+<!-- /.main -->
+
+<div class="modal fade" id="pageDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Add Page' | i18next}}</h3>
+			</div>
+			
+			<form name="pageForm" novalidate>
+			
+			<div class="modal-body">
+				
+				<div class="form-group">
+					<label for="name" class="control-label">{{'Name' | i18next}}</label>
+					<input id="name" type="text" 
+					 	ng-model="temp.Name"
+					 	maxlength="255" class="form-control" required>
+				</div>
+				
+				<div class="form-group">
+					<label for="URL" class="control-label">{{'Friendly URL' | i18next}}</label>
+					<input id="friendlyId" type="text" 
+						ng-model="temp.FriendlyId"
+						maxlength="128" placeholder="page-name" class="form-control" required>
+					<span class="help-block">{{'No spaces, no special characters, dashes allowed.' | i18next}}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="description" 
+						class="control-label">{{'Description' | i18next}}</label>
+					<textarea id="description" 
+						ng-model="temp.Description"
+						class="form-control"></textarea>
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" 
+					ng-click="addPage(temp)"
+					ng-disabled="pageForm.$invalid || isUnchanged(temp)">{{'Add' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+			</form>
+			
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="removePageDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Remove Page' | i18next}}</h3>
+			</div>
+			<div class="modal-body">
+			
+			<p>
+				{{'Confirm that you want to remove' | i18next}} <strong>{{temp.Name}}</strong>
+			</p>
+			
+			</div>
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button"
+					ng-click="removePage(temp)">{{'Remove' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="editTagsDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Tags' | i18next}}</h3>
+			</div>
+			
+			<div class="modal-body">
+			
+				<form name="tagsForm" novalidate>
+			
+					<div class="form-group">
+						<label for="tag" class="control-label">{{'Tags' | i18next}}</label>
+						<input id="tag" type="text"
+							ng-model="temp.Tags"
+							value="" maxlength="100" class="form-control" required>
+						<span class="add help-block">{{'e.g.: tag1, tag2, etc.' | i18next}}</span>
+					</div>
+				
+				</form>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button"
+					ng-click="editTags(temp)">{{'Update' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="removePageTypeDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Remove Page Type' | i18next}}</h3>
+			</div>
+			
+			<div class="modal-body">
+			
+				<p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length == 0">
+					{{'Confirm you want to remove' | i18next}} <strong>/{{temp.FriendlyId}}</strong>
+				</p>
+				
+				<p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length != 0">
+					{{'Please remove all pages first.' | i18next}}</strong>
+				</p>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" 
+					ng-click="removePageType(temp)"
+					ng-show="(pages | filter: {PageTypeId: pageTypeId}).length == 0">{{'Remove' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="pageTypeDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3 class="add">{{'Add Page Type' | i18next}}</h3>
+				<h3 class="edit">{{'Update Page Type' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+			
+			<form name="pageTypeForm" novalidate>
+				
+				<div class="add form-group">
+					<label for="typeFriendlyId" class="control-label">{{'Friendly URL' | i18next}}</label>
+					<input id="typeFriendlyId" type="text" 
+						ng-model="temp.FriendlyId"
+						value="" maxlength="50" class="form-control" required>
+					<span class="add help-block">e.g. http://respondcms.com/[friendly-url]/. {{'Must be lowercase with no spaces.' | i18next}}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="layout" class="control-label">{{'Default Layout' | i18next}}</label>
+					<select id="layout"
+						ng-model="temp.Layout"
+						ng-options="layout for layout in layouts"
+						class="form-control" required></select>
+				</div>
+				
+				<div class="form-group">
+					<label for="stylesheet" class="control-label">{{'Default Styles' | i18next}}</label>
+					<select id="stylesheet" 
+						ng-model="temp.Stylesheet"
+						ng-options="stylesheet for stylesheet in stylesheets"
+						class="form-control" required></select>
+				</div>
+				
+				<div class="form-group">
+					<label for="stylesheet" class="control-label">{{'Requires Login' | i18next}}</label>
+					<select id="isSecure" 
+						ng-model="temp.IsSecure"
+						class="form-control" required>
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+					</select>
+				</div>
+			
+			</form>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="add primary-button" 
+					ng-click="addPageType(temp)"
+					ng-disabled="pageTypeForm.$invalid || isUnchanged(temp)">{{'Add' | i18next}}</button>
+				<button class="edit primary-button" 
+					ng-click="editPageType(temp)"
+					ng-disabled="pageTypeForm.$invalid || isUnchanged(temp)">{{'Update' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->

@@ -1,0 +1,101 @@
+<header role="banner">
+
+	<nav class="navbar navbar-default" role="navigation">
+	  
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+        
+        <a class="navbar-brand" href="{{site.Url}}"><img src="{{site.LogoUrl}}"></a>
+	  </div>
+	  <!-- /.navbar-header -->
+	
+	  
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+	    <ul class="nav navbar-nav navbar-right">
+			<triangulate-menu type="primary"></triangulate-menu>
+          	<triangulate-search></triangulate-search>
+	    </ul>
+        
+	  </div>
+	  <!-- /.navbar-collapse -->
+      
+	</nav>
+
+</header>
+  
+<div id="content" class="container" role="main">
+    <triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>
+</div>
+
+<div class="container" role="main">  
+  <div class="blog-meta">
+      <p>
+        {{page.PhotoUrl}}
+        Last modified by
+        <span class="author">{{page.FirstName}} {{page.LastName}}</span>
+        <span class="last-modified-date">{{page.LastModifiedDate}}</span>
+      </p>
+    </div> 
+</div>
+ 
+<footer role="contentinfo">
+  
+  <div class="container">
+
+		<div class="row">
+		
+          <div class="col-md-6">
+            
+            <h4>Contact</h4>
+            
+            <p>
+              Call us at (555) 555-5555 or reach out via the website: <a ui-sref="page/contact">Contact</a>
+            </p>
+            
+            <p class="social">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-google-plus"></i></a>
+              <a href="#"><i class="fa fa-envelope-o"></i></a>
+            </p>
+            
+          </div>
+          <!-- /.col-md-4 -->
+          
+          <div class="col-md-6">
+            
+            <h4>About</h4>
+            
+            <p>
+              {{site.Name}} powered by <a href="http://triangulatecms.com">triangulate</a>. triangulate is an open source, responsive content management system that you can use to build responsive sites.  The latest version features Bootstrap 3.0, Bootswatch themes, a complete REST API, and a beautiful UI.
+            </p>
+            
+          </div>
+			<!-- /.col-md-4 -->
+			
+		</div>
+		<!-- /.row -->
+    
+    	<div class="row">
+        
+          <div class="col-md-12 menu">
+              
+              <ul>
+                <li>Menu:</li>
+				<triangulate-menu type="footer"></triangulate-menu>
+              </ul>
+              
+          </div>
+          <!-- /.col-md-12 -->
+          
+    	</div>
+		
+  	</div>
+  	<!-- /.container -->
+  
+</footer>

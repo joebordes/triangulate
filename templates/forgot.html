@@ -1,0 +1,52 @@
+<!-- begin content -->
+<div class="content">
+
+	<h1><span class="brand"><img src="{{setup.logo}}" title="{{setup.brand}}"></span></h1>
+	
+	<fieldset class="forgot" data-bind="visible:hasToken()==false">
+	
+		<p>{{'Type your email address and we will send you a link to reset your password.'}}</p>
+		
+		<div class="form-group">
+			<label for="email">{{'Email:'}}</label>
+			<input id="email" type="text" value="" placeholder="you@yourlogin.com" class="form-control input-lg">	
+		</div>
+		
+		<span class="actions">
+			<button type="submit" class="primary-button" data-bind="click:forgot">{{'Send Email'}} <i class="fa fa-envelope-o"></i></button>
+		</span>
+		
+	</fieldset>
+	<!-- /.forgot -->
+		
+	<fieldset class="reset" data-bind="visible:hasToken()==true">
+		
+		<p>
+			{{'Welcome back. Type a new password for your account.'}}
+		</p>
+
+		<div class="control-group">
+			<label for="password">{{'Password:'}}</label>
+			<input id="password" type="password" placeholder="New Password" class="form-control">
+		</div>
+		
+		<div class="control-group">
+			<label for="retype">{{'Retype Password:'}}</label>
+			<input id="retype" type="password" placeholder="Retype New Password" class="form-control input-lg">
+		</div>
+		
+		<span class="actions">
+			<button type="submit" class="primary-button" data-bind="click:reset">{{'Change Password'}}</button>
+		</span>
+			
+	</fieldset>
+	<!-- /.reset -->
+
+	<p  class="alternate">
+		<a href="index">{{'Return to Login'}}</a>
+	</p>
+
+	<small><?php print COPY; ?></small>
+
+</div>
+<!-- /.content -->

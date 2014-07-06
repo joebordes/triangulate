@@ -1,0 +1,209 @@
+[
+	{
+		"action":	"triangulate.element.h1",
+		"tag":		"H1",
+		"title":	"H1 Headline",
+		"class":	"triangulate-h1",
+		"icon":		"draggable",
+		"text":		"H1",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.h2",
+		"tag":		"H2",
+		"title":	"H2 Headline",
+		"class":	"triangulate-h2",
+		"icon":		"draggable",
+		"text":		"H2",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.h3",
+		"tag":		"H3",
+		"title":	"H3 Headline",
+		"class":	"triangulate-h3",
+		"icon":		"draggable",
+		"text":		"H3",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.h4",
+		"tag":		"H4",
+		"title":	"H4 Headline",
+		"class":	"triangulate-h4",
+		"icon":		"draggable",
+		"text":		"H4",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.h5",
+		"tag":		"H5",
+		"title":	"H5 Headline",
+		"class":	"triangulate-h5",
+		"icon":		"draggable",
+		"text":		"H5",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.p",
+		"tag":		"P",
+		"title":	"Paragraph",
+		"class":	"triangulate-p",
+		"icon":		"draggable",
+		"text":		"P",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.q",
+		"tag":		"BLOCKQUOTE",
+		"title":	"Blockquote",
+		"class":	"triangulate-q",
+		"icon":		"fa fa-quote-left draggable",
+		"text":		"",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.ul",
+		"tag":		"UL",
+		"title":	"Unordered List",
+		"class":	"triangulate-ul",
+		"icon": 	"fa fa-list-ul draggable",
+		"text":		"",
+		"config":	"plugins/element/config/list.html"
+	},
+	{
+		"action":	"triangulate.element.ol",
+		"tag":		"OL",
+		"title":	"Ordered List",
+		"class":	"triangulate-ol",
+		"icon":		"fa fa-list-ol draggable",
+		"text":		"",
+		"config":	"plugins/element/config/list.html"
+	},
+	{
+		"action":	"triangulate.element.table",
+		"tag":		"TABLE",
+		"title":	"Table",
+		"class":	"triangulate-table",
+		"icon":		"fa fa-table draggable",
+		"text":		"",
+		"config":	"plugins/element/config/table.html"
+	},
+	{
+		"action":	"triangulate.element.hr",
+		"tag":		"HR",
+		"title":	"HR",
+		"class":	"triangulate-hr",
+		"icon":		"fa fa-minus draggable",
+		"text":		"",
+		"config":	"plugins/element/config/default.html"
+	},
+	{
+		"action":	"triangulate.element.image",
+		"tag":		"DIV",
+		"title":	"Image",
+		"class":	"triangulate-image",
+		"icon":		"fa fa-picture-o draggable",
+		"text":		"",
+		"config":	"plugins/element/config/images.html"
+	},
+	{
+		"action":	"triangulate.component.slideshow",
+		"tag":		"TRIANGULATE-SLIDESHOW",
+		"title":	"Slideshow",
+		"class":	"triangulate-slideshow",
+		"icon":		"fa fa-film draggable",
+		"text":		"",
+		"config":	"plugins/component/config/slideshow.html"
+	},
+	{
+		"action":	"triangulate.component.map",
+		"tag":		"TRIANGULATE-MAP",
+		"title":	"Map",
+		"class":	"triangulate-map",
+		"icon":		"fa fa-map-marker draggable",
+		"text":		"",
+		"config":	"plugins/component/config/default.html"
+	},
+	{
+		"action":	"triangulate.component.content",
+		"tag":		"TRIANGULATE-CONTENT",
+		"title":	"Content",
+		"class":	"triangulate-content",
+		"icon":		"fa fa-cube draggable",
+		"text":		"",
+		"config":	"plugins/component/config/content.html"
+	},
+	{
+		"action":	"triangulate.component.list",
+		"tag":		"TRIANGULATE-LIST",
+		"title":	"List",
+		"class":	"triangulate-list",
+		"icon":		"fa fa-cubes draggable",
+		"text":		"",
+		"config":	"plugins/component/config/list.html"
+	},
+	{
+		"action":	"triangulate.element.pre",
+		"tag":		"PRE",
+		"title":	"Pre-formatted Text",
+		"class":	"triangulate-pre",
+		"icon":		"fa fa-terminal draggable",
+		"text":		"",
+		"config":	"plugins/element/config/pre.html"
+	},
+	{
+		"action":	"triangulate.component.html",
+		"tag":		"TRIANGULATE-HTML",
+		"title":	"Insert HTML",
+		"class":	"triangulate-html",
+		"icon":		"fa fa-html5 draggable",
+		"text":		"",
+		"config":	"plugins/component/config/html.html"
+	},
+	{
+		"action":	"triangulate.component.form",
+		"tag":		"TRIANGULATE-FORM",
+		"title":	"Form",
+		"class":	"triangulate-form",
+		"icon":		"fa fa-check draggable",
+		"text":		"",
+		"config":	"plugins/component/config/form.html"
+	},
+	{
+		"action":	"triangulate.component.login",
+		"tag":		"TRIANGULATE-LOGIN",
+		"title":	"Login",
+		"class":	"triangulate-login",
+		"icon":		"fa fa-key draggable",
+		"text":		"",
+		"config":	"plugins/component/config/login.html"
+	},
+	{
+		"action":	"triangulate.component.registration",
+		"tag":		"TRIANGULATE-REGISTRATION",
+		"title":	"Registration",
+		"class":	"triangulate-registration",
+		"icon":		"fa fa-lock draggable",
+		"text":		"",
+		"config":	"plugins/component/config/registration.html"
+	},
+	{
+		"action":	"triangulate.utility.load",
+		"tag":		"n/a",
+		"title":	"Load Content",
+		"class":	"load",
+		"icon":		"fa fa-upload",
+		"text":		"",
+		"modal":	"plugins/utility/modal/load.html"
+	},
+	{
+		"action":	"triangulate.utility.layout",
+		"tag":		"n/a",
+		"title":	"Layout",
+		"class":	"layout",
+		"icon":		"fa fa-columns",
+		"text":		"",
+		"modal":	"plugins/utility/modal/layout.html"
+	}
+]

@@ -1,0 +1,97 @@
+<section class="main">
+
+    <nav>
+        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+    
+        <ul>
+    	    <li class="static active"><a>{{'Files'}}</a></li>
+        </ul>
+    </nav>
+    
+    
+    <div id="drop" class="dropzone dark fixed" drop-zone target="files" filename="{{temp.filename}}" callback="updateFiles()">
+        <span class="dz-message">
+            <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload'}}</span>
+        </span>
+    </div>
+    
+    <div class="list has-dropzone">
+    
+        <div class="listItem" 
+        	ng-repeat="file in files"
+        	ng-class="{'has-thumb': (file.isImage == true)}">
+        
+        	<a class="edit" 
+        		ng-click="edit(file, $event)"><i class="fa fa-pencil fa-lg"></i></a>
+        		
+    		<a class="remove" 
+    			ng-click="showRemove(file)"><i class="fa fa-minus-circle fa-lg"></i></a>
+    			
+    		<a class="cancel-edit"
+    			ng-click="cancelEdit()">
+    			<i class="fa fa-undo fa-lg"></i>
+    		</a>
+    		
+    		<span class="editable-selected">{{'Selected'}}</span>
+            
+            <span class="image" ng-if="file.isImage == true">
+            	<img height="75" width="75"
+            		ng-src="{{file.thumbUrl}}">
+            </span>
+            
+        	<h2><a ng-href="{{file.fullUrl}}">{{file.filename}}</a></h2>
+            <em ng-if="file.isImage == true">{{file.width}}px x {{file.height}}px</em>
+       
+    	</div>
+    	<!-- /.listItem -->
+    
+    </div>
+    <!-- /.list -->
+    
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa fa-spin"></i> {{'Loading...'}}</p>
+    
+    <p ng-show="files.length == 0" class="list-none">{{'No files here. Click Upload File to get started.'}}</p>
+      
+</section>
+<!-- /.main -->
+
+<div class="modal fade" id="removeDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Remove File'}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+				<p>
+					{{'Confirm you want to delete:'}} <strong>{{temp.filename}}</strong>
+				</p>
+				
+				<p>
+					{{'This will completely remove it from the system.'}}
+				</p>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="primary-button"
+					ng-click="remove()">{{'Remove File'}}</button>
+			</div>
+			<!-- /.modal-footer -->
+  
+		</div>
+		<!-- /.modal-content -->
+  
+	</div>
+	<!-- /.modal-dialog -->
+
+</div>
+<!-- /.modal -->

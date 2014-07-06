@@ -1,0 +1,1262 @@
+<section class="main" data-pageid="{{pageId}}">
+
+	<div id="editor-menu">
+		<nav class="editor-menu">
+			<div class="editor-actions">
+				<div>
+					<a ng-repeat="item in editorItems" class="{{item.class}} {{item.icon}}" title="{{item.title}}" data-action="{{item.action}}">
+						{{item.text}}
+					</a>
+				</div>
+			</div>
+			<a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+			<a class="next fs-next"><i class="fa fa-chevron-right"></i></a>
+			<a class="previous fs-prev"><i class="fa fa-chevron-left"></i></a>
+			<a class="primary-action" title="Page Settings"
+				ng-click="showPageSettings()"><i class="fa fa-cog"></i></a>
+		</nav>
+		
+	</div>
+	<!-- /#editor-menu -->
+	
+	<aside class="context-menu">
+	
+		<div class="page-settings config active">
+	
+			<div class="context-body">
+	
+			<h2>{{'Page' | i18next}}</h2>
+			
+			<div class="context-block">
+		
+				<div class="form-group">
+					<label for="name">{{'Name' | i18next}}</label>
+					<input id="name" 
+						ng-model="page.Name"
+						type="text" maxlength="128" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="URL">{{'URL' | i18next}}</label>
+					<input id="friendlyId" 
+						ng-model="page.FriendlyId"
+						type="text" maxlength="128" class="form-control">
+					<span class="help-block">{{'No spaces, no special characters, dashes allowed' | i18next}}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="description">{{'Description' | i18next}}</label>
+					<textarea id="description" 
+						ng-model="page.Description"
+						class="form-control"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="keywords">{{'Keywords' | i18next}}</label>
+					<textarea id="keywords" 
+						ng-model="page.Keywords"
+						class="form-control"></textarea>
+				</div>   
+				
+				<div class="form-group">
+					<label for="callout">{{'Callout' | i18next}}</label>
+					<input id="callout" 
+						ng-model="page.Callout"
+						type="text" maxlength="100" placeholder="Between $5-$8, On Sale Now" class="form-control">
+				</div>
+				
+			</div>
+			<!-- /.context-block -->
+			
+			<h2 data-toggle="#event-settings">{{'Event' | i18next}} <a><i class="fa fa-angle-down"></i></a></h2>
+			
+			<div id="event-settings" class="context-block hidden">
+		
+				<div class="form-group">
+					<label for="beginDate">{{'Begin Date' | i18next}}</label>
+					<input id="beginDate" 
+						ng-model="page.LocalBeginDate"
+						type="date" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="beginTime">{{'Begin Time' | i18next}}</label>
+					<input id="beginTime" 
+						ng-model="page.LocalBeginTime"
+						type="time" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="endDate">{{'End Date' | i18next}}</label>
+					<input id="endDate"
+						ng-model="page.LocalEndDate"
+						type="date" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="endTime">{{'End Time' | i18next}}</label>
+					<input id="endTime" 
+						ng-model="page.LocalEndTime"
+						type="time" class="form-control">
+				</div>
+			
+				<div class="form-group">
+					<label for="location">{{'Location' | i18next}}</label>
+					<input id="location" 
+						ng-model="page.Location"
+						ng-blur="setLocation()"
+						type="text" maxlength="128" class="form-control" placeholder="1234 Main Street, Some City, LA 90210">
+				</div>
+				
+				<div class="form-group">
+					<label for="lat">{{'Latitude' | i18next}}</label>
+					<input id="lat" 
+						ng-model="page.Latitude"
+						type="text" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="long">{{'Longitude' | i18next}}</label>
+					<input id="long" 
+						ng-model="page.Longitude"
+						type="text" class="form-control">
+				</div>
+				
+			</div>
+			<!-- /.context-block -->
+			
+			<h2 data-toggle="#display-settings">{{'Display' | i18next}} <a><i class="fa fa-angle-down"></i></a></h2>
+			
+			<div id="display-settings" class="context-block hidden">
+			
+				<div class="form-group">
+					<label for="layout">{{'Layout' | i18next}}</label>
+					<select id="layout" class="form-control" 
+						ng-model="page.Layout"
+						ng-options="layout for layout in layouts">
+					</select>
+				</div>
+				
+				<div class="control-group">
+					<label for="stylesheet">{{'Stylesheet' | i18next}}</label>
+					<select id="stylesheet" class="form-control" 
+						ng-model="page.Stylesheet"
+						ng-options="stylesheet for stylesheet in stylesheets">
+					</select>
+				</div>
+				
+			</div>
+			<!-- /.context-block -->
+			
+			</div>
+			<!-- /.context-body -->
+			
+		</div>
+		<!-- /.config -->
+			
+		<div ng-repeat="item in editorItems" ng-if="item.config" data-action="{{item.action}}" class="config">
+			<div ng-include="item.config"></div>
+		</div>
+	</aside>
+	<!-- /.context-menu -->
+	
+	<div ng-include="item.modal" ng-repeat="item in editorItems" ng-if="item.modal"></div>
+	<!-- /.modals -->
+ 
+    <div id="editor-container">
+        <div id="triangulate-editor" class="container"></div>
+    </div>
+    <!-- /#editor-container -->
+    
+    <div id="actions">
+    
+        <button class="primary-button" 
+        	ng-click="saveAndPublish()"
+        	ng-show="page.CanPublish"
+        	type="button">{{'Save and Publish' | i18next}}</button>
+        	
+        <button class="secondary-button"
+        	ng-click="save()"
+        	ng-show="page.CanPublish || page.CanEdit"
+        	type="button">{{'Save Draft' | i18next}}</button>
+        
+        <button class="tertiary-button offset-left" 
+        	ng-click="back()"
+        	type="button"><i class="fa fa-reply"></i> {{'Return' | i18next}}</button>
+    
+		<div class="alternate">
+			<a class="live" target="_blank" ng-href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}">{{'Live' | i18next}}</a>
+			<a class="preview" target="_blank" 
+				ng-click="generatePreview()" href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}?preview=true">{{'Preview' | i18next}}</a>
+		</div>
+		
+    </div>
+    <!-- /#actions -->
+    
+</section>
+<!-- /.main -->
+
+<div class="immersive" id="imagesDialog">
+
+	<!-- messages -->
+	<input id="msg-enter-caption" value="{{'Enter caption' | i18next}}" type="hidden">
+	<input id="msg-image-instructions" value="{{'Add your content here or click the settings icon to change the image layout' | i18next}}" type="hidden">
+
+	<div class="immersive-header">
+		<h3>{{'Select or upload a new image' | i18next}}</h3>
+		<button type="button" class="close" data-dismiss="modal">x</button>
+	</div>
+	<!-- /.modal-header -->
+
+	<div class="immersive-body">
+	
+		<div class="image-list">
+		
+		    <div class="image existing" ng-repeat="image in images">
+		        <img 
+		        	ng-src="{{image.thumbUrl}}"
+		        	ng-click="addImage(image)">
+		        <small>
+		            <span>{{image.filename}}</span><br>
+		            <span>{{image.width}}</span>px x <span>{{image.height}}</span>px
+		        </small>
+		    </div>
+		
+		</div>
+		
+		<div id="drop" class="dropzone in-dialog" drop-zone target="editor" plugin="" callback="updateImages()">
+		    <span class="dz-message">
+		        <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload' | i18next}}</span>
+		    </span>
+		</div>
+		<!-- /.dropzone -->
+	
+	</div>
+	<!-- /.immersive-body -->
+
+</div>
+<!-- /.modal -->
+
+<!-- include modals -->
+<div class="modal fade" id="linkDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Add Link' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+	
+			<div class="modal-body">
+			
+			<div class="form-group">
+				<label for="linkUrl" class="control-label">{{'Url' | i18next}}</label>
+				<input id="linkUrl" type="text" class="form-control">
+				<div class="input-select">
+				    <button class="btn dropdown-toggle" data-toggle="dropdown">
+				      <span class="caret"></span>
+				    </button>
+				    <ul class="dropdown-menu dropdown-menu-right">
+				    	<li ng-repeat="page in pages">
+				    		<a data-value="{{page.Url}}">
+							{{page.Name}}
+							<small>{{page.Url}}</small>
+				    		</a>
+						</li>
+				    </ul>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="linkCssClass">{{'CSS Class' | i18next}}</label>
+				<input id="linkCssClass" type="text" maxlength="128" data-bind="" class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label for="linkTarget">{{'Target' | i18next}}</label>
+				<input id="linkTarget" type="text" maxlength="128" data-bind="" class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label for="linkTitle">{{'Title' | i18next}}</label>
+				<input id="linkTitle" type="text" maxlength="128" data-bind="" class="form-control">
+			</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addLink" type="button" class="primary-button">{{'Add' | i18next}}</button>
+			</div>   
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="iconDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Add Font Awesome Icon' | i18next}}</h3>
+			</div>
+  
+			<div class="modal-body">
+
+				<div id="selectIcon" class="select select-lg">
+				
+				<ul>
+					<li ng-repeat="icon in icons">
+						<i ng-class="'fa fa-' + icon.id"></i>
+						{{icon.name}}
+					</li>
+				</ul>
+				
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button">{{'Add' | i18next}}</a>
+			</div>  
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+  
+</div>
+<!-- /.modal -->
+
+<!-- modals -->
+<div class="modal fade" id="blockConfigDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Settings' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+	
+			<div class="modal-body">
+			
+				<div class="form-group">
+					<label for="blockId" class="control-label">{{'Block Id' | i18next}}</label>
+					<input id="blockId" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="blockCssClass" class="control-label">{{'Block Class' | i18next}}</label>
+					<input id="blockCssClass" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="blockNested" class="control-label">{{'Block Nesting' | i18next}}</label>
+					<select id="blockNested" class="form-control">
+						<option value="not-nested">{{'Not Nested' | i18next}}</option>
+						<option value="nested">{{'Nested in .container block' | i18next}}</option>
+					</select>
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockContainerId" class="control-label">{{'Container Id' | i18next}}</label>
+					<input id="blockContainerId" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockContainerCssClass" class="control-label">{{'Container Class' | i18next}}</label>
+					<input id="blockContainerCssClass" type="text" maxlength="128" value="" class="form-control">
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="updateBlockConfig" class="primary-button" data-dismiss="modal">{{'Update' | i18next}}</button>
+			</div> 
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="codeBlockDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Add Code Block' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+				<div class="control-group">
+					<label for="stylesheet">{{'Code' | i18next}}</label>
+					<textarea id="Code" class="form-control"></textarea>
+					<span class="help-block">{{'Paste your code in the textarea above.' | i18next}}</span>
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addCode" class="primary-button">{{'Add' | i18next}}</buttons>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="elementConfigDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Settings' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+			
+				<div class="form-group">
+					<label for="elementId" class="control-label">{{'Element Id' | i18next}}</label>
+					<input id="elementId" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div id="cssClass" class="form-group">
+					<label for="elementCssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input id="elementCssClass" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<!-- image options -->
+				<div class="form-group image-config">
+					<label for="elementCssClass">{{'Image Orientation' | i18next}}</label>
+					<select id="imagePosition" class="form-control">
+						<option value="left">{{'Left of the text' | i18next}}</option>
+						<option value="right">{{'Right of the text' | i18next}}</option>
+						<option value="none">{{'No text' | i18next}}</option>
+					</select>
+				</div>
+				
+				<div class="form-group image-config">
+				  <label for="elementCssClass" class="control-label">{{'Image Link' | i18next}}</label>
+				  <input id="imageLink" type="text" maxlength="512" value="" placeholder="http://" class="form-control">
+				</div>
+				
+				<!-- table options -->
+				<div class="form-group table-config">
+				  <label for="tableRows" class="control-label">{{'Table Rows' | i18next}}</label>
+				  <input id="tableRows" type="number" class="form-control">
+				</div>
+				
+				<div class="form-group table-config">
+				  <label for="tableColumns" class="control-label">{{'Table Columns' | i18next}}</label>
+				  <input id="tableColumns" type="number" class="form-control">
+				</div>
+				
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="updateElementConfig" class="primary-button">{{'Update' | i18next}}</button>
+			</div> 
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+			
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="contentDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Content' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+			
+				<div class="form-block">
+					<div id="selectContent" class="select select-lg">
+						<ul>
+							<li ng-repeat="page in pages" data-url="{{page.Url}}" data-name="{{page.Name}}">
+								{{page.Name}}
+								<small>{{page.Url}}</small>
+							</li>
+						</ul>
+					</div>    
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addContent" class="primary-button" type="button">{{'Add' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="fieldDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3 class="add">{{'Add Field' | i18next}}</h3>
+				<h3 class="edit">{{'Update Field' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+				
+				<div class="form-group">
+					<label for="fieldType" class="control-label">{{'Field Type' | i18next}}</label>
+					<select id="fieldType" class="form-control">
+						<option value="text">{{'Text Box' | i18next}}</option>
+						<option value="textarea">{{'Text Area' | i18next}}</option>
+						<option value="select">{{'Dropdown List' | i18next}}</option>
+						<option value="checkboxlist">{{'Checkbox List' | i18next}}</option>
+						<option value="radiolist">{{'Radio button List' | i18next}}</option>
+						<option value="recaptcha">reCAPTCHA</option>
+				  	</select>
+				</div>
+
+				<div class="form-group">
+					<label for="fieldLabel" class="control-label">{{'Field Label' | i18next}}</label>
+					<input id="fieldLabel" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="fieldName" class="control-label">{{'ID / Name' | i18next}}</label>
+					<input id="fieldName" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="fieldRequired" class="control-label">{{'Required' | i18next}}</label>
+					<select id="fieldRequired" class="form-control">
+					  <option value="yes">{{'Yes' | i18next}}</option>
+					  <option value="no">{{'No' | i18next}}</option>
+					</select>
+				</div>
+				
+				<div id="options" class="form-group">
+					<label for="fieldOptions" class="control-label">{{'Options' | i18next}}</label>
+					<textarea id="fieldOptions" class="form-control"></textarea>
+					<span class="help-block">{{'Separate each option with a comma' | i18next}}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="fieldHelperText" class="control-label">{{'Helper Text' | i18next}}</label>
+					<input id="fieldHelperText" type="text" maxlength="256" value="" class="form-control">
+					<span class="help-block">{{'e.g.: (314) 444-2343' | i18next}}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="fieldPlaceholderText" class="control-label">{{'Placeholder' | i18next}}</label>
+					<input id="fieldPlaceholderText" type="text" maxlength="256" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="fieldCssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input id="fieldCssClass" type="text" maxlength="256" value="" class="form-control">
+				</div>
+				
+				</div>
+				<!-- /.modal-body -->
+				
+				<div class="modal-footer">
+					<button type="button" class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+					<button id="addField" type="button" class="add primary-button">{{'Add' | i18next}}</button>
+					<button id="updateField" type="button" class="edit primary-button">{{'Update' | i18next}}</button>
+				</div>  
+				<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="filesDialog">
+
+	<!-- messages -->
+	<input id="msg-files-dialog-download" value="{{'Download' | i18next}}" type="hidden">
+	<input id="msg-files-dialog-desc" value="{{'File Description' | i18next}}" type="hidden">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Add File' | i18next}}</h3>
+			</div>
+			
+			<div class="modal-body">
+			
+				<div id="selectFile" class="select select-lg">
+				
+				    <ul data-bind="foreach: files">
+				      <li>
+				        <i class="fa fa-file-alt" data-bind="visible: (extension == 'pdf' || extension == 'doc'|| extension == 'docx'|| extension == 'zip' || extension == 'ppt')"></i>
+				        <i class="fa fa-picture" data-bind="visible: (extension == 'png' || extension == 'jpg'|| extension == 'gif')"></i>
+				        <a data-bind="attr:{'data-filename':filename, 'data-fullurl':fullUrl, 'data-extension':extension}, text:filename"></a>
+				      </li>
+				    </ul>
+				
+				</div>
+				
+			</div>
+				
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" data-bind="click: addFile">{{'Add' | i18next}}</a>
+			</div>  
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+  
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="formDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Form Configuration' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+				
+				<div class="form-group">
+					<label for="formType" class="control-label">{{'Form Type' | i18next}}</label>
+					<select id="formType" class="form-control">
+						<option value="default">{{'Default (handled by triangulate)' | i18next}}</option>
+						<option value="custom">{{'Custom' | i18next}}</option>
+				  	</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="formId" class="control-label">{{'Form ID' | i18next}}</label>
+					<input id="formId" type="text" maxlength="256" value="" class="form-control">
+				</div>
+				
+				<div class="form-group form-custom">
+					<label for="formAction" class="control-label">{{'Action' | i18next}}</label>
+					<input id="formAction" type="text" maxlength="256" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="formSuccessMessage" class="control-label">{{'Success Message' | i18next}}</label>
+					<input id="formSuccessMessage" type="text" maxlength="256" value="{{'Form submitted successfully!' | i18next}}" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="formErrorMessage" class="control-label">{{'Error Message' | i18next}}</label>
+					<input id="formErrorMessage" type="text" maxlength="256" value="{{'You are missing required fields.' | i18next}}" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="formSubmitText" class="control-label">{{'Submit Button Text' | i18next}}</label>
+					<input id="formSubmitText" type="text" maxlength="256" value="{{'Submit' | i18next}}" class="form-control">
+				</div>
+				
+				</div>
+				<!-- /.modal-body -->
+				
+				<div class="modal-footer">
+					<button type="button" class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+					<button id="updateForm" type="button" class="primary-button">{{'Update' | i18next}}</button>
+				</div>  
+				<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="htmlDialog">
+
+	<!-- messages -->
+	<input id="msg-html-dialog-desc" value="{{'HTML block' | i18next}}" type="hidden">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Add HTML' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+				<p class="twitter-instructions instructions alert alert-info">{{'Create your widget at' | i18next}} <a href="https://twitter.com/settings/widgets" target="_blank">//twitter.com/settings/widgets</a> {{'Paste the HTML code below.' | i18next}}</p>
+			
+				<div class="form-group">
+					<label for="HtmlDescription">{{'Description:' | i18next}}</label>
+					<input id="HtmlDescription" type="text" maxlength="50" class="form-control">
+				</div>
+			
+				<div class="form-group">
+					<label for="Html">{{'HTML' | i18next}}</label>
+					<textarea id="Html" class="form-control"></textarea>
+					<span class="help-block">{{'Add your HTML, JS, or HTML' | i18next}}</span>
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addHtml" class="primary-button">{{'Add' | i18next}}</buttons>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="listDialog">
+
+	<!-- messages -->
+	<input id="msg-select-list-error" value="{{'You must select a type of list' | i18next}}" type="hidden">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3 class="add">{{'Add List' | i18next}}</h3>
+				<h3 class="edit">{{'Update List' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+			<div id="listPageTypeBlock" class="form-group">
+				<label for="listPageType">{{'Type' | i18next}}</label>
+				<select id="listPageType" class="form-control" 
+					ng-model="listPageType"
+					ng-change="pageTypeChanged()"
+					ng-options="'/'+pageType.FriendlyId for pageType in pageTypes">
+						<option value="" selected>{{'Select Type' | i18next}}</option>
+					</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="listDisplay">{{'Display' | i18next}}</label>
+				<select id="listDisplay" class="form-control">
+					<option value="list-default">{{'List' | i18next}}</option>
+					<option value="list-blog">{{'Blog' | i18next}}</option>
+					<option value="list-thumbnails">{{'Thumbnails' | i18next}}</option>
+					<option value="list-calendar">{{'Calendar' | i18next}}</option>
+					<option value="list-map">{{'Map' | i18next}}</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="listOrderBy">{{'Order By' | i18next}}</label>
+				<select id="listOrderBy" class="form-control">
+					<option value="Name">{{'Name' | i18next}}</option>
+					<option value="Created">{{'Date Created (newest first)' | i18next}}</option>
+					<option value="BeginDate">{{'Event Start Date (newest first)' | i18next}}</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="listTag">{{'Filter By Tag' | i18next}}</label>
+				<input id="listTag" type="text" class="form-control" placeholder="tag1, tag2, tag3">
+			</div>
+			
+			<div class="form-group">
+				<label for="listDescLength">{{'Description Length' | i18next}}</label>
+				<input id="listDescLength" type="number" value="250" class="form-control">
+			</div>
+			
+			<div class="form-group paging">
+				<label for="listLength">{{'Page Size' | i18next}}</label>
+				<input id="listLength" type="number" value="10" class="form-control">
+			</div>
+			
+			<div class="form-group paging">
+				<label for="listPageResults">{{'Page Results' | i18next}}</label>
+				<select id="listPageResults" class="form-control">
+					<option value="true">{{'Yes' | i18next}}</option>
+					<option value="false">{{'No' | i18next}}</option>
+				</select>
+			</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addList" class="primary-button add">{{'Add' | i18next}}</button>
+				<button id="updateList" class="primary-button edit">{{'Update' | i18next}}</button>
+			</div>   
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+
+
+
+<div class="modal fade" id="pageSettingsDialog" data-timezone="{{timezone}}">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Page Settings' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<form name="pageSettingsForm" novalidate>
+			
+			<ul class="segmented-control">
+				<li class="active" data-navigate="settings-basic"><a>{{'Basic' | i18next}}</a></li>
+				<li data-navigate="settings-event"><a>{{'Event' | i18next}}</a></li>
+				<li data-navigate="settings-location"><a>{{'Location' | i18next}}</a></li>
+				<li data-navigate="settings-advanced"><a>{{'Advanced' | i18next}}</a></li>
+			</ul>
+			<!-- /.segmented-control -->
+
+			<div class="modal-body">
+			
+				<div id="settings-basic" class="segment">
+
+					<div class="form-group">
+						<label for="name">{{'Name' | i18next}}</label>
+						<input id="name" 
+							ng-model="page.Name"
+							type="text" maxlength="128" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="URL">{{'URL' | i18next}}</label>
+						<input id="friendlyId" 
+							ng-model="page.FriendlyId"
+							type="text" maxlength="128" class="form-control">
+						<span class="help-block">{{'No spaces, no special characters, dashes allowed' | i18next}}</span>
+					</div>
+					
+					<div class="form-group">
+						<label for="description">{{'Description' | i18next}}</label>
+						<textarea id="description" 
+							ng-model="page.Description"
+							class="form-control"></textarea>
+					</div>
+					
+					<div class="form-group">
+						<label for="keywords">{{'Keywords' | i18next}}</label>
+						<textarea id="keywords" 
+							ng-model="page.Keywords"
+							class="form-control"></textarea>
+					</div>   
+					
+					<div class="form-group">
+						<label for="callout">{{'Callout' | i18next}}</label>
+						<input id="callout" 
+							ng-model="page.Callout"
+							type="text" maxlength="100" placeholder="Between $5-$8, On Sale Now" class="form-control">
+					</div>
+				
+				</div>
+				<!-- /#settings-basic -->
+				
+				<div id="settings-event" class="segment">
+				
+					<div class="form-group">
+						<label for="beginDate">{{'Begin Date' | i18next}}</label>
+						<input id="beginDate" 
+							ng-model="page.LocalBeginDate"
+							type="date" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="beginTime">{{'Begin Time' | i18next}}</label>
+						<input id="beginTime" 
+							ng-model="page.LocalBeginTime"
+							type="time" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="endDate">{{'End Date' | i18next}}</label>
+						<input id="endDate"
+							ng-model="page.LocalEndDate"
+							type="date" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="endTime">{{'End Time' | i18next}}</label>
+						<input id="endTime" 
+							ng-model="page.LocalEndTime"
+							type="time" class="form-control">
+					</div>
+				
+				</div>
+				<!-- /#settings-event -->
+				
+				<div id="settings-location" class="segment">
+				
+					<div class="form-group">
+						<label for="location">{{'Location' | i18next}}</label>
+						<input id="location" 
+							ng-model="page.Location"
+							ng-blur="setLocation()"
+							type="text" maxlength="128" class="form-control" placeholder="1234 Main Street, Some City, LA 90210">
+					</div>
+					
+					<div class="form-group">
+						<label for="lat">{{'Latitude' | i18next}}</label>
+						<input id="lat" 
+							ng-model="page.Latitude"
+							type="text" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="long">{{'Longitude' | i18next}}</label>
+						<input id="long" 
+							ng-model="page.Longitude"
+							type="text" class="form-control">
+					</div>
+				
+				</div>
+				<!-- /#settings-event -->
+				
+				<div id="settings-advanced" class="segment">
+					
+					<div class="form-group">
+						<label for="layout">{{'Layout' | i18next}}</label>
+						<select id="layout" class="form-control" 
+							ng-model="page.Layout"
+							ng-options="layout for layout in layouts">
+						</select>
+					</div>
+					
+					<div class="control-group">
+						<label for="stylesheet">{{'Stylesheet' | i18next}}</label>
+						<select id="stylesheet" class="form-control" 
+							ng-model="page.Stylesheet"
+							ng-options="stylesheet for stylesheet in stylesheets">
+						</select>
+					</div>
+				
+				</div>
+				<!-- /#settings-advanced -->
+				
+			</div>
+			<!-- /.modal-body -->
+				
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" 
+					ng-click="saveSettings()">{{'Update' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+			</form>
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="secureDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Login or Registration' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+			
+				<div class="form-block">
+					<div id="selectSecureType" class="select">
+						<ul>
+							<li data-type="login">
+								<a>{{'Login' | i18next}}</a>
+								<em>{{'Add a username and password for users to login to your site.' | i18next}}</em>
+							</li>
+							<li data-type="registration">
+								<a>{{'Registration' | i18next}}</a>
+								<em>{{'Allows users to register for your site.' | i18next}}</em>
+							</li>
+						</ul>
+					</div>    
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="addSecure" class="primary-button" type="button">{{'Add' | i18next}}</button>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="skuDialog" data-currency="{{currency}}">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Add SKU' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+
+				<div class="form-group">
+					<label for="sku" class="control-label">{{'SKU' | i18next}}</label>
+					<input id="sku" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="sku-desc" class="control-label">{{'Description' | i18next}}</label>
+					<input id="sku-desc" type="text" maxlength="128" value="" class="form-control">
+				</div>
+				
+				<div class="form-group">
+					<label for="sku-price" class="control-label">{{'Price' | i18next}}</label>
+				    <div class="input-group">
+					 	<input id="sku-price" type="number" maxlength="128" value="" class="form-control">
+					 	<span class="input-group-addon">{{currency}}</span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="sku-shippingType" class="control-label">{{'Shipping Type' | i18next}}</label>
+				    <select id="sku-shippingType" class="form-control">
+				    	<option value="not shipped">{{'Not Shipped' | i18next}}</option>
+				    	<option value="shipped">{{'Shipped' | i18next}}</option>
+				    	<option value="download">{{'Download' | i18next}}</option>
+				    </select>
+				</div>
+				
+				<div class="form-group shipped">
+					<label for="sku-weight" class="control-label">{{'Weight' | i18next}} ({{'optional' | i18next}})</label>
+				    <div class="input-group">
+					 	<input id="sku-weight" type="number" maxlength="128" value="" class="form-control">
+					 	<span class="input-group-addon">{{weightUnit}}</span>
+					</div>
+				</div>
+				
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button type="button" class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button id="add-sku" type="button" class="primary-button">{{'Add' | i18next}}</button>
+				<button id="update-sku" type="button" class="primary-button">{{'Update' | i18next}}</button>
+			</div>  
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="slideshowDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>{{'Image Group' | i18next}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+
+				<div class="form-group">
+				  <label for="slideShowDisplay" class="control-label">{{'Display' | i18next}}</label>
+				  <select id="slideShowDisplay" class="form-control">
+				  	<option value="slideshow">{{'Slideshow' | i18next}}</option>
+				  	<option value="gallery">{{'Gallery' | i18next}}</option>
+				  </select>
+				</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<input id="addSlideShow" type="button" class="primary-button" value="{{'Add' | i18next}}">
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->

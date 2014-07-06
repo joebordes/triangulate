@@ -1,0 +1,19 @@
+<div class="triangulate-list list-group">
+	
+	<span class="thumbnail"
+		ng-repeat="page in pages">
+		
+		<a class="pull-left thumbnail"
+			 ui-sref="{{page.Url}}"
+			 ng-show="page.HasImage">
+				 <img ng-src="page.Thumb">
+		</a>
+		<div class="caption">
+			<h4><a ui-sref="{{page.Url}}">{{page.Name}}</a></h4>
+			<h5 ng-show="page.Callout">{{page.Callout}}</h5>
+			<p>{{page.Description}}</p>
+		</div>
+		
+	</span>
+	
+</div>

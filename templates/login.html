@@ -1,0 +1,35 @@
+<!-- begin content -->
+<section class="main">
+
+    <h1><span class="brand"><img src="{{setup.logo}}" title="{{setup.brand}}"></span></h1>
+
+    <form>
+	<fieldset class="login">
+
+		<div class="form-group">
+			<label for="email" class="control-label">{{'Email' | i18next}}</label>
+			<input id="email" type="email" autocomplete="off" class="form-control" tabindex="1" ng-model="user.email">
+		</div>
+		
+		<div class="form-group">
+			<label for="password" class="control-label">{{'Password' | i18next}} 
+				<a class="forgot-link" ui-sref="forgot" tabindex="4">{{'Forgot your Password?' | i18next}}</a>
+			</label>
+			<input id="password" type="Password" autocomplete="off" class="form-control" tabindex="2" ng-model="user.password">
+		</div>
+		
+		<span class="actions">
+			<button class="primary-button" type="submit" tabindex="3" ng-click="login(user)">{{'Login' | i18next}} <i class="fa fa-angle-right fa-white"></i></button>
+		</span>
+	</fieldset>
+    </form>
+	<!-- /.login -->
+    
+    <p class="alternate">
+   	 	<a ui-sref="create">{{'Create Site' | i18next}}</a>
+    </p>
+    
+    <small>{{setup.app}} {{setup.version}} &mdash; {{setup.copy}}</small>
+
+</section>
+<!-- /.main -->

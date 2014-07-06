@@ -1,0 +1,27 @@
+
+<div class="triangulate-list-container">
+
+	<triangulate-map id="{{id}}-map"></triangulate-map>
+
+	<ul class="triangulate-list list-group">
+		
+		<li class="list-group-item"
+			ng-repeat="page in pages" triangulate-add-point 
+				name="{{page.Name}}"
+				url="{{page.Url}}"
+				location="{{page.Location}}"
+				description="{{page.Description}}"
+				lat-long="{{page.LatLong}}" map-id="{{id}}-map">
+			<a class="pull-left thumbnail"
+				 ui-sref="{{page.Url}}"
+				 ng-show="page.HasImage">
+					 <img ng-src="page.Thumb">
+			</a>
+			<h4><a ui-sref="{{page.Url}}">{{page.Name}}</a></h4>
+			<h5 ng-show="page.Location">{{page.Location}}</h5>
+			<p>{{page.Description}}</p>
+		</li>
+		
+	</ul>
+
+</div>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+	<!-- css -->
+	<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700|Inconsolata" rel="stylesheet">
+	<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+	<link type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link type="text/css" href="css/app.css" rel="stylesheet">
+	<link type="text/css" href="css/messages.css" rel="stylesheet">
+	<link type="text/css" href="css/dropzone.css" rel="stylesheet">
+	<link type="text/css" href="css/list.css" rel="stylesheet">
+	<link type="text/css" href="css/login.css" rel="stylesheet">
+	<link type="text/css" href="css/dialog.css" rel="stylesheet">
+	<link type="text/css" href="css/content.css" rel="stylesheet">
+	<link type="text/css" href="css/editor.css" rel="stylesheet">
+
+    <!-- angular / ui-* -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+    <script src="js/libs/ui-codemirror.js"></script>
+    
+    <!-- jquery / ui -->
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+   	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    
+    <!-- libs -->
+    <script src="js/utilities.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment-with-langs.min.js"></script>
+    <script src="js/libs/flipsnap.min.js"></script>
+	<script src="js/libs/prettify.js"></script>
+	<script src="js/libs/dropzone.js"></script>
+	<script src="js/libs/beautify-html.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoFLCbYAgQYuACXTa8-E94z4of3LXxJE8&sensor=false"></script>
+    
+    <!-- bootstrap -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+    <!-- app -->
+    <script src="setup.js"></script>
+    <script src="js/triangulate.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="js/triangulate.controllers.js"></script>
+    <script src="js/triangulate.factories.js"></script>
+    <script src="js/triangulate.directives.js"></script>
+    <script src="js/triangulate.filters.js"></script>
+    <script src="js/jm.i18next.js"></script>
+    
+    <!-- codemirror -->
+    <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.2.0/codemirror.css" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.2.0/codemirror.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.2.0/mode/xml/xml.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.2.0/mode/css/css.js"></script>
+    
+    <!-- jquery plugins -->
+	<script src="js/libs/jquery.paste.js"></script>
+
+	<!-- triangulate.* -->
+	<script src="js/triangulate.editor.js"></script>
+	<script src="plugins/text/triangulate.text.js"></script>
+	<script src="plugins/element/triangulate.element.js"></script>
+	<script src="plugins/component/triangulate.component.js"></script>
+	<script src="plugins/utility/triangulate.utility.js"></script>
+	
+  </head>
+
+  <body ng-app="triangulate" class="{{template}}">
+	  <div ui-view></div>
+  </body>
+  
+  
+</html>

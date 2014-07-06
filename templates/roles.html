@@ -1,0 +1,252 @@
+<section class="main">
+
+    <nav>
+        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+    
+        <ul>
+            <li class="static"><a ui-sref="app.users">{{'Users'}}</a></li>
+            <li class="static active"><a>{{'Roles'}}</a></li>
+        </ul>
+        
+        <a class="primary-action show-tooltip" ng-click="showAddRole()" title="{{'Add Role'}}"><i class="fa fa-plus-circle"></i></span></a>
+    </nav>
+
+
+    <div id="rolesList" class="list">
+    	<div class="listItem" data-id="Admin">
+    		<h2>
+    			<a ng-click="showDefault('Admin')">Admin</a>
+    		</h2>
+            <em>Default</em>
+    	</div>
+    	
+    	<div class="listItem" data-id="Contributor">
+    		<h2>
+    			<a ng-click="showDefault('Contributor')">Contributor</a>
+    		</h2>
+            <em>Default</em>
+    	</div>
+    	
+    	<div class="listItem" data-id="Member">
+    		<h2>
+    			<a ng-click="showDefault('Member')">Member</a>
+    		</h2>
+            <em>Default</em>
+    	</div>
+    	
+    
+		<div class="listItem" ng-repeat="role in roles">
+    		<a class="remove" ng-click="showRemoveRole(role)">
+                <i class="fa fa-minus-circle"></i>
+            </a>
+    		<h2>
+    			<a ng-click="showEditRole(role)">{{role.Name}}</a>
+    		</h2>
+            <em>Custom</em>
+    	</div>
+    
+    </div>
+    <!-- /.list -->
+    
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...'}}</p>
+    
+
+</section>
+<!-- /.main -->
+
+<div class="modal fade" id="addEditDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3 class="add">{{'Add Role'}}</h3>
+				<h3 class="edit">{{'Update Role'}}</h3>
+			</div>
+			<!-- /.modal-header -->
+
+			<div class="modal-body">
+			
+				<form name="addEditForm" novalidate>
+			
+				<div id="custom-name" 
+					ng-show="isDefault==false"
+					class="form-group no-border">
+					<label for="name">{{'Name:'}}</label>
+					<input id="name" type="text" 
+						ng-model="temp.Name"
+						class="form-control" required>
+					<span class="help-block">{{'Uppercase first letter, e.g. Admin'}}</span>
+				</div>
+				
+				<p id="default-message" 
+					ng-show="isDefault"
+					class="alert alert-info">
+					{{'Access for default roles cannot be changed; create a new role for custom access rules.'}}
+				</p>
+				
+				<table class="role-table table table-striped table-bordered">
+					<col>
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
+					<thead>
+						<tr>
+							<th>{{'Page Type'}}</th>
+							<th class="text-center">{{'View'}}<small>{{'On Site'}}</small></th>
+							<th class="text-center">{{'Edit'}}<small>{{'In App'}}</small></th>
+							<th class="text-center">{{'Publish'}}<small>{{'In App'}}</small></th>
+							<th class="text-center">{{'Remove'}}<small>{{'In App'}}</small></th>
+							<th class="text-center">{{'Create'}}<small>{{'In App'}}</small></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="all-row info">
+							<td>All</td>
+							<td class="text-center"><input class="chk-view-all" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control"></td>
+							<td class="text-center"><input class="chk-edit-all" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control"></td>
+							<td class="text-center"><input class="chk-publish-all" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control"></td>
+							<td class="text-center"><input class="chk-remove-all" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control"></td>
+							<td class="text-center"><input class="chk-create-all" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control"></td>
+						</tr>
+						<tr class="root-row">
+							<td>/</td>
+							<td class="text-center">&nbsp;</td>
+							<td class="text-center"><input class="chk-edit-root chk-edit" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control" value="root"></td>
+							<td class="text-center"><input class="chk-publish-root chk-publish" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control" value="root"></td>
+							<td class="text-center"><input class="chk-remove-root chk-remove" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control" value="root"></td>
+							<td class="text-center"><input class="chk-create-root chk-create" 
+								ng-disabled="isDefault"
+								type="checkbox" type="form-control" value="root"></td>
+						</tr>
+						<!-- ko foreach: pageTypes -->
+						<tr class="type-row"
+							ng-repeat="pageType in pageTypes">
+							<td>/{{pageType.FriendlyId}}</td>
+							<td class="text-center">
+								<input class="chk-view chk-view-{{pageType.PageTypeId}}" 
+									ng-show="pageType.IsSecure == 1"
+									ng-value="pageType.PageTypeId"
+									ng-disabled="isDefault"
+									type="checkbox" type="form-control">
+								</td>
+							<td class="text-center">
+								<input class="chk-edit chk-edit-{{pageType.PageTypeId}}"
+									ng-value="pageType.PageTypeId"
+									ng-disabled="isDefault"
+									type="checkbox" type="form-control">
+							</td>
+							<td class="text-center">
+								<input class="chk-publish chk-publish-{{pageType.PageTypeId}}" 
+									ng-value="pageType.PageTypeId"
+									ng-disabled="isDefault"
+									type="checkbox" type="form-control">
+							</td>
+							<td class="text-center">
+								<input class="chk-remove chk-remove-{{pageType.PageTypeId}}" 
+									ng-value="pageType.PageTypeId"
+									ng-disabled="isDefault"
+									type="checkbox" type="form-control">
+							</td>
+							<td class="text-center">
+								<input class="chk-create chk-create-{{pageType.PageTypeId}}" 
+									ng-value="pageType.PageTypeId"
+									ng-disabled="isDefault"
+									type="checkbox" type="form-control">
+							</td>
+						</tr>
+						<!-- /ko -->
+		    		</tbody>
+				
+				</table>
+			
+				</form>
+			
+			</div>
+			<!-- /.modal-body -->
+
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="primary-button add"
+					ng-click="addRole(temp)"
+					ng-show="isDefault==false"
+					ng-disabled="addEditForm.$invalid || isUnchanged(temp)"
+					type="button">{{'Add'}}</button>
+				<button id="update-role-btn" class="primary-button edit" 
+					ng-click="editRole(temp)"
+					ng-show="isDefault==false"
+					ng-disabled="addEditForm.$invalid || isUnchanged(temp)"
+					type="button">{{'Update'}}</button>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="removeDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Remove Role'}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+				<p>
+				{{'Confirm you want to remove:'}} <strong>{{temp.Name}}</strong>
+				</p>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="primary-button" ng-click="removeRole(temp)">{{'Remove'}}</button>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->

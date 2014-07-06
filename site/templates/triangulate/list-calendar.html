@@ -1,0 +1,28 @@
+<div class="triangulate-list-container">
+
+	<triangulate-calendar id="{{id}}-calendar"></triangulate-calendar>
+
+	<ul class="triangulate-list list-group">
+		
+		<li class="list-group-item" triangulate-add-event
+			name="{{page.Name}}"
+			url="{{page.Url}}"
+			location="{{page.Location}}"
+			description="{{page.Description}}"
+			begin-date="{{page.BeginDate}}"
+			end-date="{{page.EndDate}}"
+			calendar-id="{{id}}-calendar"
+			ng-repeat="page in pages">
+			<a class="pull-left thumbnail"
+				 ui-sref="{{page.Url}}"
+				 ng-show="page.HasImage">
+					 <img ng-src="page.Thumb">
+			</a>
+			<h4><a ui-sref="{{page.Url}}">{{page.Name}}</a></h4>
+			<small ng-show="page.Callout">{{page.Callout}}</small>
+			<p>{{page.Description}}</p>
+		</li>
+		
+	</ul>
+	
+</div>

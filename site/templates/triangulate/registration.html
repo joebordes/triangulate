@@ -1,0 +1,31 @@
+<fieldset class="respond-registration">
+
+	<div class="alert registration-success alert-success">{{success}}</div>
+	<div class="alert registration-error alert-danger">{{error}}</div>
+	<div class="alert registration-required-error alert-danger">{{required}}</div>
+
+	<div class="form-group">
+		<label class="control-label">{{'First Name'}}</label>
+		<input type="text" autocomplete="off" class="firstName form-control">
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label">{{'Last Name'}}</label>
+		<input type="text" autocomplete="off" class="lastName form-control">
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">{{'Email'}}</label>
+		<input type="email" autocomplete="off" class="email form-control">
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label">{{'Password'}}</label>
+		<input type="password" autocomplete="off" class="password form-control">
+	</div>
+	
+	<span class="actions">
+		<button class="btn btn-default" type="submit">{{button}} <i class="fa fa-spinner fa-spin icon-spinner"></i></button>
+	</span>
+	
+</fieldset>

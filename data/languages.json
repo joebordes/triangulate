@@ -1,0 +1,30 @@
+[
+	{
+		"code": "en",
+		"text": "English (en-US)"
+	},
+	{
+		"code": "cs-CZ",
+		"text": "Čeština (cs-CZ)"
+	},
+	{
+		"code": "de-DE",
+		"text": "Deutsch (de-DE)"
+	},
+	{
+		"code": "es-ES",
+		"text": "Spanish (es-ES)"
+	},
+	{
+		"code": "fr-FR",
+		"text": "French (fr-FR)"
+	},
+	{
+		"code": "pt-BR",
+		"text": "Portuguese (pt-BR)"
+	},
+	{
+		"code": "ru-RU",
+		"text": "Russian (ru-RU)"
+	}
+]

@@ -1,0 +1,3 @@
+<li ng-repeat="item in menuItems | filter: {Type: type}">
+	<a ui-sref="{{item.Url}}">{{item.Name}}</a>
+</li>
