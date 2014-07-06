@@ -1400,6 +1400,15 @@ triangulate.element.image = {
 		var title = $(node).find('a').attr('title') || '';
 		var target = $(node).find('a').attr('target') || '';
 		
+		// get scope from page
+		var scope = angular.element($("section.main")).scope();
+		
+		// get domain from scope
+		var domain = '//' + scope.site.Domain + '/';
+		
+		// update src with full domain
+		src = domain + src;
+		
 		// get display class
 		var display = $(node).attr('data-display') || 'left';
 		
@@ -1466,6 +1475,15 @@ triangulate.element.image = {
   		
   		// set image src
   		var src = $(node).find('img').attr('src');
+  		
+  		// removes the domain from the img
+  		if(src != ''){
+	  		
+	  		var parts = src.split('files/');
+	  		src = 'files/' + parts[1];
+	  		
+  		}
+  		
   		var html = startLink + '<img src="' + src + '">' + endLink;
   
   		// html for tag
