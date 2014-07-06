@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="triangulate">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>{{title}}</title>
 
 	<!-- css -->
 	<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700|Inconsolata" rel="stylesheet">
@@ -39,7 +39,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/1.6.3/i18next-1.6.3.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=[your-gapi-key]&sensor=false"></script>
+	<script
+		ng-if="googleMapsSrc" 
+		src="{{googleMapsSrc}}"></script>
     
     <!-- bootstrap -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -71,10 +73,9 @@
 	<script src="plugins/utility/triangulate.utility.js"></script>
 	
   </head>
-
-  <body ng-app="triangulate" class="{{template}}">
+  
+  <body class="{{template}}">
 	  <div ui-view></div>
   </body>
-  
   
 </html>

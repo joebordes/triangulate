@@ -1,7 +1,5 @@
 angular.module('triangulate.controllers', [])
 
-// app controller
-.controller('AppCtrl', function($scope) {})
 
 // login controller
 .controller('LoginCtrl', function($scope, $window, $rootScope, $i18next, Setup, User) {
@@ -10,7 +8,6 @@ angular.module('triangulate.controllers', [])
 	
 	// setup
 	$scope.setup = Setup;
-	
 	
 	// login
 	$scope.login = function(user){
