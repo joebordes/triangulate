@@ -830,11 +830,11 @@ triangulate.editor.getTranslations = function(prefix){
 	
 	var el = triangulate.editor.el;
 	
-	var els = $(el).find('.triangulate-h1, .triangulate-h2, .triangulate-h3, .triangulate-h4, .triangulate-h5, .triangulate-p, .triangulate-q');
+	var els = $(el).find('.triangulate-h1, .triangulate-h2, .triangulate-h3, .triangulate-h4, .triangulate-h5, .triangulate-p, .triangulate-q, .triangulate-translate');
 	
 	var translations = {};
 	
-	
+	// set translations
 	for(x=0; x<els.length; x++){
 	
 		var id = $(els[x]).attr('id');

@@ -120,17 +120,17 @@ body .list-group-item a.thumbnail{
 }
 
 /* images */
-div.o-image img{
+div.triangulate-image img{
   	margin: 5px 0 20px 0;
   	border: 3px solid #f0f0f0;
   	max-width: 100%;
 }
 
-div.l-image, div.r-image{
+div.triangulate-image, div.triangulate-image{
   	clear: both;
 }
 
-div.l-image img{
+div.triangulate-image[data-display=left] img{
   	float: left;
   	margin: 5px 20px 20px 0;
   	border: 3px solid #f0f0f0;
@@ -138,7 +138,7 @@ div.l-image img{
   	max-width: 50%;
 }
 
-div.r-image img{
+div.triangulate-image[data-display=right] img{
   	float: right;
   	margin: 5px 0 20px 20px;
   	border: 3px solid #f0f0f0;
@@ -147,19 +147,19 @@ div.r-image img{
 }
 
 /* forms */
-.respond-form .alert, form .alert{
+.triangulate-form .alert, form .alert{
 	display: none;
 }
 
-	.respond-form i.icon-spinner{
+	.triangulate-form i.icon-spinner{
 		display: none !important;
 	}
 
-	.respond-form label{
+	.triangulate-form label{
 		font-weight: normal;
 	}
 	
-	.respond-form .error label{
+	.triangulate-form .error label{
 		font-weight: bold;
 		color: #b94a48;
 	}

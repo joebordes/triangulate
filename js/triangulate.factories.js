@@ -1,26 +1,5 @@
 angular.module('triangulate.factories', [])
 
-/*
-// setup factory
-.factory('Setup', function($sce){
-	
-	return {
-		debug: 		true,
-		url: 		'http://app.triangulate.io',
-		api: 		'http://api.triangulate.io',
-		sites: 		'http://sites.triangulate.io',
-		themeId: 	'simple',
-		logo: 		'images/triangulate-icon.png',
-		icon: 		'images/triangulate-icon.png',
-		brand: 		'triangulate',
-		language: 	'en',
-		passcode: 	'ilovetriangulate',
-		version:	'1.0',
-		copy: 		'Made by Matthew Smith in Manchester, MO'
-	}
-	
-})*/
-
 // adds authentication header to API requests, #ref: https://auth0.com/blog/2014/01/07/angularjs-authentication-with-cookies-vs-token/
 .factory('authInterceptor', function ($rootScope, $q, $window, $location) {
 	return {
@@ -1571,9 +1550,7 @@ angular.module('triangulate.factories', [])
 	
 	// adds a translation
 	translation.add = function(key, value){
-		
-		translation.data[key] = value;
-		
+		translation.data[key] = value;	
 	}
 	
 	// saves a translation

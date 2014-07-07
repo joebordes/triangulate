@@ -377,7 +377,7 @@ angular.module('triangulate.controllers', [])
 })
 
 // content controller
-.controller('ContentCtrl', function($scope, $rootScope, $stateParams, $sce, Setup, Site, Page, PageType, Image, Icon, Theme, Layout, Stylesheet, Editor) {
+.controller('ContentCtrl', function($scope, $rootScope, $stateParams, $sce, Setup, Site, Page, PageType, Image, Icon, Theme, Layout, Stylesheet, Editor, Translation) {
 	
 	$rootScope.template = 'content';
 	
@@ -480,7 +480,23 @@ angular.module('triangulate.controllers', [])
 		// save search index (todo)
 		var translations = triangulate.editor.getTranslations(prefix);
 		
-		//alert(translations);
+		// get translations for the site
+		Translation.retrieve(function(){
+			
+			// walkthrough translations
+			for(var key in translations){
+			
+				// add translation to data
+				Translation.add(key, translations[key]);
+				
+			}
+			
+			// save translation
+			Translation.save(function(){
+				
+			})
+			
+		});
 	}
 	
 	// save
