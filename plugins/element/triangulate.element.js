@@ -68,7 +68,7 @@ triangulate.element.h1 = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('h1', attrs, html);
+		return utilities.element('h1', attrs, html, true);
 		
 	}
 	
@@ -140,7 +140,7 @@ triangulate.element.h2 = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('h2', attrs, html);
+		return utilities.element('h2', attrs, html, true);
 		
 	}
 	
@@ -212,7 +212,7 @@ triangulate.element.h3 = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('h3', attrs, html);
+		return utilities.element('h3', attrs, html, true);
 		
 	}
 	
@@ -284,7 +284,7 @@ triangulate.element.h4 = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('h4', attrs, html);
+		return utilities.element('h4', attrs, html, true);
 		
 	}
 	
@@ -356,7 +356,7 @@ triangulate.element.h5 = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('h5', attrs, html);
+		return utilities.element('h5', attrs, html, true);
 		
 	}
 	
@@ -454,7 +454,7 @@ triangulate.element.p = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('p', attrs, html);
+		return utilities.element('p', attrs, html, true);
 		
 	}
 	
@@ -530,7 +530,7 @@ triangulate.element.q = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		
 		// return element
-		return utilities.element('blockquote', attrs, html);
+		return utilities.element('blockquote', attrs, html, true);
 		
 	}
 	
@@ -672,7 +672,7 @@ triangulate.element.ul = {
 			attrs['class'] = $(lis[y]).attr('data-cssclass');
 		
 			// create li
-			html += utilities.element('li', attrs, $(lis[y]).html());
+			html += utilities.element('li', attrs, $(lis[y]).html(), true);
 			
 	  	}
 	  	
@@ -1178,7 +1178,7 @@ triangulate.element.table = {
 			attrs['class'] = $(ths[d]).attr('data-cssclass');
 		
 			// create th
-			html += utilities.element('th', attrs, $(ths[d]).html());
+			html += utilities.element('th', attrs, $(ths[d]).html(), true);
 			
 		}
 		html += '</tr>';		
@@ -1200,7 +1200,7 @@ triangulate.element.table = {
 				attrs['class'] = $(tds[d]).attr('data-cssclass');
 			
 				// create td
-				html += utilities.element('td', attrs, $(tds[d]).html());
+				html += utilities.element('td', attrs, $(tds[d]).html(), true);
 		
 			}
 			html += '</tr>';
@@ -1500,12 +1500,13 @@ triangulate.element.image = {
   		
 		// tag attributes
 		var attrs = [];
+		
 		attrs['id'] = id;
 		attrs['class'] = cssClass;
 		attrs['data-display'] = display;
 		
 		// return element
-		return utilities.element('div', attrs, html);
+		return utilities.element('div', attrs, html, true);
 		
 	}
 	

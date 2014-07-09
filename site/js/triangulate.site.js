@@ -22,7 +22,7 @@ angular.module('triangulate.site', dependencies)
         useCookie: false,
         useLocalStorage: false,
         fallbackLng: 'en',
-        resGetPath: '../locales/__lng__/__ns__.json'
+        resGetPath: 'locales/__lng__/__ns__.json'
     };
 
 	// set authInterceptor

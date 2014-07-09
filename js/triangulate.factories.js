@@ -1548,9 +1548,24 @@ angular.module('triangulate.factories', [])
 			.then(callback);
 	}
 	
+	// clears translations for a page
+	translation.clear = function(pageId){
+		
+		// clear translations
+		translation.data[pageId] = {};
+		
+	}
+	
 	// adds a translation
-	translation.add = function(key, value){
-		translation.data[key] = value;	
+	translation.add = function(pageId, key, value){
+		
+		// create page namespace if null
+		if(translation.data[pageId] == null){
+			translation.data[pageId] = {};
+		}
+	
+		// add translation 
+		translation.data[pageId][key] = value;	
 	}
 	
 	// saves a translation

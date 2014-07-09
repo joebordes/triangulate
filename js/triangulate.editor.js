@@ -826,7 +826,39 @@ triangulate.editor.getPrimaryImage = function(){
 }
 
 // get headlines from content
-triangulate.editor.getTranslations = function(prefix){
+triangulate.editor.getTranslations = function(content){
+
+	// parse content into a crawable jQuery element
+	var temp = $.parseHTML(content);
+	
+	// find any element with the attribute, i18next
+	var els = $(temp).find('[ng-i18next]');
+	
+	var translations = {};
+	
+	// set translations
+	for(x=0; x<els.length; x++){
+	
+		var id = $(els[x]).attr('id');
+	
+		// add to array
+		if(id != '' && id != undefined){
+		
+			// get content to be translated
+			var html = $(els[x]).html();
+		
+			// trim content
+			html = $.trim(html);
+			
+			// create translation 
+			translations[id] = html;
+		}
+		
+	}
+	
+	return translations;
+	
+	/*
 	
 	var el = triangulate.editor.el;
 	
@@ -854,7 +886,7 @@ triangulate.editor.getTranslations = function(prefix){
 		
 	}
 	
-	return translations;
+	return translations;*/
 }
 
 

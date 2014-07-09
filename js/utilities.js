@@ -360,7 +360,11 @@ var utilities = {
 	},
 	
 	// generates an element 
-	element:function(tag, attrs, html){
+	element:function(tag, attrs, html, translate){
+		
+		if(translate == null){
+			translate = false;
+		}
 		
 		// start tag
 		var el = '<' + tag;
@@ -376,7 +380,19 @@ var utilities = {
 		}
 		
 		// end tag, add html
-		el += '>';
+		if(translate == true && attrs['id'] != null){
+		
+			// get scope
+			var scope = angular.element($("section.main")).scope();
+			
+			// get pageId
+			var prefix = scope.page.PageId + '.';
+		
+			el += ' ng-i18next="[html]' + prefix + attrs['id'] + '">';
+		}
+		else{
+			el += '>';
+		}
 		el += html;
 		el += '</' + tag + '>';
 		

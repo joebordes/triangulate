@@ -451,7 +451,6 @@ angular.module('triangulate.controllers', [])
     	
     });
     
-
 	// get pageId
 	$scope.pageId = $stateParams.id;
 	
@@ -475,19 +474,30 @@ angular.module('triangulate.controllers', [])
 		$scope.saveSettings();
 		
 		// set prefix
-		var prefix = '[' + $scope.page.Url + ']';
+		var prefix = $scope.page.Url + '-';
+		
+		var pageId = $scope.page.PageId;
 		
 		// save search index (todo)
-		var translations = triangulate.editor.getTranslations(prefix);
+		var translations = triangulate.editor.getTranslations(content);
 		
 		// get translations for the site
 		Translation.retrieve(function(){
+		
+			// clear translations for the page
+			Translation.clear(pageId);
+			
+			// add some meta data to the translations
+			Translation.add(pageId, 'pageId', $scope.page.PageId);
+			Translation.add(pageId, 'name', $scope.page.Name);
+			Translation.add(pageId, 'url', $scope.page.Url);
+			Translation.add(pageId, 'description', $scope.page.Description);
 			
 			// walkthrough translations
 			for(var key in translations){
 			
 				// add translation to data
-				Translation.add(key, translations[key]);
+				Translation.add(pageId, key, translations[key]);
 				
 			}
 			

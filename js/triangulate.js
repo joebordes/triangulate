@@ -165,6 +165,16 @@ angular.module('triangulate', ['ui.router',
 		      controller: 'RolesCtrl'
 		    }
 		  }
+		})
+		
+		.state('app.scripts', {
+		  url: "/scripts",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/scripts.html",
+		      controller: 'ScriptsCtrl'
+		    }
+		  }
 		});
 	
 	// if none of the above states are matched, use this as the fallback
