@@ -451,6 +451,13 @@ var utilities = {
         });
 
 		
+	},
+	
+	// dynamically adds a script to a page
+	addScript:function(src){
+		var script = document.createElement("script");
+		script.setAttribute("src", src);
+		document.getElementsByTagName("head")[0].appendChild(script);
 	}
 }
 

@@ -388,6 +388,44 @@ angular.module('triangulate.controllers', [])
 	$scope.sites = Setup.sites;
 	$scope.node = {};
 	$scope.element = {};
+	$scope.block = {};
+	$scope.container = {};
+	
+	// watch for changes in the block collection
+    $scope.$watchCollection('block', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			if(index.toLowerCase() == 'id'){
+		  			$(triangulate.editor.currBlock).prop('id', attr);
+	  			}
+	  		
+	  			$(triangulate.editor.currBlock).attr('data-' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
+    
+    // watch for changes in the container collection
+    $scope.$watchCollection('container', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			$(triangulate.editor.currBlock).attr('data-container' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
 	
 	// watch for changes in the node collection
     $scope.$watchCollection('node', function(newValues, oldValues){

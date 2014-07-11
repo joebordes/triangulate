@@ -4,6 +4,7 @@ triangulate.editor = triangulate.editor || {};
 
 // holds current row and node
 triangulate.editor.currNode = null;
+triangulate.editor.currBlock = null;
 triangulate.editor.currElement = null;
 triangulate.editor.currConfig = null;
 triangulate.editor.prefix = '';
@@ -20,7 +21,7 @@ jQuery.fn.swap = function(b){
 	var a = this[0]; 
 	var t = a.parentNode.insertBefore(document.createTextNode(''), a); 
 	b.parentNode.insertBefore(a, b); 
-	t.parentNode.insertBefore(b, t); 
+	t.parentNode.insertBefore(b, t);
 	t.parentNode.removeChild(t); 
 	return this; 
 };
@@ -56,10 +57,7 @@ triangulate.editor.defaults = {
 					
 	blockMenu: '<a class="expand-menu fa fa-ellipsis-v"></a>' +
 			'<div class="element-menu">' + 
-			'<a class="duplicate fa fa-copy"></a>' +
-			'<a class="up fa fa-chevron-up"></a><a class="down fa fa-chevron-down"></a>' +
-			'<a class="config-block fa fa-cog"></a>'+
-			'<a class="remove-block fa fa-minus-circle"></a></div>'
+			'<a class="up fa fa-chevron-up"></a><a class="down fa fa-chevron-down"></a></div>'
 };
 
 
@@ -175,6 +173,21 @@ triangulate.editor.setupPlugins = function(){
 		if(el){
 			el.remove();
 			triangulate.editor.currElement = null;
+		}
+		
+	});
+	
+	// remove plugin
+	$(document).on('click', '.block-remove', function(){
+	
+		var node = $(triangulate.editor.currBlock);
+			
+		if(node){
+			node.remove();
+			triangulate.editor.currBlock = null;
+			
+			// hide config
+			$('.context-menu').find('.config').removeClass('active');
 		}
 		
 	});
@@ -410,35 +423,15 @@ triangulate.editor.setupPersistentEvents = function(){
 	});
 	
 	
+	// handle focus out on div
 	$(el).on('focusout', '.sortable div', function(){
 		$('.editor-actions a').removeClass('active');
-	});
-	
-	// handle remove-block
-	$(el).on('click', '.remove-block', function(){
-		$(this.parentNode.parentNode.parentNode).remove();
-		
-		$(context).find('.up').removeClass('disabled');
-		$(context).find('.up').first().addClass('disabled');
-
-		$(context).find('.down').removeClass('disabled');
-		$(context).find('.down').last().addClass('disabled');
-		
-		return false;
 	});
 	
 	// handle expand-menu
 	$(el).on('click', '.expand-menu', function(){
 		$(this).toggleClass('active');
 		$(this).next().toggleClass('active');
-	});
-	
-	
-	// add sku
-	$(el).on('click', '.add-sku', function(){
-		var id = $(this.parentNode).attr('id');
-		skuDialog.show(id);
-		return false;
 	});
 	
 	// set current element
@@ -485,119 +478,7 @@ triangulate.editor.setupPersistentEvents = function(){
   		}
   		
 	});
-	
-	// remove click
-	$(el).on('click', '.remove', function(){
-		$(this.parentNode.parentNode).remove();
-		context.find('a.'+this.parentNode.className).show();
-		triangulate.editor.currNode = null;
-		return false;
-	}); 
-
-	// config click
-	$(el).on('click', '.config', function(){
-		$(this.parentNode.parentNode).find('.expand-menu').toggleClass('active');
-		$(this.parentNode.parentNode).find('.element-menu').toggleClass('active');
-
-		var moduleId = $(this.parentNode.parentNode).attr('id');
-
-		var id = $(this.parentNode.parentNode).attr('data-id');
-		var cssClass = $(this.parentNode.parentNode).attr('data-cssclass');
 		
-		elementConfigDialog.show(moduleId, id, cssClass);
-
-		triangulate.editor.currNode = null;
-		return false;
-	}); 
-
-	// config block click
-	$(el).on('click', '.config-block', function(){
-		var blockId = $(this.parentNode.parentNode.parentNode).attr('id');
-		var id = $(this.parentNode.parentNode.parentNode).attr('id');
-		var cssClass = $(this.parentNode.parentNode.parentNode).attr('data-cssclass');
-		var nested = $(this.parentNode.parentNode.parentNode).attr('data-nested');
-		var containerId = $(this.parentNode.parentNode.parentNode).attr('data-containerid');
-		var containerCssClass = $(this.parentNode.parentNode.parentNode).attr('data-containercssclass');
-		
-		blockConfigDialog.show(blockId, id, cssClass, nested, containerId, containerCssClass);
-
-		triangulate.editor.currNode = null;
-		return false;
-	}); 
-
-	// remove field click
-	$(el).on('click', '.remove-field', function(){
-		$(this.parentNode).remove();
-		return false;
-	});
-	
-	// add image click
-	$(el).on('click', '.add-image', function(){
-		var editor = $('#'+$(this).parents('.editor').attr('id'));
-	
-		var d = this.parentNode.parentNode;
-		var id = $(d).attr('id');
-
-		imagesDialog.show(editor, 'slideshow', id);
-	});
-	
-	// config list click   
-	$(el).on('click', '.config-list', function(){
-		var editor = $('#'+$(this).parents('.editor').attr('id'));
-		var id=$(this.parentNode.parentNode).attr('id');
-		listDialog.show(editor, 'edit', id);
-		return false;
-	});
-	
-	// config html click
-	$(el).on('click', '.config-html', function(){
-		var editor = $('#'+$(this).parents('.editor').attr('id'));
-		
-		var id=$(this.parentNode.parentNode).attr('id');
-		var desc=$(this.parentNode.parentNode).attr('data-desc');
-		var type=$(this.parentNode.parentNode).attr('data-type');
-		
-		htmlDialog.show(editor, desc, type, 'edit', id);
-		return false;
-	});
-	
-	// config html click
-	$(el).on('click', '.config-field', function(){
-		var editor = $('#'+$(this).parents('.editor').attr('id'));
-		
-		var container = $(this).parents('.field-container').get(0);
-		
-		fieldDialog.edit(container);
-		return false;
-	});
-
-	// config plugin click
-	$(el).on('click', '.config-plugin', function(){
-		var id=$(this.parentNode.parentNode).attr('id');
-		var type=$(this.parentNode.parentNode).attr('data-type');
-		configPluginsDialog.show(id, type);
-		return false;
-	});
-	
-	// config form click
-	$(el).on('click', '.config-form', function(){
-		var id=$(this.parentNode.parentNode).attr('id');
-		formDialog.show(id);
-		return false;
-	});
-
-	// handle html div click
-	$(el).on('click', '.html div', function(){
-		$(this).parent().toggleClass('active');	
-	});
-		
-	// handle switch
-	$(el).on('click', '.switch', function(){
-		$(this.parentNode).find('a').removeClass('selected');
-		$(this).addClass('selected');
-		return false;
-	});
-	
 	// handle down
 	$(el).on('click', '.down', function(){
 		if($(this).hasClass('disabled')){return false;}
@@ -700,14 +581,6 @@ triangulate.editor.setupPersistentEvents = function(){
 		return false;
 	});
 
-	
-	// setup sorting on .shelf-items, forms, slideshows
-	$('.shelf-items').sortable({handle: '.move', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
-	$('.form div').sortable({handle: '.move', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
-	$('.slideshow div').sortable({handle:'img', items:'span.image', placeholder: 'editor-highlight', opacity:'0.6', axis:'x'});
-	
-	// setup paste
-	$('[contentEditable=true]').paste();
 }
 
 // appends content to the editor

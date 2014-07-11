@@ -756,6 +756,7 @@
 		color: #aaa;
 		overflow: hidden;
 		border: 1px solid #f0f0f0;
+		cursor: pointer;
 	}
 	
 	.editor span.block-actions span{

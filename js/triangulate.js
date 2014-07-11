@@ -186,15 +186,8 @@ angular.module('triangulate', ['ui.router',
 
 	// set app title
 	$rootScope.title = Setup.app;
-	
-	// add google apps key
-	if(Setup.gapiKey != ''){
-	
-		// add google maps src as a trusted resource
-		$rootScope.googleMapsSrc = $sce.trustAsResourceUrl('https://maps.googleapis.com/maps/api/js?key=' + 
-			Setup.gapiKey + '&sensor=false');
-	
-	}
-	
+		
 });
+
+function initialize(){};
 
