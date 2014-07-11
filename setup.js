@@ -3,9 +3,9 @@ angular.module('triangulate.setup', [])
 	debug: 			true,
 	
 	// urls where your app (url), api and sites folder are publicly available
-	url: 			'http://path-to-app.com',
-	api: 			'http://path-to-api.com',
-	sites: 			'http://path-to-sites.com',
+	url: 			'http://app.path-to-triangulate.com',
+	api: 			'http://api.path-to-triangulate.com',
+	sites: 			'http://sites.path-to-triangulate.com',
 	
 	// default theme
 	themeId: 		'simple',
@@ -24,9 +24,6 @@ angular.module('triangulate.setup', [])
 	// app branding
 	app:			'Triangulate',
 	version:		'1.0',
-	copy: 			'Made by Matthew Smith in Manchester, MO',
-	
-	// google maps API key
-	gapiKey:		''
+	copy: 			'Made by Matthew Smith in Manchester, MO'
 	
 });
