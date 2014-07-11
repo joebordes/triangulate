@@ -10,7 +10,7 @@ Learn more about Triangulate at: http://triangulate.io (coming soon)
 View our documentation at: http://triangulate.io/#/page/documentation (coming soon)
 
 ### Create Directory Structure
-##### 1. Create the directory structure for triangulate
+###### 1. Create the directory structure for triangulate
 
 ```
 	.../triangulate
@@ -35,7 +35,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	mkdir sites
 ```
 
-##### 2. Make the sites directory writeable
+###### 2. Make the sites directory writeable
 ```
 	chown -R apache [path]/triangulate/sites
 ```
