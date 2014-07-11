@@ -12,10 +12,12 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 ### Create Directory Structure
 1. Create the directory structure for triangulate
 
+```
 	.../triangulate
 		.../triangulate/app
 		.../triangulate/api
 		.../triangulate/sites
+```
 		
 ```
 	// go to your HTML root
@@ -41,18 +43,21 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 ### Setup domains
 1. Setup your domains for Triangulate
 
+```
 	.../triangulate
 		.../triangulate/app		-> http://app.path-to-app.com
 		.../triangulate/api		-> http://api.path-to-app.com
 		.../triangulate/sites	-> http://sites.path-to-app.com
+```
 
 2. (alternate) or use a single domain
 
+```
 	.../triangulate
 		.../triangulate/app		-> http://path-to-app.com/app
 		.../triangulate/api		-> http://path-to-app.com/api
 		.../triangulate/sites	-> http://path-to-app.com/sites
-
+```
 
 ### Setup App
 1. Clone Triangulate app repository https://github.com/madoublet/triangulate.
@@ -139,7 +144,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	define('SITES_LOCATION', '../sites');
 ```
 
-2. Setup CORS to allow the app and sites to access the API
+3. Setup CORS to allow the app and sites to access the API
 ```
 	define ('CORS', serialize (array (
 	    'http://app.triangulate.io',
