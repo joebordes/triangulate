@@ -10,7 +10,7 @@ Learn more about Triangulate at: http://triangulate.io (coming soon)
 View our documentation at: http://triangulate.io/#/page/documentation (coming soon)
 
 ### Create Directory Structure
-1. Create the directory structure for triangulate
+##### 1. Create the directory structure for triangulate
 
 ```
 	.../triangulate
@@ -35,13 +35,13 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	mkdir sites
 ```
 
-2. Make the sites directory writeable
+##### 2. Make the sites directory writeable
 ```
 	chown -R apache [path]/triangulate/sites
 ```
 
 ### Setup domains
-1. Setup your domains for Triangulate
+##### 1. Setup your domains for Triangulate
 
 ```
 	.../triangulate
@@ -50,7 +50,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 		.../triangulate/sites	-> http://sites.path-to-app.com
 ```
 
-2. (alternate) or use a single domain
+##### 2. (alternate) or use a single domain
 
 ```
 	.../triangulate
@@ -60,7 +60,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 ```
 
 ### Setup App
-1. Clone Triangulate app repository https://github.com/madoublet/triangulate.
+##### 1. Clone Triangulate app repository https://github.com/madoublet/triangulate.
 ```
 	// switch to app directory
 	cd app
@@ -69,7 +69,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	git clone https://github.com/madoublet/triangulate.git .
 ```
 
-2. Update settings in /setup.js.  You need to setup the url, api, and sites to match your domains.
+##### 2. Update settings in /setup.js.  You need to setup the url, api, and sites to match your domains.
 ```
 	angular.module('triangulate.setup', [])
 	.constant('Setup', {
@@ -102,16 +102,16 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	});
 ```
 
-3.  Uncomment and Add Google Maps API Key to index.html
+##### 3.  Uncomment and Add Google Maps API Key to index.html
 <!-- Google maps API (for geocoding) 
     <script src="https://maps.googleapis.com/maps/api/js?key=[Google Maps API KEY]&sensor=false"></script>
     -->
 
 ### Create DB
-1. Create a database using the MySQL schema at https://github.com/madoublet/triangulate-php-apache-api/blob/master/schema.sql
+##### 1. Create a database using the MySQL schema at https://github.com/madoublet/triangulate-php-apache-api/blob/master/schema.sql
 
 ### Create API
-1. Clone Triangulate API repository https://github.com/madoublet/triangulate-php-apache-api.
+##### 1. Clone Triangulate API repository https://github.com/madoublet/triangulate-php-apache-api.
 ```
 	// switch to app directory
 	cd api
@@ -120,7 +120,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	git clone https://github.com/madoublet/triangulate-php-apache-api .
 ```
 
-2. Update database connection parameters and set paths and URLs in setup.php
+##### 2. Update database connection parameters and set paths and URLs in setup.php
 ```
 	// DB connection parameters
 	define('DB_HOST', 'localhost');
@@ -144,7 +144,7 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	define('SITES_LOCATION', '../sites');
 ```
 
-3. Setup CORS to allow the app and sites to access the API
+##### 3. Setup CORS to allow the app and sites to access the API
 ```
 	define ('CORS', serialize (array (
 	    'http://app.triangulate.io',
@@ -153,4 +153,4 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 ```
 
 ### Create First Site
-1. Create first site at http://path.totriangulate.com/create
+##### 1. Create first site at http://path.totriangulate.com/create
