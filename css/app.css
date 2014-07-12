@@ -520,16 +520,18 @@ section.main nav{
         height: 50px;
         line-height: 50px;
         text-align: center;
-        background: #3299bb;
+        background: #3299bb url('../images/menu.png') no-repeat 15px 15px;
+        background-size: 20px;
     }
     
         section.main nav .show-menu:hover{
-            background: #1d7b9a;
+            background-color: #1d7b9a;
             text-decoration: none;
         }
 
         section.main nav .show-menu i{
             color: #fff;
+            display: none;
         }
 
 
