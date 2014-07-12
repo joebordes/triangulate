@@ -20,20 +20,14 @@ angular.module('triangulate.controllers', [])
 			
 				message.showMessage('success');
 				
-				// retrieve the current user
-				$rootScope.user = data.user;
-				
 				// make sure the user has admin permissions
 				if(data.user.CanEdit != '' && data.user.CanPublish != ''  && data.user.CanRemove != ''  && data.user.CanCreate != ''){
 				
 					// save token
 					$window.sessionStorage.token = data.token;
 					
-					if(Setup.debug)console.log('[triangulate.debug] $rootScope.user');
-					console.log($rootScope.user);
-					
 					// set language to the users language
-					$i18next.options.lng = $rootScope.user.Language;
+					$i18next.options.lng =  data.user.Language;
 					
 					// go to start URL
 					location.href = data.start;

@@ -333,8 +333,8 @@ angular.module('triangulate.site.directives', [])
 		 
 			// setup user
 			scope.user = {
-				email: '',
-				password: ''
+				Email: '',
+				Password: ''
 			}
 			
 			// set loading
@@ -351,24 +351,23 @@ angular.module('triangulate.site.directives', [])
 				scope.showError = false;
 				
 				// login user
-				User.login(user.email, user.password, 
+				User.login(user.Email, user.Password, 
 					function(data){		// success
-					
+						
+						console.log(data);
+						
 						// set status
 						scope.showLoading = false;
+						scope.showError = false;
 						scope.showSuccess = true;
 						
-						// save token
-						$window.sessionStorage.token = data.token;
-						
-						// retrieve the current user
-						$rootScope.user = data.user;
 						
 					},
 					function(){		// failure
 					
 						// set status
 						scope.showLoading = false;
+						scope.showSuccess = false;
 						scope.showError = true;
 					});
 				
@@ -381,7 +380,7 @@ angular.module('triangulate.site.directives', [])
 })
 
 // registration
-.directive('triangulateRegistration', function($rootScope, User){
+.directive('triangulateRegistration', function($rootScope, User, Site){
 	
 	return{
 		
@@ -398,6 +397,53 @@ angular.module('triangulate.site.directives', [])
 		templateUrl: 'templates/triangulate/registration.html',
 		link: function(scope, element, attr){
 	
+			// setup user
+			scope.user = {
+				FirstName: '',
+				LastName: '',
+				Email: '',
+				Password: ''
+			}
+			
+			
+			// set loading
+			scope.showLoading = false;
+			scope.showSuccess = false;
+			scope.showError = false;
+			scope.showRequired = false;
+			
+			// register user
+			scope.register = function(user){
+				
+				// set status
+				scope.loading = true;
+				scope.showSuccess = false;
+				scope.showError = false;
+				
+				// get site information
+				var site = Site.retrieve();
+				
+				// login user
+				User.add(user, site.SiteId,
+					function(data){		// success
+						
+						// set status
+						scope.showLoading = false;
+						scope.showError = false;
+						scope.showSuccess = true;
+						
+						
+					},
+					function(){		// failure
+					
+						// set status
+						scope.showLoading = false;
+						scope.showSuccess = false;
+						scope.showError = true;
+					});
+				
+			}
+			
 			
 		}
 		

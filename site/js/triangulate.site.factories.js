@@ -91,10 +91,17 @@ angular.module('triangulate.site.factories', [])
 })
 
 // user factory
-.factory('User', function($http, $rootScope){
-	
+.factory('User', function($http, $rootScope, $window){
+
 	var user = {};
-	user.data = [];
+
+	// retrieves a user
+	user.retrieve = function(){
+	
+		var user = JSON.parse($window.sessionStorage.user);
+		
+		return user;
+	}
 	
 	// login API call
 	user.login = function(email, password, successCallback, failureCallback){
@@ -110,21 +117,27 @@ angular.module('triangulate.site.factories', [])
 	
 		// post to API
 		$http.post($rootScope.site.API + '/user/login', $.param(params))
-			.success(successCallback)
+			.success(function(data){
+				
+				// set user in session
+				$window.sessionStorage.user = JSON.stringify(data.user);
+				
+				// call callback
+				successCallback(data);
+				
+			})
 			.error(failureCallback);
 					
 	}
 	
 	// add a user
-	user.add = function(toBeAdded, callback){
+	user.add = function(toBeAdded, siteId, successCallback, failureCallback){
 		
 		// set params
 		var params = {
+			siteId: siteId,
 			firstName: toBeAdded.FirstName, 
 			lastName: toBeAdded.LastName, 
-			role: toBeAdded.Role, 
-			language: toBeAdded.Language, 
-			isActive: toBeAdded.IsActive, 
 			email: toBeAdded.Email, 
 			password: toBeAdded.Password};
 		
@@ -132,16 +145,10 @@ angular.module('triangulate.site.factories', [])
 		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 	
 		// post to API
-		$http.post($rootScope.site.API + '/user/add', $.param(params))
-			.then(function(res){
-				
-				// push data to factory
-				user.data.push(res.data);
-				
-				return res.data;
-				
-			})
-			.then(callback);
+		$http.post($rootScope.site.API + '/user/add/member', $.param(params))
+			.success(successCallback)
+			.error(failureCallback);
+			
 	}
 	
 	return user;

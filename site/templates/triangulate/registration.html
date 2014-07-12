@@ -1,31 +1,43 @@
-<fieldset class="respond-registration">
+<fieldset class="triangulate-registration">
 
-	<div class="alert registration-success alert-success">{{success}}</div>
-	<div class="alert registration-error alert-danger">{{error}}</div>
-	<div class="alert registration-required-error alert-danger">{{required}}</div>
+	<form name="triangulateRegistrationForm" novalidate>
 
-	<div class="form-group">
-		<label class="control-label">{{'First Name'}}</label>
-		<input type="text" autocomplete="off" class="firstName form-control">
-	</div>
+		<div ng-show="showSuccess" class="alert registration-success alert-success">{{success}}</div>
+		<div  ng-show="showError" class="alert registration-error alert-danger">{{error}}</div>
 	
-	<div class="form-group">
-		<label class="control-label">{{'Last Name'}}</label>
-		<input type="text" autocomplete="off" class="lastName form-control">
-	</div>
-
-	<div class="form-group">
-		<label class="control-label">{{'Email'}}</label>
-		<input type="email" autocomplete="off" class="email form-control">
-	</div>
+		<div class="form-group">
+			<label class="control-label">{{'First Name'}}</label>
+			<input type="text" autocomplete="off" class="form-control"
+				ng-model="user.FirstName" required>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">{{'Last Name'}}</label>
+			<input type="text" autocomplete="off" class="form-control"
+				ng-model="user.LastName" required>
+		</div>
 	
-	<div class="form-group">
-		<label class="control-label">{{'Password'}}</label>
-		<input type="password" autocomplete="off" class="password form-control">
-	</div>
+		<div class="form-group">
+			<label class="control-label">{{'Email'}}</label>
+			<input type="email" autocomplete="off" class="form-control"
+				ng-model="user.Email" required>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">{{'Password'}}</label>
+			<input type="password" autocomplete="off" class="form-control"
+				ng-model="user.Password" required>
+		</div>
+		
+		<span class="actions">
+			
+			<button class="btn btn-default"
+				ng-click="register(user)"
+				ng-disabled="triangulateRegistrationForm.$invalid || isUnchanged(user)">
+					{{button}} <i ng-show="showLoading" class="fa fa-angle-right fa-white"></i>
+				</button>
+		</span>
 	
-	<span class="actions">
-		<button class="btn btn-default" type="submit">{{button}} <i class="fa fa-spinner fa-spin icon-spinner"></i></button>
-	</span>
+	</form>
 	
 </fieldset>
