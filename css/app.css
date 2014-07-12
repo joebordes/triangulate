@@ -13,19 +13,17 @@ body{
 	height: 100%;
 	min-height: 100%;
 	width: 100%;
-	font-family: "Ubuntu", sans-serif;
+	font-family: "Roboto", sans-serif;
 }
 
-	body p, body label, body li, body input, body select, body div{
-		font-family: "Ubuntu", sans-serif;
+	body p, body label, body li, body input, body select, body div, body button{
+		font-family: "Roboto", sans-serif;
+    	font-weight: 100;
 	}
 
-	body label{
-		font-weight: normal;
-	}
-	
 	body h1, body h2, body h3{
-    	font-family: "Ubuntu", sans-serif;
+    	font-family: "Roboto", sans-serif;
+    	font-weight: 100;
     }
 
 a, a:hover{
@@ -69,6 +67,7 @@ body select.form-control{
     padding: 0 20px;
     cursor: pointer; 
     padding: 8px 20px;
+    font-weight: 100;
 }
 
 	.primary-button[disabled=disabled]{
@@ -431,7 +430,8 @@ header{
     }
     
     header li a{
-        font-family: 'Ubuntu', sans-serif;
+    	font-family: "Roboto", sans-serif;
+    	font-weight: 100;
         font-size: 16px;
         display: block;
         padding: 10px 15px;
