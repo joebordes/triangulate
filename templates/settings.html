@@ -17,7 +17,13 @@
 		</p>
 	</div>
 	<!-- /.list-menu -->
-  
+   
+	<ul class="segmented-control">
+		<li class="active" data-target="#section-site"><a>{{'Site'}}</a></li>
+		<li data-target="#section-payments"><a>{{'Payments'}}</a></li>
+		<li data-target="#section-forms"><a>{{'Advanced'}}</a></li>
+	</ul>
+	<!-- /.segmented-control -->
 	
 	<form id="form-vertical">
 	
@@ -332,6 +338,199 @@
 		
 		</div>	
 		<!-- /.section-site -->
+
+		<div id="section-payments" class="hidden">
+		
+			<div class="form-group">
+				<label for="payPalId" class="control-label">{{'PayPal ID:'}}</label>
+				<div>
+					<input id="payPalId" type="text"
+						ng-model="site.PayPalId"
+						class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing):'}}</label>
+				<div>
+					<select id="payPalUseSandbox" 
+						ng-model="site.PayPalUseSandbox"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label for="currency" class="control-label">{{'Currency:'}}</label>
+				<div>
+					<select id="currency" class="form-control" 
+							ng-model="site.Currency"
+							ng-options="currency.code as currency.text for currency in currencies">
+							</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="weightUnit" class="control-label">{{'Weight Unit:'}}</label>
+				<div>
+					<select id="weightUnit" 
+						ng-model="site.WeightUnit"
+						class="form-control">
+				    	<option value="kgs">kgs</option>
+				    	<option value="lbs">lbs</option>
+					</select>
+					<span class="help-block">{{'Optionally used to calculate shipping costs'}}</span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="taxRate" class="control-label">{{'Tax Rate:'}}</label>
+				<div>
+					<input id="taxRate" type="text" 
+						ng-model="site.TaxRate"
+						class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="shippingCalculation" class="control-label">{{'Shipping Calculation:'}}</label>
+				<div>
+					<select id="shippingCalculation" 
+						ng-model="site.ShippingCalculation"
+						class="form-control">
+						<option value="free">{{'Free'}}</option>
+						<option value="flat-rate">{{'Flat Rate'}}</option>
+						<option value="amount">{{'By Order Amount'}}</option>
+						<option value="weight">{{'By Weight'}}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group" 
+				ng-show="(site.ShippingCalculation==='flat-rate')">
+				<label for="shippingRate" class="control-label">{{'Shipping Rate:'}}</label>
+			    <div class="input-group">
+				 	<input id="shippingRate" type="text"
+				 		ng-model="site.ShippingRate"
+				 		maxlength="128" class="form-control">
+				 	<span class="input-group-addon">{{site.Currency}}</span>
+				</div>
+			</div>
+			
+			
+			<div class="form-group"
+				ng-show="(site.ShippingCalculation=='weight')">
+				<table class="table shipping-weight">
+					<col width="33.3%">
+					<col width="33.3%">
+					<col width="33.3%">
+					<thead>
+						<tr>
+							<th>From <small>({{site.WeightUnit}})</small></th>
+							<th>To <small>({{site.WeightUnit}})</small></th>
+							<th>Rate <small>({{site.WeightUnit}})</small></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="from">0</span></td>
+							<td><input class="to" class="form-control" type="number"></td>
+							<td><input class="rate" class="form-control" type="number"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="number"></td>
+							<td><input class="rate" class="form-control" type="number"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="number"></td>
+							<td><input class="rate" class="form-control" type="number"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="form-group"
+				ng-show="(site.ShippingCalculation=='amount')">
+				<table class="table shipping-amount">
+					<col width="33.3%">
+					<col width="33.3%">
+					<col width="33.3%">
+					<thead>
+						<tr>
+							<th>From <small>({{site.Currency}})</small></th>
+							<th>To <small>({{site.Currency}})</small></th>
+							<th>Rate <small>({{site.Currency}})</small></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="from">0</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+						<tr>
+							<td><span class="from">--</span></td>
+							<td><input class="to" class="form-control" type="text"></td>
+							<td><input class="rate" class="form-control" type="text"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>	
+		<!-- /.section-payments -->
+		
+		<div id="section-forms" class="hidden">
+			
+			<div class="form-group">
+				<label for="formPublicId" class="control-label">{{'reCaptcha Public ID:'}}</label>
+				<div>
+					<input id="formPublicId" type="text" 
+						ng-model="site.FormPublicId"
+						class="form-control">
+					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms, create here:'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID:'}}</label>
+				<div>
+					<input id="formPrivateId" type="text" 
+						ng-model="site.FormPrivateId" class="form-control">
+					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here:'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+				</div>
+			</div>
+			
+		</div>	
+		<!-- /.section-social -->
 		
     </form>
     <!-- /.form-horizontal -->

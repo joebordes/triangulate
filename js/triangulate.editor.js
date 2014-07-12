@@ -192,6 +192,40 @@ triangulate.editor.setupPlugins = function(){
 		
 	});
 	
+	// configure block
+	$(document).on('click', '.block-actions', function(){
+	
+		// hide config
+	  	$('.context-menu').find('.config').removeClass('active');
+	  	$('.block-settings').addClass('active');
+	  	triangulate.editor.currBlock = $(this).parent();
+	  	triangulate.editor.currElement = null;
+	  	$(triangulate.editor.el).find('.current-element').removeClass('current-element');
+	  	$(triangulate.editor.el).find('.current-node').removeClass('current-node');
+	  	
+	  	console.log(triangulate.editor.currBlock);
+	  	
+	  	// set layout/container
+	  	var id = triangulate.editor.currBlock.attr('id') || '';
+	  	var cssClass = triangulate.editor.currBlock.attr('data-cssclass') || '';
+	  	var nested = triangulate.editor.currBlock.attr('data-nested') || '';
+	  	var containerId = triangulate.editor.currBlock.attr('data-containerid') || '';
+	  	var containerCssClass = triangulate.editor.currBlock.attr('data-containercssclass') || '';
+	  	
+	  	// set scope
+  		var scope = angular.element($("section.main")).scope();
+  		
+  		// set block, container
+  		scope.$apply(function(){
+		    scope.block.id = id;
+		    scope.block.cssClass = cssClass;
+		    scope.block.nested = nested;
+		    scope.container.id = containerId;
+		    scope.container.cssClass = containerCssClass;
+		});
+	
+	});
+	
 }
 
 // parses the html
@@ -272,7 +306,9 @@ triangulate.editor.parseHTML = function(){
 
 			if(id==undefined || id=='')id='undefined';
 
-		  	html += '<div id="'+id+'" class="block row" data-cssclass="' + cssclass + '" ' +
+		  	html += '<div id="'+id+'" class="block row" ' +
+		  				'data-id="' + id + '" ' +
+		  				'data-cssclass="' + cssclass + '" ' +
 		  				'data-nested="' + nested + '" ' +
 		  				'data-containerid="' + containerId + '" ' +
 		  				'data-containercssclass="' + containerCssClass + '" ' +

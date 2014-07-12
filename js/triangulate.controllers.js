@@ -23,9 +23,6 @@ angular.module('triangulate.controllers', [])
 				// retrieve the current user
 				$rootScope.user = data.user;
 				
-				// set user in session
-				$window.sessionStorage.user = data.user;
-				
 				// make sure the user has admin permissions
 				if(data.user.CanEdit != '' && data.user.CanPublish != ''  && data.user.CanRemove != ''  && data.user.CanCreate != ''){
 				
@@ -123,9 +120,12 @@ angular.module('triangulate.controllers', [])
 })
 
 // menu controller
-.controller('MenuCtrl', function($scope, $rootScope, $state, Setup, Site) {
+.controller('MenuCtrl', function($scope, $rootScope, $state, Setup, Site, User) {
 
-	$scope.user = $rootScope.user;
+	// get user from session
+	$scope.user = User.retrieve();
+	
+	console.log($scope.User);
 	
 	// get menu json
 	$scope.republish = function(){
@@ -1217,12 +1217,53 @@ angular.module('triangulate.controllers', [])
 	
 	// setup
 	$scope.setup = Setup;
+	
+	// set the from value to the previous to value
+    $(document).on('focus', '.to', function(){ 
+        
+        var from = $(this).parent().parent().find('.from');
+		$(this).removeClass('error');
+        
+        if(from){
+        
+        	var to = $(this).parent().parent().prev().find('.to');
+      
+        	if(to){
+				$(from).text($(to).val());
+			}
+			else{
+				$(from).text(0);
+			}
+        }
+	    
+    });
+    
+    $(document).on('blur', '.to', function(){
+    
+    	var to = Number($(this).val().replace(/[^0-9\.]+/g, ''));
+    	
+		$(this).val(to);
 		
+		var prev = $(this).parent().parent().prev().find('.to');
+		
+		if(prev){
+			prev = Number($(prev).val().replace(/[^0-9\.]+/g, ''));
+			
+			console.log(prev);
+			
+			if(to < prev){
+				$(this).addClass('error');
+				$(this).val('');
+			}
+		}
+    
+    });
+	
 	// retrieve site
 	Site.retrieve(function(data){
 	
 		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Site.retrieve');
+		if(Setup.debug)console.log('[respond.debug] Site.retrieve');
 		if(Setup.debug)console.log(data);
 		
 		$scope.site = data;
@@ -1253,6 +1294,47 @@ angular.module('triangulate.controllers', [])
 	
 	// save settings
 	$scope.save = function(){
+		
+		// set tiers
+		var calc = $scope.site.ShippingCalculation;
+		var shippingTiers = '';
+		
+        if(calc == 'amount' || calc == 'weight'){
+	        
+	        var tos = $('.shipping-'+calc).find('.to');
+	        var froms = $('.shipping-'+calc).find('.from');
+	        var rates = $('.shipping-'+calc).find('.rate');
+	        
+	        var tiers = []; // create array
+	        
+	        for(x=0; x<tos.length; x++){
+		        
+		        var from = Number($(froms[x]).text().replace(/[^0-9\.]+/g,""));
+		        var to = Number($(tos[x]).val().replace(/[^0-9\.]+/g,""));
+		        var rate = Number($(rates[x]).val().replace(/[^0-9\.]+/g,""));
+		        
+		        if(jQuery.trim($(tos[x]).val()) != '' && to != 0){
+			        var tier = {
+				        'from': from,
+				        'to': to,
+				        'rate': rate
+			        }
+			        
+			        tiers.push(tier);
+		        }
+		        
+	        }
+	        
+	        // set JSON for tiers
+	        shippingTiers = JSON.stringify(tiers);
+	        
+	        if(Setup.debug)console.log('[respond.debug] Set Shipping Tiers');
+	        console.log(shippingTiers);
+	        
+	        // update model
+	        $scope.site.ShippingTiers = shippingTiers;
+        }
+        
         
         message.showMessage('progress');
         

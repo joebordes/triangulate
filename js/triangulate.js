@@ -12,6 +12,7 @@ angular.module('triangulate', ['ui.router',
 	'jm.i18next'])
 
 // disable header during development
+/*
 .config(['$httpProvider', function($httpProvider) {
     //initialize get if not there
     if (!$httpProvider.defaults.headers.get) {
@@ -19,7 +20,7 @@ angular.module('triangulate', ['ui.router',
     }
     //disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
-}])
+}])*/
 
 // configure the module
 .config(function($stateProvider, $urlRouterProvider, $i18nextProvider, $httpProvider) {

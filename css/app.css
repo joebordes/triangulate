@@ -1054,12 +1054,12 @@ body .CodeMirror{
 	}
 
 	.segmented-control li{
-		border-top: 1px solid #3299bb;
-		border-bottom: 1px solid #3299bb;
-		border-right: 1px solid #3299bb;
+		border-top: 1px solid #81b841;
+		border-bottom: 1px solid #81b841;
+		border-right: 1px solid #81b841;
 		display: block;
 		float: left;
-		height: 35px;
+		height: 40px;
 		padding: 0;
 		width: 20%;	
 	}
@@ -1073,28 +1073,21 @@ body .CodeMirror{
 		}
 	
 		.segmented-control li:first-child{
-			border-left: 1px solid #3299bb;
-			border-bottom-left-radius: 5px;
-			border-top-left-radius: 5px;
-		}
-		
-		.segmented-control li:last-child{
-			border-bottom-right-radius: 5px;
-			border-top-right-radius: 5px;
+			border-left: 1px solid #81b841;
 		}
 	
 		.segmented-control li a{
 			display: block;
 			text-align: center;
-			color: #3299bb;
-			height: 35px;
-			line-height: 35px;
+			color: #81b841;
+			height: 40px;
+			line-height: 40px;
 			margin: 0;
 			padding: 0;
 		}
 	
 	.segmented-control .active{
-		background-color: #3299bb;
+		background-color: #81b841;
 	}
 	
 		.segmented-control .active a{

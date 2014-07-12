@@ -122,7 +122,17 @@ angular.module('triangulate.factories', [])
 			domain: site.Domain,
 			primaryEmail: site.PrimaryEmail, 
 			timeZone: site.TimeZone,
-			language: site.Language
+			language: site.Language,
+			currency: site.Currency,
+			weightUnit: site.WeightUnit,
+			shippingCalculation: site.ShippingCalculation,
+			shippingRate: site.ShippingRate,
+			shippingTiers: site.ShippingTiers,
+			taxRate: site.TaxRate,
+			payPalId: site.PayPalId,
+			payPalUseSandbox: site.PayPalUseSandbox,
+			formPublicId: site.FormPublicId,
+			formPrivateId: site.FormPrivateId
 		}
 	
 		// set post to URL Encoded
@@ -174,10 +184,18 @@ angular.module('triangulate.factories', [])
 })
 
 // user factory
-.factory('User', function($http, Setup){
+.factory('User', function($http, $window, Setup){
 	
 	var user = {};
 	user.data = [];
+	
+	// retrieves a user
+	user.retrieve = function(){
+	
+		var user = JSON.parse($window.sessionStorage.user);
+		
+		return user;
+	}
 	
 	// login API call
 	user.login = function(email, password, successCallback, failureCallback){
@@ -193,9 +211,15 @@ angular.module('triangulate.factories', [])
 	
 		// post to API
 		$http.post(Setup.api + '/user/login', $.param(params))
-			.success(successCallback)
-			.error(failureCallback);
-					
+			.then(function(res){
+			
+				// set user in session
+				$window.sessionStorage.user = JSON.stringify(res.data.user);
+				
+				return res.data;
+			}, failureCallback)
+			.then(successCallback);
+			
 	}
 	
 	// add a user
