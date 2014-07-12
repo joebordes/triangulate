@@ -18,12 +18,12 @@ body{
 
 	body p, body label, body li, body input, body select, body div, body button{
 		font-family: "Roboto", sans-serif;
-    	font-weight: 100;
+    	font-weight: 300;
 	}
 
 	body h1, body h2, body h3{
     	font-family: "Roboto", sans-serif;
-    	font-weight: 100;
+    	font-weight: 700;
     }
 
 a, a:hover{
@@ -41,6 +41,7 @@ body input.form-control[type=number],
 body input.form-control[type=password], 
 body input.form-control[type=email],
 body select.form-control{
+	font-size: 15px;
 	box-shadow: none !important;
 	background: none;
 	outline: none !important;
