@@ -255,16 +255,30 @@ triangulate.component.form = {
 			
 			// add temp field
 			node.find('.field-list').append(
-				triangulate.component.form.buildMock('text', 'Field', 'field-1', 'false', '', '', '', '')
+				triangulate.component.form.buildMock('text', 'Field', 'field-1', 'field1', 'false', '', '', '', '')
 			);
 			
 		});
+		
 		
 		// make parsed elements sortable
 		$(document).on('triangulate.editor.contentLoaded', function(){	
 			// make the elements sortable
 			$('.triangulate-form div').sortable({handle: '.mock-field', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
 			
+		});
+		
+		// get a reference to the form
+		$(document).on('keyup', '.config[data-action="triangulate.component.form"] [name="field-label"]', function(){
+			var $el = $(this);
+		
+			var id = utilities.toTitleCase($el.val());
+		
+			// get fields scope
+			var fscope = angular.element($el).scope();
+			
+			// set id in scope
+			fscope.element.id = id;
 		});
 		
 	},
@@ -299,24 +313,39 @@ triangulate.component.form = {
 
 	// builds a field
 	buildField:function(type, label, id, required, helper, placeholder, cssClass, options){
-
+	
+		// create model from id
+		var model = utilities.toTitleCase(id);
+	
 		// set label
 		var html = '<label for="' + id + '">' + label + '</label>';
+		
+		var req = '';
+		
+		if(required == 'true'){
+			req = ' required';
+		}
 
 		// create textbox
 		if(type=='text'){
 			html += '<input id="' + id + '" name="' + id + 
-					'" type="text" class="form-control" placeholder="'+placeholder+'">';
+					'" type="text" class="form-control" placeholder="'+placeholder+'"' + req +
+					' ng-model="temp.' + model + '"' +
+					'>';
 		}
 
 		// create textarea
 		if(type=='textarea'){
-			html += '<textarea id="' + id + '" name="' + id + '" class="form-control"></textarea>';
+			html += '<textarea id="' + id + '" name="' + id + '" class="form-control"' + req + 
+					' ng-model="temp.' + model + '"' +
+					'></textarea>';
 		}
 
 		// create select
 		if(type=='select'){
-			html += '<select id="' + id + '" name="' + id + '" class="form-control">';
+			html += '<select id="' + id + '" name="' + id + '" class="form-control"' + req + 
+			' ng-model="temp.' + model + '"' +
+			'>';
 
 			var arr = options.split(',');
 
@@ -334,7 +363,14 @@ triangulate.component.form = {
 			var arr = options.split(',');
 
 			for(x=0; x<arr.length; x++){
-	  			html += '<label class="checkbox"><input name="' + id + '" type="checkbox" value="' + $.trim(arr[x]) + '">' + $.trim(arr[x]) + '</label>';
+				
+				var val = utilities.toTitleCase($.trim(arr[x]));
+			
+	  			html += '<label class="checkbox"><input name="' + id + '" type="checkbox" value="' + $.trim(arr[x]) + '"' + 
+	  				' ng-model="temp.' + model + '.' + val + 
+	  				'" ng-true-value="' + $.trim(arr[x]) + '"' +
+	  				'" ng-false-value=""' +
+	  				'>' + $.trim(arr[x]) + '</label>';
 			}
 
 			html += '</span>';
@@ -347,7 +383,9 @@ triangulate.component.form = {
 			var arr = options.split(',');
 
 			for(x=0; x<arr.length; x++){
-	  			html += '<label class="radio"><input name="' + id + '" type="radio" value="' + $.trim(arr[x]) + '" name="' + id + '">' + $.trim(arr[x]) + '</label>';
+	  			html += '<label class="radio"><input name="' + id + '" type="radio" value="' + $.trim(arr[x]) + '" name="' + id + '"' +
+	  				' ng-model="temp.' + model + '"' +
+	  				'>' + $.trim(arr[x]) + '</label>';
 			}
 
 			html += '</span>';
@@ -358,15 +396,11 @@ triangulate.component.form = {
 			html += '<span class="help-block">' + helper + '</span>';
 		}
 
-		// create recaptcha
-		if (type=='recaptcha') {
-			var html = '{{reCaptcha}}';
-		}
-
 		// tag attributes
 		var attrs = [];
 		attrs['id'] = id;
 		attrs['data-id'] = id;
+		attrs['data-model'] = model;
 		attrs['class'] = 'form-group';
 		attrs['data-type'] = type;
 		attrs['data-label'] = label;
@@ -391,7 +425,7 @@ triangulate.component.form = {
 		// build html
 		var html = triangulate.editor.defaults.elementMenu +
 					'<div class="field-list">' +
-					triangulate.component.form.buildMock('text', 'Field', 'field-1', 'false', '', '', 'form-control', '') +
+					triangulate.component.form.buildMock('text', 'Field', 'field1', 'false', '', '', 'form-control', '') +
 					'</div>';
 					
 		html += '<button type="button" class="add-field"><i class="fa fa-plus-circle"></i></button>';
@@ -402,7 +436,6 @@ triangulate.component.form = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-form';
 		attrs['data-cssclass'] = '';
-		attrs['data-type'] = 'default';
 		attrs['data-action'] = '';
 		attrs['data-success'] = 'Form submitted successfully.';
 		attrs['data-error'] = 'There was an error submitting your form.';
@@ -433,19 +466,26 @@ triangulate.component.form = {
 		
 		for(y=0; y<fields.length; y++){
 		
-			// tag attributes
-			var type = $(fields[y]).attr('data-type') || '';
-			var label = $(fields[y]).attr('data-label') || '';
-			var required = $(fields[y]).attr('data-required') || '';
-			var helper = $(fields[y]).attr('data-helper') || '';
-			var placeholder = $(fields[y]).attr('data-placeholder') || '';
-			var id = $(fields[y]).attr('data-id') || '';
-			var cssClass = $(fields[y]).attr('data-cssclass') || '';
-			var options = $(fields[y]).attr('data-options') || '';
+			// get type
+			var type = $(fields[y]).attr('data-type');
 			
-			// build mock element
-			html += triangulate.component.form.buildMock(type, label, id, required, helper, placeholder, cssClass, options)
-		  	
+			if(type != null){
+					
+				
+				// get attributes
+				var label = $(fields[y]).attr('data-label') || '';
+				var required = $(fields[y]).attr('data-required') || '';
+				var helper = $(fields[y]).attr('data-helper') || '';
+				var placeholder = $(fields[y]).attr('data-placeholder') || '';
+				var id = $(fields[y]).attr('data-id') || '';
+				var cssClass = $(fields[y]).attr('data-cssclass') || '';
+				var options = $(fields[y]).attr('data-options') || '';
+				
+				// build mock element
+				html += triangulate.component.form.buildMock(type, label, id, required, helper, placeholder, cssClass, options)
+	
+			}
+			  	
 		}
 		
 		html += '</div>';
@@ -458,7 +498,6 @@ triangulate.component.form = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-form';
 		attrs['data-cssclass'] = $(node).attr('class');
-		attrs['data-type'] = $(node).attr('type');
 		attrs['data-action'] = $(node).attr('action');
 		attrs['data-success'] = $(node).attr('success');
 		attrs['data-error'] = $(node).attr('error');
@@ -473,7 +512,7 @@ triangulate.component.form = {
 	generate:function(node){
 	
 		var fields = $(node).find('.field-list>div');
-		var html = '';
+		var html = '<div class="triangulate-form-fields">';
 		    
 		  
   		for(var y=0; y<fields.length; y++){
@@ -490,6 +529,8 @@ triangulate.component.form = {
   				field.attr('data-cssclass') || '', 
   				field.attr('data-options') || '');  				
   		}
+  		
+  		html += '</div>';
 	
 		// tag attributes
 		var attrs = [];

@@ -458,6 +458,27 @@ var utilities = {
 		var script = document.createElement("script");
 		script.setAttribute("src", src);
 		document.getElementsByTagName("head")[0].appendChild(script);
+	},
+	
+	// transforms a string to title case
+	toTitleCase:function(str){
+		
+		// remove special characters, replace hyphens with spaces
+		str = str.replace(/[^a-zA-Z 0-9]+/g,'').replace(/-/g, ' ');
+		
+		// capitalize first letter of each word
+		str = str.replace(/(?:^|\s)\w/g, function(match) {
+			 		return match.toUpperCase();
+			 	});
+			 	
+		// remove spaces
+		str = str.replace(/\s/g, '');
+		
+		// lowercase first letter
+		str = str.substring(0, 1).toLowerCase() + str.substring(1);
+		
+		return str;
+		
 	}
 }
 

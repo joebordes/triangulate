@@ -154,4 +154,29 @@ angular.module('triangulate.site.factories', [])
 	return user;
 	
 })
+
+// setup factory
+.factory('Form', function($http, $rootScope){
+	
+	var form = {};
+	
+	// submit form
+	form.submit = function(siteId, pageId, params, successCallback, failureCallback){
+	
+		params['siteId'] = siteId;
+		params['pageId'] = pageId;
+		
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post($rootScope.site.API + '/form', $.param(params))
+			.success(successCallback)
+			.error(failureCallback);
+			
+	}
+	
+	return form;
+	
+})
 ;

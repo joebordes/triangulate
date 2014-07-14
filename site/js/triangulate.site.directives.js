@@ -243,13 +243,14 @@ angular.module('triangulate.site.directives', [])
 })
 
 // form
-.directive('triangulateForm', function($rootScope){
+.directive('triangulateForm', function($rootScope, Form){
 	
 	return{
 		
 		restrict: 'E',
 		scope: {
 			id: '@',
+			cssClass: '@',
 			type: '@',
 			action: '@',
 			success: '@',
@@ -260,19 +261,73 @@ angular.module('triangulate.site.directives', [])
 		templateUrl: 'templates/triangulate/form.html',
 		link: function(scope, element, attr){
 		
-			scope.cssClass = 'triangulate-form';
+			// setup temporary model
+			scope.temp = {
+				firstName: ''
+			};
+		
+			// set loading
+			scope.showLoading = false;
+			scope.showSuccess = false;
+			scope.showError = false;		
 			
-			if(scope.type !== 'default'){
-				scope.cssClass = 'triangulate-custom';
+			// handles the form submission
+			scope.submitForm = function(temp){
+			
+				// get reference to fields
+				var el = $(element).find('.triangulate-form-fields');
+				
+				// get fields scope
+				var fscope = angular.element($(el)).scope();
+				
+				// holds the params from the form
+				var params = {};
+				
+				for(key in fscope.temp){
+				
+					// everything besides checkboxes should be strings
+					if(typeof(fscope.temp[key]) === 'string'){
+						params[key] = fscope.temp[key];
+					}
+					else{ // special handling for checkbox`	
+						var str = '';
+						var obj = fscope.temp[key]
+						
+						// build comma separated list of values
+						for(skey in obj){
+						
+							// the false value of the checkbox is blank ('')
+							if(obj[skey] != ''){
+								str += obj[skey] + ',';
+							}
+						
+						}
+						
+						// set to key, remove trailing comma
+						params[key] = str.replace(/,\s*$/, '');;
+					}
+				
+				}
+				
+				// log values
+				console.log('params');
+				console.log(params);
+				
+				// submit form
+				Form.submit($rootScope.site.SiteId, $rootScope.page.PageId, params, 
+					function(data){  // success
+						scope.showLoading = false;
+						scope.showSuccess = true;
+						scope.showError = false;
+						
+					},
+					function(){ // failure
+						scope.showLoading = false;
+						scope.showSuccess = false;
+						scope.showError = true;
+					});
+				
 			}
-			
-			// create form
-			new triangulate.Form({
-				el: 		$(element),
-				pageId: 	$rootScope.page.PageId,
-				siteId: 	$rootScope.site.SiteId,
-				api: 		$rootScope.site.API
-			});
 			
 		}
 		
@@ -380,7 +435,7 @@ angular.module('triangulate.site.directives', [])
 })
 
 // registration
-.directive('triangulateRegistration', function($rootScope, User, Site){
+.directive('triangulateRegistration', function($rootScope, User){
 	
 	return{
 		
@@ -405,7 +460,6 @@ angular.module('triangulate.site.directives', [])
 				Password: ''
 			}
 			
-			
 			// set loading
 			scope.showLoading = false;
 			scope.showSuccess = false;
@@ -420,11 +474,8 @@ angular.module('triangulate.site.directives', [])
 				scope.showSuccess = false;
 				scope.showError = false;
 				
-				// get site information
-				var site = Site.retrieve();
-				
 				// login user
-				User.add(user, site.SiteId,
+				User.add(user, $rootScope.site.SiteId,
 					function(data){		// success
 						
 						// set status
