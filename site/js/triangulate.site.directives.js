@@ -1,7 +1,7 @@
 angular.module('triangulate.site.directives', [])
 
 // menu
-.directive('triangulateMenu', function(Menu){
+.directive('triangulateMenu', function($rootScope, Menu){
 	
 	return{
 		
@@ -12,8 +12,10 @@ angular.module('triangulate.site.directives', [])
 		replace: true,
 		templateUrl: 'templates/triangulate/menu.html',
 		link: function(scope, element, attr){
+		
+			scope.currentPageId = $rootScope.page.PageId;
 			
-			Menu.list(function(data){
+			Menu.list(scope.type, function(data){
 			
 				console.log('[triangulate.debug] Menu.list');
 				console.log(data);
@@ -309,10 +311,6 @@ angular.module('triangulate.site.directives', [])
 				
 				}
 				
-				// log values
-				console.log('params');
-				console.log(params);
-				
 				// submit form
 				Form.submit($rootScope.site.SiteId, $rootScope.page.PageId, params, 
 					function(data){  // success
@@ -387,7 +385,7 @@ angular.module('triangulate.site.directives', [])
 		link: function(scope, element, attr){
 		 
 			// setup user
-			scope.user = {
+			scope.toLogin = {
 				Email: '',
 				Password: ''
 			}
@@ -397,8 +395,16 @@ angular.module('triangulate.site.directives', [])
 			scope.showSuccess = false;
 			scope.showError = false;
 			
+			// handle logged in user
+			scope.loggedIn = false;
+			scope.user = User.retrieve();
+			
+			if(scope.user != null){
+				scope.loggedIn = true;
+			}
+			
 			// login user
-			scope.login = function(user){
+			scope.login = function(toLogin){
 				
 				// set status
 				scope.loading = true;
@@ -406,10 +412,15 @@ angular.module('triangulate.site.directives', [])
 				scope.showError = false;
 				
 				// login user
-				User.login(user.Email, user.Password, 
+				User.login(toLogin.Email, toLogin.Password, 
 					function(data){		// success
+					
+						// set logged in user
+						scope.user = User.retrieve();
 						
-						console.log(data);
+						if(scope.user != null){
+							scope.loggedIn = true;
+						}
 						
 						// set status
 						scope.showLoading = false;
@@ -424,7 +435,16 @@ angular.module('triangulate.site.directives', [])
 						scope.showLoading = false;
 						scope.showSuccess = false;
 						scope.showError = true;
+						
 					});
+				
+			}
+			
+			// logout user
+			scope.logout = function(){
+				
+				User.logout();
+				scope.loggedIn = false;
 				
 			}
 			
@@ -482,8 +502,6 @@ angular.module('triangulate.site.directives', [])
 						scope.showLoading = false;
 						scope.showError = false;
 						scope.showSuccess = true;
-						
-						
 					},
 					function(){		// failure
 					
@@ -503,7 +521,7 @@ angular.module('triangulate.site.directives', [])
 })
 
 // welcome
-.directive('triangulateWelcome', function($rootScope){
+.directive('triangulateWelcome', function(User){
 	
 	return{
 		
@@ -512,10 +530,17 @@ angular.module('triangulate.site.directives', [])
 		templateUrl: 'templates/triangulate/welcome.html',
 		link: function(scope, element, attr){
 	
-			scope.user = $rootScope.user;
+			scope.loggedIn = false;
+			scope.user = User.retrieve();
 			
+			if(scope.user != null){
+				scope.loggedIn = true;
+			}
+			
+			// logs a user out
 			scope.logout = function(){
-				alert('logout!');
+				User.logout();
+				scope.loggedIn = false;
 			}
 			
 		}

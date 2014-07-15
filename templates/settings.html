@@ -20,8 +20,9 @@
    
 	<ul class="segmented-control">
 		<li class="active" data-target="#section-site"><a>{{'Site'}}</a></li>
+		<li data-target="#section-display"><a>{{'Display'}}</a></li>
 		<li data-target="#section-payments"><a>{{'Payments'}}</a></li>
-		<li data-target="#section-forms"><a>{{'Advanced'}}</a></li>
+		<li data-target="#section-advanced"><a>{{'Advanced'}}</a></li>
 	</ul>
 	<!-- /.segmented-control -->
 	
@@ -30,7 +31,7 @@
 		<div id="section-site">
 	
 			<div class="form-group">
-				<label for="name" class="control-label">{{'Site Name:'}}</label>
+				<label for="name" class="control-label">{{'Site Name'}}</label>
 				<div>
 					<input id="name" type="text" 
 						ng-model="site.Name"
@@ -39,7 +40,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="domain" class="control-label">{{'Domain:'}}</label>
+				<label for="domain" class="control-label">{{'Domain'}}</label>
 				<div>
 					<input id="domain" type="text"  
 						ng-model="site.Domain"
@@ -49,7 +50,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="primaryEmail" class="control-label">{{'Primary Email:'}}</label>
+				<label for="primaryEmail" class="control-label">{{'Primary Email'}}</label>
 				<div>
 					<input id="primaryEmail" type="text" 
 						ng-model="site.PrimaryEmail"
@@ -59,7 +60,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="timeZone" class="control-label">{{'Time Zone:'}}</label>
+				<label for="timeZone" class="control-label">{{'Time Zone'}}</label>
 				<div>
 					<select id="timeZone" 
 						ng-model="site.TimeZone"
@@ -159,7 +160,19 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="language" class="control-label">{{'Default Language:'}}</label>
+				<label for="payPalId" class="control-label">{{'Enable Multiple Languages'}}</label>
+				<div>
+					<select id="hasPayments" 
+						ng-model="site.IsMultilingual"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="language" class="control-label">{{'Default Language'}}</label>
 				<div>
 					<select id="language-select" 
 						ng-model="site.Language"
@@ -338,11 +351,40 @@
 		
 		</div>	
 		<!-- /.section-site -->
+		
+		<div id="section-display" class="hidden">
+		
+			<div class="form-group">
+				<label for="showCart" class="control-label">{{'Show Cart'}}</label>
+				<div>
+					<select id="showCart" 
+						ng-model="site.ShowCart"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label for="showSettings" class="control-label">{{'Show Settings'}}</label>
+				<div>
+					<select id="showSettings" 
+						ng-model="site.ShowSettings"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+			
+		</div>	
+		<!-- /.section-display -->
 
 		<div id="section-payments" class="hidden">
 		
 			<div class="form-group">
-				<label for="payPalId" class="control-label">{{'PayPal ID:'}}</label>
+				<label for="payPalId" class="control-label">{{'PayPal ID'}}</label>
 				<div>
 					<input id="payPalId" type="text"
 						ng-model="site.PayPalId"
@@ -351,7 +393,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing):'}}</label>
+				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing)'}}</label>
 				<div>
 					<select id="payPalUseSandbox" 
 						ng-model="site.PayPalUseSandbox"
@@ -363,7 +405,7 @@
 			</div>
 		
 			<div class="form-group">
-				<label for="currency" class="control-label">{{'Currency:'}}</label>
+				<label for="currency" class="control-label">{{'Currency'}}</label>
 				<div>
 					<select id="currency" class="form-control" 
 							ng-model="site.Currency"
@@ -373,7 +415,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="weightUnit" class="control-label">{{'Weight Unit:'}}</label>
+				<label for="weightUnit" class="control-label">{{'Weight Unit'}}</label>
 				<div>
 					<select id="weightUnit" 
 						ng-model="site.WeightUnit"
@@ -386,7 +428,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="taxRate" class="control-label">{{'Tax Rate:'}}</label>
+				<label for="taxRate" class="control-label">{{'Tax Rate'}}</label>
 				<div>
 					<input id="taxRate" type="text" 
 						ng-model="site.TaxRate"
@@ -395,7 +437,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="shippingCalculation" class="control-label">{{'Shipping Calculation:'}}</label>
+				<label for="shippingCalculation" class="control-label">{{'Shipping Calculation'}}</label>
 				<div>
 					<select id="shippingCalculation" 
 						ng-model="site.ShippingCalculation"
@@ -410,7 +452,7 @@
 			
 			<div class="form-group" 
 				ng-show="(site.ShippingCalculation==='flat-rate')">
-				<label for="shippingRate" class="control-label">{{'Shipping Rate:'}}</label>
+				<label for="shippingRate" class="control-label">{{'Shipping Rate'}}</label>
 			    <div class="input-group">
 				 	<input id="shippingRate" type="text"
 				 		ng-model="site.ShippingRate"
@@ -471,9 +513,9 @@
 					<col width="33.3%">
 					<thead>
 						<tr>
-							<th>From <small>({{site.Currency}})</small></th>
-							<th>To <small>({{site.Currency}})</small></th>
-							<th>Rate <small>({{site.Currency}})</small></th>
+							<th>{{'From'}} <small>({{site.Currency}})</small></th>
+							<th>{{'To'}} <small>({{site.Currency}})</small></th>
+							<th>{{'Rate'}} <small>({{site.Currency}})</small></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -509,28 +551,28 @@
 		</div>	
 		<!-- /.section-payments -->
 		
-		<div id="section-forms" class="hidden">
+		<div id="section-advanced" class="hidden">
 			
 			<div class="form-group">
-				<label for="formPublicId" class="control-label">{{'reCaptcha Public ID:'}}</label>
+				<label for="formPublicId" class="control-label">{{'reCaptcha Public ID'}}</label>
 				<div>
 					<input id="formPublicId" type="text" 
 						ng-model="site.FormPublicId"
 						class="form-control">
-					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms, create here:'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID:'}}</label>
+				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID'}}</label>
 				<div>
 					<input id="formPrivateId" type="text" 
 						ng-model="site.FormPrivateId" class="form-control">
-					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here:'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			
 		</div>	
-		<!-- /.section-social -->
+		<!-- /.section-advanced -->
 		
     </form>
     <!-- /.form-horizontal -->

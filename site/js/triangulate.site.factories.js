@@ -49,10 +49,10 @@ angular.module('triangulate.site.factories', [])
 	var menu = {};
 	
 	// retrieve languages
-	menu.list = function(callback){
+	menu.list = function(type, callback){
 	
-		// post to API
-		$http.get('data/menu.json')
+		// list menu by type
+		$http.get('data/menu-' + type + '.json')
 			.success(callback);
 	}
 	
@@ -98,9 +98,13 @@ angular.module('triangulate.site.factories', [])
 	// retrieves a user
 	user.retrieve = function(){
 	
-		var user = JSON.parse($window.sessionStorage.user);
-		
-		return user;
+		if($window.sessionStorage.user){
+			return JSON.parse($window.sessionStorage.user);
+		}
+		else{
+			return null;
+		}
+
 	}
 	
 	// login API call
@@ -128,6 +132,13 @@ angular.module('triangulate.site.factories', [])
 			})
 			.error(failureCallback);
 					
+	}
+	
+	// logs out a user
+	user.logout = function(){
+		
+		$window.sessionStorage.user = null;
+		
 	}
 	
 	// add a user

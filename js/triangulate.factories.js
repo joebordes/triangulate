@@ -124,6 +124,8 @@ angular.module('triangulate.factories', [])
 			timeZone: site.TimeZone,
 			language: site.Language,
 			currency: site.Currency,
+			showCart: site.ShowCart,
+			showSettings: site.ShowSettings,
 			weightUnit: site.WeightUnit,
 			shippingCalculation: site.ShippingCalculation,
 			shippingRate: site.ShippingRate,

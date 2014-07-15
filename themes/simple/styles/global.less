@@ -3,10 +3,6 @@
 @import url("calendar.css");
 @import url("cart.css");
 
-body{
-	background-color: #f8f8f8 !important;
-}
-
 h1, h2, h3, p, blockquote{
 	margin-bottom: 25px;
 }
@@ -242,18 +238,18 @@ div.map-container{
 		height: 25px;
 	}
 	
-	.settings ul.respond-select-language{
+	.settings ul.select-language{
 		display: inline-block;
   		margin: 0 0 0 15px;
   		padding: 0;
 	}
 	
-	.settings ul.respond-select-language li{
+	.settings ul.select-language li{
 		display: inline-block;
 		margin: 0 0 0 5px;
 	}
 
-	.settings ul.respond-select-language li a{
+	.settings ul.select-language li a{
 		display: inline-block;
 		cursor: pointer;
 	}
@@ -294,16 +290,32 @@ div.map-container{
 		.show-settings .settings-toggle i{
 			color: #fff;
 		}
+		
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 /* login, registration look and feel */
-.respond-login, .respond-registration{
+.triangulate-login, .triangulate-registration{
 	border: 1px solid #ddd;
   	border-radius: 20px;
   	padding: 25px;
   	max-width: 500px;
 }
 
-  .respond-login button, .respond-registration button{
+  .triangulate-login button, .triangulate-registration button{
       margin-top: 15px;
   }
 
@@ -335,20 +347,4 @@ div.map-container{
       	max-width: 1170px;
   	}
 
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
-}
- 
-.video-container iframe,
-.video-container object,
-.video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
