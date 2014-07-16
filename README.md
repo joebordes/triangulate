@@ -120,6 +120,12 @@ View our documentation at: http://triangulate.io/#/page/documentation (coming so
 	
 	// clone Triangulate repository
 	git clone https://github.com/madoublet/triangulate-php-apache-api .
+	
+	// install composer
+	curl -s http://getcomposer.org/installer | php
+	
+	// install dependencies
+	php composer.phar install
 ```
 
 ###### 2. Update database connection parameters and set paths and URLs in setup.php
