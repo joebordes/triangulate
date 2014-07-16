@@ -121,12 +121,27 @@ angular.module('triangulate.controllers', [])
 	
 	console.log($scope.User);
 	
-	// get menu json
+	// publishes a site
 	$scope.republish = function(){
 		
 		message.showMessage('progress');
 		
 		Site.publish(
+			function(){  // success
+				message.showMessage('success');
+			},
+			function(){  // failure
+				message.showMessage('error');
+			});
+		
+	}
+	
+	// deploys the site
+	$scope.deploy = function(){
+		
+		message.showMessage('progress');
+		
+		Site.deploy(
 			function(){  // success
 				message.showMessage('success');
 			},

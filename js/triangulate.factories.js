@@ -113,6 +113,15 @@ angular.module('triangulate.factories', [])
 			.error(failureCallback);
 	}
 	
+	// deploys a site
+	site.deploy = function(successCallback, failureCallback){
+		
+		// API call
+		$http.get(Setup.api + '/site/deploy')
+			.success(successCallback)
+			.error(failureCallback);
+	}
+	
 	// saves settings for the site
 	site.save = function(site, successCallback, failureCallback){
 			
