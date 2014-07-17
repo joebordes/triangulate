@@ -1,0 +1,130 @@
+<section class="main">
+
+    <nav>
+        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+        
+        <div class="fs-container full">
+    
+			<div class="fs">
+    
+		        <ul>
+		            <li
+		            	ng-repeat="l in locales"
+		            	ng-class="{'active': (l == locale), 'has-action': (l == locale)}">
+		             	<a ng-click="setLocale(l)">{{l}}</a>
+		             	<i ng-click="showRemoveLocale(l)" class="fa fa-minus-circle fa-lg"></i>
+		             </li>
+		            <li class="add">
+		            	<i 
+		            		ng-click="showAddLocale()"
+		            		class="fa fa-plus-circle"></i>
+		            </li>
+		        </ul>
+        
+			</div>
+			<!-- /.fs -->
+        
+        </div>
+        <!-- /.fs-container -->
+        
+    </nav>
+   
+    	<div class="codemirror-block">
+	    	<ui-codemirror ng-model="content" ui-codemirror-opts="editorOptions"></ui-codemirror>
+    	</div>
+    
+    <div class="actions">
+        <button class="primary-button" type="button"
+        	ng-click="publish()">{{'Publish'}}</button>
+    </div>
+</section>
+<!-- /.main -->
+
+<div class="modal fade" id="addDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Add Translation'}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<form id="addStylesheetForm">
+
+			<div class="modal-body">
+			
+			<div class="form-group">
+				<label for="name">{{'Locale Code:'}}</label>
+				<input id="name" type="text" 
+					ng-model="temp"
+					class="form-control" required="required">
+				<span class="help-block">{{'e.g. en, en-us, de, fr'}}</span>
+			</div>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="primary-button"
+					ng-click="addLocale(temp)"
+					ng-disabled="addStylesheetForm.$invalid || isUnchanged(temp)">{{'Add'}}</button>
+			</div>
+			<!-- /.modal-footer -->
+			
+			</form>
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="removeDialog">
+
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>{{'Remove Locale'}}</h3>
+			</div>
+			<!-- /.modal-header -->
+			
+			<div class="modal-body">
+			
+			<p>
+				{{'Confirm that you want to delete'}} <strong>{{temp}}</strong>
+			</p>
+			
+			</div>
+			<!-- /.modal-body -->
+			
+			<div class="modal-footer">
+				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="primary-button"
+					ng-click="removeLocale(temp)">{{'Remove'}}</button>
+			</div>
+			<!-- /.modal-footer -->
+		
+		</div>
+		<!-- /.modal-content -->
+		
+	</div>
+	<!-- /.modal-dialog -->
+
+  </div>
+  <!-- /.modal-body -->
+
+</div>
+<!-- /.modal -->

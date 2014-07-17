@@ -1569,12 +1569,49 @@ angular.module('triangulate.factories', [])
 	
 	var translation = {};
 	translation.data = [];
+	translation.locales = [];
 	
-	// retrieve default translation for site
-	translation.retrieve = function(callback){
+	// retrieve locales for site
+	translation.listLocales = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/translation/retrieve')
+		$http.get(Setup.api + '/translation/list/locales')
+			.then(function(res){
+			
+				// set data for factory
+				translation.locales = res.data;
+				return translation.locales;
+				
+			})
+			.then(callback);
+	}
+	
+	// retrieve translation for language, site
+	translation.retrieve = function(locale, callback){
+	
+		// set params
+		var params = {
+				locale: locale
+			};
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/translation/retrieve', $.param(params))
+			.then(function(res){
+				// set data for factory
+				translation.data = res.data;
+				return translation.data;
+			})
+			.then(callback);
+	}
+	
+	// retrieve default translation for site
+	translation.retrieveDefault = function(callback){
+	
+		// post to API
+		$http.post(Setup.api + '/translation/retrieve/default')
 			.then(function(res){
 				// set data for factory
 				translation.data = res.data;
@@ -1603,14 +1640,74 @@ angular.module('triangulate.factories', [])
 		translation.data[pageId][key] = value;	
 	}
 	
+	// adds a locale
+	translation.addLocale = function(locale, callback){
+	
+		// set params
+		var params = {locale: locale};
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/translation/add/locale', $.param(params))
+			.then(function(res){
+				
+				// push locale to factory
+				translation.locales.push(locale);
+				
+			})
+			.then(callback);
+	}
+	
+	// removes a locale
+	translation.removeLocale = function(locale, callback){
+	
+		// set params
+		var params = {locale: locale};
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/translation/remove/locale', $.param(params))
+			.then(function(res){
+				
+				// push locale to factory
+				var index = translation.locales.indexOf(locale);
+				
+				// remove from index
+				if(index > -1){
+				    translation.locales.splice(index, 1);
+				}
+				
+			})
+			.then(callback);
+	}
+	
 	// saves a translation
 	translation.save = function(callback){
 		
 		// stringify the translation object
-		var content = JSON.stringify(translation.data);
+		var content = JSON.stringify(translation.data, null, "\t");
 		
 		// set params
 		var params = {content: content};
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/translation/save', $.param(params))
+			.success(callback);
+		
+	}
+	
+	// publishes a translation
+	translation.publish = function(locale, content, callback){
+		
+		// set params
+		var params = {locale: locale, content: content};
 			
 		// set post to URL Encoded
 		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';

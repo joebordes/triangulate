@@ -568,7 +568,7 @@ body.content{
 		display: block;
 	}
 	
-	.content .context-text-events a{
+	.content .context-text-events .context-block a{
 		display: inline-block;
 		position: relative;
 		width: 35px; 
@@ -588,7 +588,7 @@ body.content{
 		padding-bottom: 10px;
 	}
 	
-	.content .context-text-events a:hover{
+	.content .context-text-events .context-block  a:hover{
 		background-color: #ddd;
 	}
 	

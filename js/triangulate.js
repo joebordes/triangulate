@@ -175,6 +175,16 @@ angular.module('triangulate', ['ui.router',
 		      controller: 'ScriptsCtrl'
 		    }
 		  }
+		})
+		
+		.state('app.translations', {
+		  url: "/translations",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/translations.html",
+		      controller: 'TranslationsCtrl'
+		    }
+		  }
 		});
 	
 	// if none of the above states are matched, use this as the fallback
