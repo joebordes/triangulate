@@ -1574,8 +1574,11 @@ angular.module('triangulate.factories', [])
 	// retrieve locales for site
 	translation.listLocales = function(callback){
 	
+		// set params
+		var params = {};
+	
 		// post to API
-		$http.get(Setup.api + '/translation/list/locales')
+		$http.post(Setup.api + '/translation/list/locales', $.param(params))
 			.then(function(res){
 			
 				// set data for factory

@@ -25,6 +25,12 @@ body{
     	font-family: "Roboto", sans-serif;
     	font-weight: 700;
     }
+    
+    body .alert{
+	    border-radius: 0;
+	    padding: 10px 10px;
+	    font-size: 13px;
+    }
 
 a, a:hover{
 	cursor: pointer;

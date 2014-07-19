@@ -9,7 +9,7 @@ angular.module('triangulate.site.factories', [])
 	site.retrieve = function(callback){
 	
 		// post to API
-		$http.get('data/site.json')
+		$http.get('data/site.json', {cache:true})
 			.success(callback);
 	}
 	
@@ -172,9 +172,9 @@ angular.module('triangulate.site.factories', [])
 	var form = {};
 	
 	// submit form
-	form.submit = function(siteId, pageId, params, successCallback, failureCallback){
+	form.submit = function(pageId, params, successCallback, failureCallback){
 	
-		params['siteId'] = siteId;
+		params['siteId'] = $rootScope.site.SiteId;
 		params['pageId'] = pageId;
 		
 		// set post to URL Encoded
@@ -188,6 +188,102 @@ angular.module('triangulate.site.factories', [])
 	}
 	
 	return form;
+	
+})
+
+// setup factory
+.factory('Translation', function($http, $rootScope){
+	
+	var translation = {};
+	translation.locales = [];
+	
+	// searches translations for a given term
+	translation.search = function(term, locale, callback){
+	
+		// set params
+		var params = {
+				siteId: $rootScope.site.SiteId,
+				locale: locale
+			};
+			
+		console.log('search params');
+		console.log(params);
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post($rootScope.site.API + '/translation/retrieve', $.param(params))
+			.then(function(res){
+			
+				// retrieve translations from the api
+				var data = res.data;
+				
+				// holds pages to be returned
+				var pages = [];
+				
+				// top level
+				for(x in data){
+				
+					// pages are stored in objects
+					if(typeof(data[x]) == 'object'){
+					
+						// this is what will be returned
+						var page = {
+							PageId: x,
+							Name: data[x]['name'],
+							Url: data[x]['url'],
+							Description: data[x]['description']
+						}
+						
+						// walk through data[x]
+						for(y in data[x]){
+						
+							var text = data[x][y].toLowerCase();
+						
+							// searh for the term
+							if(text.search(new RegExp(term.toLowerCase(), 'i')) != -1){
+								
+								// push found pages
+								pages.push(page);
+								
+								break;
+									
+							}
+			
+						}
+						
+					}
+				
+					
+				}
+				
+				return pages;
+				
+			})
+			.then(callback);
+	}
+	
+	// retrieve locales for site
+	translation.listLocales = function(callback){
+	
+		// set params
+		var params = {
+			siteId: $rootScope.site.SiteId};
+	
+		// post to API
+		$http.post($rootScope.site.API + '/translation/list/locales', $.param(params))
+			.then(function(res){
+			
+				// set data for factory
+				translation.locales = res.data;
+				return res.data;
+				
+			})
+			.then(callback);
+	}
+	
+	return translation;
 	
 })
 ;

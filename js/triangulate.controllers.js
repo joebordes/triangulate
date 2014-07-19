@@ -2088,6 +2088,7 @@ angular.module('triangulate.controllers', [])
 	$scope.setup = Setup;
 	$scope.loading = true;
 	$scope.content = '';
+	$scope.showError = false;
 	
 	// set code mirror options
 	$scope.editorOptions = {
@@ -2176,9 +2177,28 @@ angular.module('triangulate.controllers', [])
 		
 		message.showMessage('progress');
 		
-		Translation.publish($scope.locale, $scope.content, function(){
-			message.showMessage('success');
-		});
+		var isvalid = false;
+		
+		// validate json
+		try {
+	        JSON.parse($scope.content);
+	        
+	        isvalid = true;
+	    } catch (e) {
+	        isvalid = false;
+	    }
+		
+		// publish if valide
+		if(isvalid){
+			Translation.publish($scope.locale, $scope.content, function(){
+				message.showMessage('success');
+				$scope.showError = false;
+			});
+		}
+		else{
+			message.showMessage('error');
+			$scope.showError = true;
+		}
 		
 	}
 	

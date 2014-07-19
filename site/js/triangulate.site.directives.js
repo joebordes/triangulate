@@ -29,6 +29,53 @@ angular.module('triangulate.site.directives', [])
 	
 })
 
+// search
+.directive('triangulateSearch', function($rootScope, $i18next, Translation){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {
+			type: '@'
+		},
+		replace: true,
+		templateUrl: 'templates/triangulate/search.html',
+		link: function(scope, element, attr){
+		
+			scope.currentPageId = $rootScope.page.PageId;
+			scope.term = '';
+			scope.showResults = false;
+			scope.searching = false;
+			scope.noResults = false;
+			
+			// searches the translation files for the term, returns pages that have them
+			scope.search = function(){
+			
+				scope.showResults = true;
+				scope.searching = true;
+			
+				var locale = $i18next.options.lng;
+				
+				// clear out results
+				scope.results = [];
+				
+				// search translations for the string
+				Translation.search(scope.term, locale, function(data){
+					
+					scope.searching = false;
+					scope.results = data;
+					
+				});
+				
+				return false;
+				
+			}
+		}
+		
+	}
+	
+})
+
 // map
 .directive('triangulateMap', function(Menu){
 	
@@ -312,7 +359,7 @@ angular.module('triangulate.site.directives', [])
 				}
 				
 				// submit form
-				Form.submit($rootScope.site.SiteId, $rootScope.page.PageId, params, 
+				Form.submit($rootScope.page.PageId, params, 
 					function(data){  // success
 						scope.showLoading = false;
 						scope.showSuccess = true;
@@ -543,6 +590,41 @@ angular.module('triangulate.site.directives', [])
 				scope.loggedIn = false;
 			}
 			
+		}
+		
+	}
+	
+})
+
+// welcome
+.directive('triangulateSelectLanguage', function(User, Translation, $i18next){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {},
+		templateUrl: 'templates/triangulate/select-language.html',
+		link: function(scope, element, attr){
+		
+			scope.language = $i18next.options.lng;
+			
+			// list locales for the site
+			Translation.listLocales(function(data){
+				
+				scope.locales = data;
+				
+				console.log('[triangulate.debug] Translation.listLocales');
+				console.log(scope.locales);
+				
+			});
+			
+			// sets the language
+			scope.setLanguage = function(locale){
+				// set language to locale specified
+				$i18next.options.lng =  locale;
+				
+				scope.language = locale;
+			}
 		}
 		
 	}

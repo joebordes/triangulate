@@ -39,10 +39,18 @@ angular.module('triangulate.site', dependencies)
   	
 })
 
-.run(function($rootScope, $i18next) {
+.run(function($rootScope, $i18next, Site) {
 	
 	// init user
 	$rootScope.user = null;
+	
+	// init site
+	Site.retrieve(function(data){
+	
+		// set site to $scope and $rootScope
+		$rootScope.site = data;
+		
+	});
 	
 });
 

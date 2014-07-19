@@ -64,16 +64,8 @@ angular.module('triangulate.site.controllers', [])
 	// set page to $scope and $rootScope
 	$scope.page = page
 	$rootScope.page = page;
+	$scope.site = $rootScope.site;
 		
-	// retrieve site
-	Site.retrieve(function(data){
-	
-		// set site to $scope and $rootScope
-		$scope.site = data;
-		$rootScope.site = data;
-		
-	});
-	
 	// toggle settings
 	$scope.toggleSettings = function(){
 		$('body').toggleClass('show-settings');
