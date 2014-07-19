@@ -15,7 +15,9 @@ angular.module('triangulate.factories', [])
 		responseError:function(rejection){
 			
 			if(rejection.status === 401){
-				// handle the case where the user is not authenticated
+				
+				// if a request is not authorized, set token to null and logout
+				$window.sessionStorage.token = null;
 				$location.path('login');
 			}
 			
@@ -696,6 +698,36 @@ angular.module('triangulate.factories', [])
 	
 		// post to API
 		$http.post(Setup.api + '/page/content/save', $.param(params))
+			.success(callback);
+		
+	}
+	
+	// retrieve content
+	page.retrieveContent = function(pageId, callback){
+		
+		// set params
+		var params = {pageId: pageId};
+			
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/page/content/retrieve', $.param(params))
+			.success(callback);
+		
+	}
+	
+	// reverts a draft
+	page.revertDraft = function(pageId, callback){
+		
+		// set params
+		var params = {pageId: pageId};
+		
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/page/content/revert', $.param(params))
 			.success(callback);
 		
 	}
@@ -1418,7 +1450,7 @@ angular.module('triangulate.factories', [])
 	editor.list = function(callback){
 	
 		// post to API
-		$http.get('data/editor.json?')
+		$http.get('data/editor.json', {cache:true})
 			.success(callback);
 	}
 	
@@ -1435,7 +1467,7 @@ angular.module('triangulate.factories', [])
 	language.list = function(callback){
 	
 		// post to API
-		$http.get('data/languages.json')
+		$http.get('data/languages.json', {cache:true})
 			.success(callback);
 	}
 	
@@ -1452,7 +1484,7 @@ angular.module('triangulate.factories', [])
 	currency.list = function(callback){
 	
 		// post to API
-		$http.get('data/currencies.json')
+		$http.get('data/currencies.json', {cache:true})
 			.success(callback);
 	}
 	
@@ -1493,7 +1525,7 @@ angular.module('triangulate.factories', [])
 	icon.list = function(callback){
 	
 		// post to API
-		$http.get('data/icons.json')
+		$http.get('data/icons.json', {cache:true})
 			.success(callback);
 	}
 	

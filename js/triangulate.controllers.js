@@ -515,6 +515,7 @@ angular.module('triangulate.controllers', [])
 		// save content for the page
 		Page.saveContent($scope.pageId, content, image, 'publish', function(){
 			message.showMessage('success');
+			$scope.page.HasDraft = false;
 		});
 		
 		// save settings for the page
@@ -556,16 +557,49 @@ angular.module('triangulate.controllers', [])
 		});
 	}
 	
-	// save
-	$scope.save = function(){
+	// saves a draft
+	$scope.saveDraft = function(){
 	
 		var editor = $('#triangulate-editor');
 		
 		// get the content and image from the editor
-		var content = triangulate.editor.GetContent(editor);
-		var image = triangulate.editor.GetPrimaryImage(editor);
+		var content = triangulate.editor.getContent(editor, Setup.api);
+		var image = triangulate.editor.getPrimaryImage(editor);
 		
-		Page.saveContent($scope.pageId, content, image, 'draft', function(data){});
+		message.showMessage('progress');
+		
+		Page.saveContent($scope.pageId, content, image, 'draft', function(data){
+			message.showMessage('success');
+			$scope.page.HasDraft = true;
+		});
+		
+	}
+	
+	// reverts a draft
+	$scope.revertDraft = function(){
+	
+		var editor = $('#triangulate-editor');
+			
+		message.showMessage('progress');
+		
+		// revert draft
+		Page.revertDraft($scope.pageId, function(data){
+			message.showMessage('success');
+			$scope.page.HasDraft = false;
+			
+			// retrieve current content
+			Page.retrieveContent($scope.pageId, function(data){
+				
+				// update editor
+				$(triangulate.editor.el).html(data);
+				
+				// refresh editor
+    			triangulate.editor.refresh();
+    			
+			});
+			
+			
+		});
 		
 	}
 	
