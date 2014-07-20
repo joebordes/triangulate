@@ -48,12 +48,22 @@ angular.module('triangulate.site.directives', [])
 			scope.searching = false;
 			scope.noResults = false;
 			
+			// hide search when the body is clicked
+			$('body').on('click', function(){
+			
+				// open up the dialog
+				$(element).removeClass('open');
+				
+			});
+			
 			// searches the translation files for the term, returns pages that have them
 			scope.search = function(){
 			
-				scope.showResults = true;
 				scope.searching = true;
-			
+				
+				// open up the dialog
+				$(element).addClass('open');
+				
 				var locale = $i18next.options.lng;
 				
 				// clear out results

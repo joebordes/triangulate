@@ -242,6 +242,8 @@
         	ng-show="page.CanPublish || page.CanEdit"
         	type="button">{{'Save Draft' | i18next}}</button>
         
+        <!-- {{page.HasDraft}} -->
+        
         <button class="secondary-button"
         	ng-click="revertDraft()"
         	ng-show="(page.CanPublish || page.CanEdit) && page.HasDraft"

@@ -1,4 +1,4 @@
-<section ng-show="site.ShowSettings" class="settings">
+<section ng-if="site.ShowSettings" class="settings">
 
 	<triangulate-welcome></triangulate-welcome>
 	
@@ -29,7 +29,7 @@
 			<triangulate-menu type="primary"></triangulate-menu>
           	<triangulate-search></triangulate-search>
           	<li ng-click="toggleSettings()"
-          		ng-show="site.ShowSettings"><a class="settings-toggle"><i class="fa fa-cog"></i></a></li>
+          		ng-if="site.ShowSettings"><a class="settings-toggle"><i class="fa fa-cog"></i></a></li>
 	    </ul>
         
 	  </div>
