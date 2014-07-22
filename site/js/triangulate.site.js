@@ -44,6 +44,16 @@ angular.module('triangulate.site', dependencies)
 	// init user
 	$rootScope.user = null;
 	
+	// get cart from sessionStorage
+	if(sessionStorage['triangulate-cart'] != null){
+		var str = sessionStorage['triangulate-cart'];
+
+		$rootScope.cart = eval(str);
+	}
+	else{
+		$rootScope.cart = [];
+	}
+	
 	// init site
 	Site.retrieve(function(data){
 	

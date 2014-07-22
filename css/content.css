@@ -654,6 +654,7 @@ body.content{
 		font-size: 11px;
 		padding-left: 80px;
 		color: #888;
+		text-transform: uppercase;
 	}
 
 	.content .context-menu .form-control{

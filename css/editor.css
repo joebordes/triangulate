@@ -403,21 +403,6 @@
 			background-color: #3299BB;
 			color: #fff;
 		}
-		
-		/* shelf-item, field-container */
-		.editor .shelf-item .expand-menu, 
-		.editor .field-container .expand-menu{
-			z-index: 98;
-			top: -1px;
-			right: -1px;
-		}
-		
-		.editor .block .col div .shelf-item:hover .expand-menu, 
-		.editor .block .col div .shelf-item .expand-menu.active,
-		.editor .block .col div .field-container:hover .expand-menu, 
-		.editor .block .col div .field-container .expand-menu.active{
-			display: block;
-		}
 	
 	.editor .element-menu{
 		background-color: #f8f8f8;
@@ -463,14 +448,11 @@
 				color: #B11623;
 			}
 		
-	/* shelf-item, form-group */
-	.editor .shelf-item, 
+	/* form-group */
 	.editor .field-container{
 		overflow: hidden;
 	}
 	
-	
-	.editor .shelf-item .element-menu,
 	.editor .field-container .element-menu{
 		z-index: 97;
 		top: -1px;
@@ -837,45 +819,55 @@
 		padding-top: 7px;
 	}
 	
-	.editor .block .shelf .shelf-item{
-		position: relative;
+	
+	/* triangulate-shelf */
+	.editor .block .triangulate-shelf span.editor-highlight{
+		display: inline-block;
+		width: 100%;
+		height: 30px;
 		margin: 0 40px 0 10px;
-		padding: 5px 10px;
+		padding: 20px;
+		margin: 0 0 5px 0;
+		border: 1px solid #f0f0f0;
+		border: 1px solid #fbec5d !important;
+		background: #fbec5d !important;
+		vertical-align: top;
+	} 
+	
+	.editor .shelf-item{
+		position: relative;
+		margin: 0 10px 0 10px;
+		padding: 0 10px;
 		cursor: pointer;
 		border: 1px solid #fff;
+		cursor: move;
 	}
 	
-	.editor .block .shelf .shelf-description{
-		display: block;
-		padding: 0 0 5px 0;
-		font-weight: bold;
-		font-size: 1.2em;
-		width: 80%;
-	}
-	
-		.editor .block .shelf .shelf-sku{
-			display: block;
-			padding: 0 0 5px 0;
-			font-size: 1.0em;
+		.editor .shelf-item i{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			display: inline-block;
+			line-height: 25px;
+			text-align: center;
+			width: 25px;
+			height: 25px;
+			background-color: #94D237;
+			color: #fff;
 		}
 	
-		.editor .block .shelf .shelf-price{
-			font-size: 1.1em;
-			display: block;
+		.editor .shelf-item h4{
+			margin: 0;
+			padding: 0 0 5px 35px;
 		}
 		
-		.editor .block .shelf .shelf-shipping{
-			text-transform: uppercase;
-			font-size: 0.9em;
-			color: #aaa;
+		.editor .shelf-item small{
+			display: block;
+			margin: 0;
+			padding: 0 0 5px 35px;
+			color: #888;
 		}
 		
-		.editor .block .col-md-3 .shelf-group1,
-		.editor .block .col-md-3 .shelf-group2,
-		.editor .block .col-md-3 .shelf-group3{
-			width: 100%;
-		}
-	
 	/* .triangulate-slideshow */
 	.editor .block .triangulate-slideshow{
 		padding: 0 0 20px 0 !important;	

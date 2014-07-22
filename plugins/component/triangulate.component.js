@@ -264,7 +264,7 @@ triangulate.component.form = {
 		// make parsed elements sortable
 		$(document).on('triangulate.editor.contentLoaded', function(){	
 			// make the elements sortable
-			$('.triangulate-form div').sortable({handle: '.mock-field', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
+			$('.triangulate-form>div').sortable({handle: '.mock-field', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
 			
 		});
 		
@@ -447,7 +447,7 @@ triangulate.component.form = {
 			 utilities.element('div', attrs, html)
 		);
 		
-		$('.triangulate-form div').sortable({handle: '.mock-field', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
+		$('.triangulate-form>div').sortable({handle: '.mock-field', placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
 	
 		return true;
 		
@@ -977,5 +977,181 @@ triangulate.component.registration = {
 	config:function(node, form){}
 	
 };
+
+// shelf component
+triangulate.component.shelf = {
+
+	// inits the shelf
+	init:function(){
+	
+		// adds a field
+		$(document).on('click', '.add-sku', function(){
+			
+			var node = $(triangulate.editor.currNode);
+			
+			// add temp shelf item
+			node.find('.shelf-items').append(
+				triangulate.component.shelf.buildMock('NEWSKU', 'New Product', '9.99', 'not shipped', '')
+			);
+			
+		});
+		
+		
+		// make parsed elements sortable
+		$(document).on('triangulate.editor.contentLoaded', function(){	
+		
+			// make the elements sortable
+			$('.triangulate-shelf>div').sortable({placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
+			
+		});
+		
+	},
+	
+	// builds a mock
+	buildMock:function(sku, name, price, shipping, weight){
+	
+		// create field
+  		var html = '<i class="fa fa-tag"></i><h4 element-text="name">' + name + '</h4>' +
+  					'<small><span element-text="sku">' + sku + '</span> - <span element-text="price">' + price + '</span></small>';
+		
+		// tag attributes
+		var attrs = [];
+		attrs['class'] = 'shelf-item triangulate-element';
+		attrs['data-sku'] = sku;
+		attrs['data-name'] = name;
+		attrs['data-price'] = price;
+		attrs['data-shipping'] = shipping;
+		attrs['data-weight'] = weight;
+		
+		// return element
+		return utilities.element('div', attrs, html);
+		
+	},
+	
+	// builds a shelf item
+	buildItem:function(sku, name, price, shipping, weight){
+	
+		var html = '';
+	
+		// tag attributes
+		var attrs = [];
+		attrs['sku'] = sku;
+		attrs['name'] = name;
+		attrs['price'] = price;
+		attrs['shipping'] = shipping;
+		attrs['weight'] = weight;
+		
+		// return element
+		return utilities.element('triangulate-shelf-item', attrs, html);
+	},
+
+	// creates shelf
+	create:function(){
+	
+		// generate uniqId
+		var id = triangulate.editor.generateUniqId('shelf', 'shelf');
+		
+		// build html
+		var html = triangulate.editor.defaults.elementMenu +
+					'<div class="shelf-items">' +
+					triangulate.component.shelf.buildMock('NEWSKU', 'New Product', '9.99', 'not shipped', '') +
+					'</div>';
+					
+		html += '<button type="button" class="add-field"><i class="fa fa-plus-circle"></i></button>';
+					
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = id;
+		attrs['data-id'] = id;
+		attrs['class'] = 'triangulate-shelf';
+		attrs['data-cssclass'] = '';
+		
+		// append element to the editor
+		triangulate.editor.append(
+			 utilities.element('div', attrs, html)
+		);
+		
+		$('.triangulate-shelf>div').sortable({placeholder: 'editor-highlight', opacity:'0.6', axis:'y'});
+	
+		return true;
+		
+	},
+	
+	// parse shelf
+	parse:function(node){
+	
+		// get params
+		var id = $(node).attr('id');
+		
+		// build html
+		var html = triangulate.editor.defaults.elementMenu + '<div class="shelf-items">';
+		
+		var items = $(node).find('triangulate-shelf-item');
+		
+		for(y=0; y<items.length; y++){
+					
+			// get attributes
+			var sku = $(items[y]).attr('sku') || '';
+			var name = $(items[y]).attr('name') || '';
+			var price = $(items[y]).attr('price') || '';
+			var shipping = $(items[y]).attr('shipping') || '';
+			var weight = $(items[y]).attr('weight') || '';
+			
+			// build mock element
+			html += triangulate.component.shelf.buildMock(sku, name, price, shipping, weight)
+
+		}
+		
+		html += '</div>';
+		
+		html += '<button type="button" class="add-sku"><i class="fa fa-plus-circle"></i></button>';
+					
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = id;
+		attrs['data-id'] = id;
+		attrs['class'] = 'triangulate-shelf';
+		attrs['data-cssclass'] = $(node).attr('class');
+		
+		// return element
+		return utilities.element('div', attrs, html);
+				
+	},
+	
+	// generate shelf
+	generate:function(node){
+	
+		var items = $(node).find('.shelf-items>div');
+		var html = '';
+		  
+  		for(var y=0; y<items.length; y++){
+  			item = $(items[y]);
+  			
+  			// build item
+  			html += triangulate.component.shelf.buildItem(
+  				item.attr('data-sku') || '', 
+  				item.attr('data-name') || '', 
+  				item.attr('data-price') || '', 
+  				item.attr('data-shipping') || '', 
+  				item.attr('data-weight') || '');
+  										
+  		}
+  	
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = $(node).attr('data-id');
+		attrs['class'] = $(node).attr('data-cssclass');
+		
+		// return element
+		return utilities.element('triangulate-shelf', attrs, html);
+		
+	},
+	
+	// config shelf
+	config:function(node, shelf){}
+	
+};
+
+triangulate.component.shelf.init();
 
 

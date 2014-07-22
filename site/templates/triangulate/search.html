@@ -1,15 +1,19 @@
-<li class="nav-search dropdown"> <!-- .open to show -->
-	<form class="triangulage-search" ng-submit="search()">
-      <div class="input-group">
-        <input type="text" 
-        	ng-model="term"
-        	class="form-control">
-        <button class="input-group-addon"><i class="fa fa-search"></i></button>
-      </div>  
-    </form>  
+<li class="triangulate-search dropdown"> <!-- .open to show -->
+	
+	<a class="dropdown-toggle cart-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
+	  
   	<ul class="dropdown-menu">
+  		<li>
+  			<form class="triangulage-search" ng-submit="search()">
+		      <div class="search-container">
+		        <input type="text" 
+		        	ng-model="term"
+		        	class="form-control">
+		        <button><i class="fa fa-search"></i></button>
+		      </div>  
+		    </form>
+  		</li>
 	  	<li class="searching" ng-if="searching"><i class="fa fa-spinner fa-spin"></i> {{'Searching...'}}</li>
-	  	
 	  	<li ng-repeat="result in results">
 		  	<h4><a ui-sref="{{result.Url}}" ng-i18next="{{result.PageId}}.name">{{result.Name}}</a></h4>
 		  	<small><a ui-sref="{{result.Url}}">{{result.Url}}</a></small>

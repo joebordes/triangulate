@@ -56,6 +56,10 @@ angular.module('triangulate.site.directives', [])
 				
 			});
 			
+			$('.dropdown-menu input, .dropdown-menu label').click(function(e) {
+		        e.stopPropagation();
+		    });
+			
 			// searches the translation files for the term, returns pages that have them
 			scope.search = function(){
 			
@@ -661,4 +665,356 @@ angular.module('triangulate.site.directives', [])
 	}
 	
 })
+
+// shelf
+.directive('triangulateShelf', function($rootScope, User){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {
+			id: '@'
+		},
+		transclude: true,
+		templateUrl: 'templates/triangulate/shelf.html',
+		link: function(scope, element, attr){
+						
+		}
+		
+	}
+	
+})
+
+// shelf item
+.directive('triangulateShelfItem', function($rootScope){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {
+			sku: '@',
+			name: '@',
+			price: '@',
+			shipping: '@',
+			weight: '@'
+		},
+		transclude: true,
+		replace: true,
+		templateUrl: 'templates/triangulate/shelf-item.html',
+		link: function(scope, element, attr){
+			
+			scope.currency = $rootScope.site.Currency;
+			scope.mark = '';
+			
+			// handle mark
+			if($rootScope.site.Currency == 'USD'){
+				scope.mark = '$';
+			}
+			else{
+				scope.mark = ' ';
+			}
+			
+			// handle add to cart
+			scope.addToCart = function(){
+			
+				// create item
+				var item = {
+					sku: scope.sku,
+					name: scope.name,
+					price: scope.price,
+					shipping: scope.shipping,
+					weight: scope.weight,
+					quantity: 1
+				};
+				
+				// has item
+				var newItem = true;
+				
+				// walkthrough quantity
+				for(x=0; x<$rootScope.cart.length; x++){
+					
+					// if it is a duplicate, increase the quantity
+					if($rootScope.cart[x].sku == scope.sku){
+						var quantity = $rootScope.cart[x].quantity;
+						$rootScope.cart[x].quantity = quantity + 1;
+						newItem = false;
+					}
+					
+				}
+				
+				// push item to the cart
+				if(newItem == true){
+					$rootScope.cart.push(item);
+				}
+				
+				// save cart to local storage
+				var json = JSON.stringify($rootScope.cart);
+				sessionStorage['triangulate-cart'] = json;
+			}
+						
+		}
+		
+	}
+	
+})
+
+// cart
+.directive('triangulateCart', function($rootScope, $i18next, Translation){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {
+			type: '@'
+		},
+		replace: true,
+		templateUrl: 'templates/triangulate/cart.html',
+		link: function(scope, element, attr){
+		
+			scope.currentPageId = $rootScope.page.PageId;
+			scope.cart = $rootScope.cart;
+			scope.currency = $rootScope.site.Currency;
+			scope.mark = '';
+			
+			// handle mark
+			if($rootScope.site.Currency == 'USD'){
+				scope.mark = '$';
+			}
+			else{
+				scope.mark = ' ';
+			}
+			
+			// hide search when the body is clicked
+			$('body').on('click', function(){
+			
+				// open up the dialog
+				$(element).removeClass('open');
+				
+			});
+			
+			// calculates the subtotal for the cart
+			scope.subTotal = function(){
+			
+				var st = 0;
+			
+				// subtotal the items in the cart
+				for(x=0; x<$rootScope.cart.length; x++){
+				
+					st = st + ($rootScope.cart[x].price * $rootScope.cart[x].quantity);
+				
+				}
+			
+				return st;
+			}
+			
+			// calculates the weight for the cart
+			scope.totalWeight = function(){
+			
+				var w = 0;
+			
+				// subtotal the items in the cart
+				for(x=0; x<$rootScope.cart.length; x++){
+				
+					if($rootScope.cart[x].weight != null && $rootScope.cart[x].weight != undefined){
+						w = w + ($rootScope.cart[x].weight * $rootScope.cart[x].quantity);
+					}
+				
+				}
+			
+				return w;
+			}
+			
+			// calculates the tax for the cart
+			scope.tax = function(){
+				return scope.subTotal() * $rootScope.site.TaxRate;
+			}
+			
+			// get the number of items that are shipped
+			scope.countShipped = function(){
+				
+				var count = 0;
+			
+				// walk through cart
+				for(x=0; x<$rootScope.cart.length; x++){
+				
+					//console.log($rootScope.cart[x].shipping);
+				
+					if($.trim($rootScope.cart[x].shipping) == 'shipped'){
+						count = count + $rootScope.cart[x].quantity;
+						
+					}
+				
+				}
+			
+				return count;
+				
+			}
+			
+			// calculates shipping for the cart
+			scope.shipping = function(){
+			
+				// set default stop
+				var stop = 0;
+				
+				// get subtotal and weight
+				var subTotal = scope.subTotal();
+				var totalWeight = scope.totalWeight();
+				var countShipped = scope.countShipped();
+				
+				//console.log('# SHIPPED = ' + countShipped);
+				
+				// get params
+				var calculation = $rootScope.site.ShippingCalculation;	
+				var rate = $rootScope.site.ShippingRate;
+				var tiers = [];
+				
+				// get tiers
+				if($rootScope.site.ShippingTiers != '' && $rootScope.site.ShippingTiers != null){
+					tiers = JSON.parse(decodeURI($rootScope.site.ShippingTiers));
+				}
+			
+				// free, flat-rate, etc
+				if(calculation == 'free'){
+				    return 0;
+			    }
+			    else if(calculation == 'flat-rate'){
+			    	if(countShipped > 0){
+						return rate;
+					}
+					else{
+						return 0;
+					}
+			    }
+			    else if(calculation == 'amount'){
+				    stop = subtotal;
+			    }
+			    else if(calculation == 'weight'){
+				    stop = totalWeight;
+			    }
+			    else{
+				    return 0;
+			    }
+			    
+			    // walk through tiers
+			    for(x=0; x<tiers.length; x++){
+				    var from = tiers[x].from;
+				    var to = tiers[x].to;
+			
+				    // determine if rate falls between to and from
+				    if(stop > from && stop <= to){
+					    var rate = Number(tiers[x].rate);
+			
+					    // return rate
+					    if(!isNaN(rate)){
+						    return rate;
+					    }
+				    }
+			
+			    } 
+			
+				// default is 0
+				return 0;
+			}
+			
+			// calculates the total
+			scope.total = function(){
+				
+				var total = parseFloat(scope.subTotal()) + parseFloat(scope.tax()) + parseFloat(scope.shipping());
+				
+				return total;
+			}
+			
+			// checkout
+			scope.checkoutWithPayPal = function(){
+				
+				var email = $rootScope.site.PayPalId;
+				var logo = 'http://' + $rootScope.site.Domain + '/' + $rootScope.site.LogoUrl;
+				var currency = $rootScope.site.Currency;
+				var returnUrl = $rootScope.site.Domain;
+				var api = $rootScope.site.API;
+				var siteId = $rootScope.site.SiteId;
+				var weightUnit = $rootScope.site.WeightUnit;
+				var useSandbox = false;
+				
+				if(parseInt($rootScope.site.PayPalUseSandbox) == 1){
+					useSandbox = true;
+				}
+
+				// data setup
+				// #ref tutorial: https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/cart_upload/
+				// #ref: form: https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables/#id08A6HF00TZS
+				// #ref: notify: https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNIntro/
+				var data = {
+					'email':			email,
+					'cmd':				'_cart',
+					'upload':			'1',
+					'currency_code': 	currency,
+					'business':			email,
+					'rm':				'0',
+					'charset':			'utf-8',
+					'return':			returnUrl + '/thank-you#clear-cart',
+					'cancel_return':	returnUrl + '/cancel',
+					'notify_url':		api + '/transaction/paypal',
+					'custom':			siteId
+				};
+		
+				var noshipping = 1;
+		
+				// set logo
+				if(logo != ''){
+					data['image_url'] = logo;
+				}
+		
+				// add cart items
+				for(x=0; x<$rootScope.cart.length; x++){
+		
+					var c = x+1;
+		
+					var item = $rootScope.cart[x];
+		
+					data['item_name_'+c] = item.name;
+					data['quantity_'+c] = item.quantity;
+					data['amount_'+c] = parseInt(item.price).toFixed(2);
+					data['item_number_'+c] = item.sku + '-' + $.trim(item.shipping.toUpperCase());
+		
+					if($.trim(item.shipping.toUpperCase()) == 'SHIPPED'){
+						noshipping = 2;
+					}
+		
+				}
+		
+				data['no_shipping'] = noshipping; // 1 = do not prompt, 2 = prompt for address and require it
+				data['weight_unit'] = weightUnit;
+				data['handling_cart'] = parseFloat(scope.shipping()).toFixed(2);
+				data['tax_cart'] = parseFloat(scope.tax()).toFixed(2);
+		
+				// live url
+				var url = 'https://www.paypal.com/cgi-bin/webscr';
+		
+				// set to sandbox if specified
+				if(useSandbox){
+					url = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+				}
+		
+				// create form with data values
+				var form = $('<form id="paypal-form" action="' + url + '" method="POST"></form');
+		
+				for(x in data){
+					form.append('<input type="hidden" name="'+x+'" value="'+data[x]+'" />');
+				}
+		
+				// append form
+				$('body').append(form);
+		
+				// submit form
+				$('#paypal-form').submit();
+				
+			}
+			
+		}
+		
+	}
+	
+})
+
 ;

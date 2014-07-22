@@ -171,6 +171,15 @@
 		"config":	"plugins/component/config/form.html"
 	},
 	{
+		"action":	"triangulate.component.shelf",
+		"tag":		"TRIANGULATE-SHELF",
+		"title":	"Shelf",
+		"class":	"triangulate-shelf",
+		"icon":		"fa fa-tags draggable",
+		"text":		"",
+		"config":	"plugins/component/config/shelf.html"
+	},
+	{
 		"action":	"triangulate.component.login",
 		"tag":		"TRIANGULATE-LOGIN",
 		"title":	"Login",
