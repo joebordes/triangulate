@@ -930,7 +930,7 @@ angular.module('triangulate.site.directives', [])
 				var email = $rootScope.site.PayPalId;
 				var logo = 'http://' + $rootScope.site.Domain + '/' + $rootScope.site.LogoUrl;
 				var currency = $rootScope.site.Currency;
-				var returnUrl = $rootScope.site.Domain;
+				var returnUrl = 'http://' + $rootScope.site.Domain;
 				var api = $rootScope.site.API;
 				var siteId = $rootScope.site.SiteId;
 				var weightUnit = $rootScope.site.WeightUnit;
