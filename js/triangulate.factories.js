@@ -144,6 +144,14 @@ angular.module('triangulate.factories', [])
 			taxRate: site.TaxRate,
 			payPalId: site.PayPalId,
 			payPalUseSandbox: site.PayPalUseSandbox,
+			welcomeEmail: site.WelcomeEmail,
+			receiptEmail: site.ReceiptEmail,
+			isSMTP: site.IsSMTP,
+			SMTPHost: site.SMTPHost,
+			SMTPAuth: site.SMTPAuth,
+			SMTPUsername: site.SMTPUsername,
+			SMTPPassword: site.SMTPPassword,
+			SMTPSecure: site.SMTPSecure,
 			formPublicId: site.FormPublicId,
 			formPrivateId: site.FormPrivateId
 		}

@@ -22,6 +22,7 @@
 		<li class="active" data-target="#section-site"><a>{{'Site'}}</a></li>
 		<li data-target="#section-display"><a>{{'Display'}}</a></li>
 		<li data-target="#section-payments"><a>{{'Payments'}}</a></li>
+		<li data-target="#section-email"><a>{{'Email'}}</a></li>
 		<li data-target="#section-advanced"><a>{{'Advanced'}}</a></li>
 	</ul>
 	<!-- /.segmented-control -->
@@ -539,6 +540,31 @@
 		</div>	
 		<!-- /.section-payments -->
 		
+		<div id="section-email" class="hidden">
+		
+			<div class="form-group">
+				<label for="welcomeEmail" class="control-label">{{'Welcome Email'}}</label>
+				<div>
+					<textarea id="welcomeEmail" 
+						ng-model="site.WelcomeEmail"
+						class="form-control large">
+					</textarea>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="receiptEmail" class="control-label">{{'Receipt Email'}}</label>
+				<div>
+					<textarea id="receiptEmail" 
+						ng-model="site.ReceiptEmail"
+						class="form-control large">
+					</textarea>
+				</div>
+			</div>
+		
+		</div>
+		<!-- /.section-email -->
+		
 		<div id="section-advanced" class="hidden">
 			
 			<div class="form-group">
@@ -550,12 +576,73 @@
 					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
+			
 			<div class="form-group">
 				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID'}}</label>
 				<div>
 					<input id="formPrivateId" type="text" 
 						ng-model="site.FormPrivateId" class="form-control">
 					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="externalSMTP" class="control-label">{{'External SMTP'}}</label>
+				<div>
+					<select id="externalSMTP" 
+						ng-model="site.IsSMTP"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="smtpHost" class="control-label">{{'SMTP Host'}}</label>
+				<div>
+					<input id="smtpHost" type="text" 
+						ng-model="site.SMTPHost" class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="smtpAuth" class="control-label">{{'SMTP Auth'}}</label>
+				<div>
+					<select id="smtpAuth" 
+						ng-model="site.SMTPAuth"
+						class="form-control">
+						<option value="1">Yes</option>
+				    	<option value="0">No</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="smtpUsername" class="control-label">{{'SMTP Username'}}</label>
+				<div>
+					<input id="smtpUsername" type="text" 
+						ng-model="site.SMTPUsername" class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="smtpUsername" class="control-label">{{'SMTP Password'}}</label>
+				<div>
+					<input id="smtpPassword" type="password" 
+						ng-model="site.SMTPPassword" class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="smtpSecure" class="control-label">{{'SMTP Secure'}}</label>
+				<div>
+					<select id="smtpSecure" 
+						ng-model="site.SMTPSecure"
+						class="form-control">
+						<option value="tls">TLS</option>
+				    	<option value="ssl">SSL</option>
+					</select>
 				</div>
 			</div>
 			
