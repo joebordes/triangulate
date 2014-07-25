@@ -40,17 +40,18 @@
             </span>
             
         	<h2><a ng-href="{{file.fullUrl}}">{{file.filename}}</a></h2>
-            <em ng-if="file.isImage == true">{{file.width}}px x {{file.height}}px</em>
+            <em ng-if="file.isImage == true">{{file.width}}px x {{file.height}}px ({{file.size}} MB)</em>
        
     	</div>
     	<!-- /.listItem -->
+    	
+    	<p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa fa-spin"></i> {{'Loading...'}}</p>
+    
+		<p ng-show="files.length == 0" class="list-none">{{'No files here. Click Upload File to get started.'}}</p>
     
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa fa-spin"></i> {{'Loading...'}}</p>
-    
-    <p ng-show="files.length == 0" class="list-none">{{'No files here. Click Upload File to get started.'}}</p>
       
 </section>
 <!-- /.main -->

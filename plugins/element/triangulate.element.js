@@ -1395,7 +1395,7 @@ triangulate.element.image = {
 	
 		// get params
 		var id = $(node).attr('id');		
-		var src = $(node).find('img').attr('src');
+		var src = $(node).find('img').attr('ng-src');
 		var link = $(node).find('a').attr('href') || $(node).find('a').attr('ui-sref') || '';
 		var title = $(node).find('a').attr('title') || '';
 		var target = $(node).find('a').attr('target') || '';
@@ -1404,10 +1404,10 @@ triangulate.element.image = {
 		var scope = angular.element($("section.main")).scope();
 		
 		// get domain from scope
-		var domain = '//' + scope.site.Domain + '/';
+		var url = scope.site.ImagesURL;
 		
-		// update src with full domain
-		src = domain + src;
+		// replace the images URL with the URL from the site
+		src = utilities.replaceAll(src, '{{site.ImagesURL}}', url);
 		
 		// get display class
 		var display = $(node).attr('data-display') || 'left';
@@ -1484,18 +1484,18 @@ triangulate.element.image = {
 	  		
   		}
   		
-  		var html = startLink + '<img src="' + src + '">' + endLink;
+  		var html = startLink + '<img ng-src="{{site.ImagesURL}}' + src + '">' + endLink;
   
   		// html for tag
   		if(display == 'left'){
 	  		
-	  		html = startLink + '<img src="' + src + '">' + endLink + 
+	  		html = startLink + '<img ng-src="{{site.ImagesURL}}' + src + '">' + endLink + 
 	  					'<p>' + $(node).find('[contentEditable=true]').html() + '</p>';
 	  		
   		}
   		else if(display == 'right'){
 	  		html =  '<p>' + $(node).find('[contentEditable=true]').html() + '</p>' +
-	  					startLink + '<img src="' + src + '">' + endLink;
+	  					startLink + '<img ngsrc="{{site.ImagesURL}}' + src + '">' + endLink;
   		}
   		
 		// tag attributes
