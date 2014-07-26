@@ -2,7 +2,7 @@ angular.module('triangulate.controllers', [])
 
 
 // login controller
-.controller('LoginCtrl', function($scope, $window, $rootScope, $i18next, Setup, User) {
+.controller('LoginCtrl', function($scope, $window, $rootScope, $i18next, Setup, User, Site) {
 	
 	$rootScope.template = 'login';
 	
@@ -18,10 +18,8 @@ angular.module('triangulate.controllers', [])
 		User.login(user.email, user.password, 
 			function(data){		// success
 			
-				message.showMessage('success');
-				
 				// make sure the user has admin permissions
-				if(data.user.CanEdit != '' && data.user.CanPublish != ''  && data.user.CanRemove != ''  && data.user.CanCreate != ''){
+				if(data.user.CanEdit != '' || data.user.CanPublish != ''  || data.user.CanRemove != ''  || data.user.CanCreate != ''){
 				
 					// save token
 					$window.sessionStorage.token = data.token;
@@ -29,8 +27,22 @@ angular.module('triangulate.controllers', [])
 					// set language to the users language
 					$i18next.options.lng =  data.user.Language;
 					
-					// go to start URL
-					location.href = data.start;
+					// set start
+					var start = data.start;
+					
+					// retrieve site
+					Site.retrieve(function(data){
+					
+						message.showMessage('success');
+					
+						// set site to $scope and $rootScope
+						$rootScope.site = data;
+						$window.sessionStorage.site = JSON.stringify(data);
+						
+						// go to start URL
+						location.href = start;
+							
+					});
 					
 				}
 				else{
@@ -118,8 +130,7 @@ angular.module('triangulate.controllers', [])
 
 	// get user from session
 	$scope.user = User.retrieve();
-	
-	console.log($scope.User);
+	$scope.site = $rootScope.site;
 	
 	// publishes a site
 	$scope.republish = function(){
@@ -154,9 +165,13 @@ angular.module('triangulate.controllers', [])
 })
 
 // pages controller
-.controller('PagesCtrl', function($scope, $rootScope, $i18next, Setup, PageType, Page, Stylesheet, Layout) {
+.controller('PagesCtrl', function($scope, $rootScope, $i18next, Setup, PageType, Page, Stylesheet, Layout, User) {
 
+	// retrieve user
+	$scope.user = User.retrieve();
 	$rootScope.template = 'pages';
+	$scope.canEditTypes = false;
+	$scope.canRemovePage = false;
 	
 	// setup
 	$scope.predicate = 'LastModifiedDate';
@@ -172,10 +187,20 @@ angular.module('triangulate.controllers', [])
 		$scope.predicate = predicate;
 	}
 	
+	if($scope.user.Role == 'Admin'){
+		$scope.canEditTypes = true;
+	}
+	
 	// sets the pageTypeId
 	$scope.setPageType = function(pageType){
 		$scope.current = pageType;
 		$scope.pageTypeId = pageType.PageTypeId;
+		
+		// set canremove for pagetype
+		if($scope.user.CanRemove == 'All' || $scope.user.CanRemove.indexOf($scope.pageTypeId) != -1){
+			$scope.canRemovePage = true;
+		}
+		
 	}
 	
 	// shows the page type dialog for editing
@@ -350,6 +375,11 @@ angular.module('triangulate.controllers', [])
 		console.log(data);
 		
 		$scope.pageTypes = data;
+		
+		if($scope.pageTypes.length > 0){
+			$scope.setPageType($scope.pageTypes[0]);
+		}
+		
 	});
 	
 	// list pages
@@ -647,27 +677,18 @@ angular.module('triangulate.controllers', [])
 		window.history.back();
 	}
 	
-	// retrieve site
-	Site.retrieve(function(data){
+	$scope.site = $rootScope.site;
+	
+	// retrieve page
+	Page.retrieveExtended($scope.pageId, $scope.site.Offset, function(data){
 	
 		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Site.retrieve');
+		if(Setup.debug)console.log('[triangulate.debug] Page.retrieveExtended');
 		if(Setup.debug)console.log(data);
 		
-		$scope.site = data;
-		
-		// retrieve page
-		Page.retrieveExtended($scope.pageId, $scope.site.Offset, function(data){
-		
-			// debugging
-			if(Setup.debug)console.log('[triangulate.debug] Page.retrieveExtended');
-			if(Setup.debug)console.log(data);
-			
-			$scope.page = data;
-		});
-		
+		$scope.page = data;
 	});
-
+		
 	// list pages
 	Page.list(function(data){
 		
@@ -1499,29 +1520,20 @@ angular.module('triangulate.controllers', [])
 	$scope.payPalLogoUrl = null;
 	$scope.iconUrl = null;
 	
-	// retrieve site
-	Site.retrieve(function(data){
+	$scope.site = $rootScope.site;
+		
+	// update image urls
+	if($scope.site.LogoUrl != null){
+    	$scope.logoUrl = $scope.site.ImagesURL + 'files/' + $scope.site.LogoUrl;
+    }
+    
+    if($scope.site.PayPalLogoUrl != null){
+		$scope.payPalLogoUrl = $scope.site.ImagesURL + 'files/' + $scope.site.PayPalLogoUrl;
+	}
 	
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Site.retrieve');
-		if(Setup.debug)console.log(data);
-		
-		$scope.site = data;
-		
-		// update image urls
-		if($scope.site.LogoUrl != null){
-	    	$scope.logoUrl = '//' + $scope.site.Domain + '/files/' + $scope.site.LogoUrl;
-	    }
-	    
-	    if($scope.site.PayPalLogoUrl != null){
-			$scope.payPalLogoUrl = '//' + $scope.site.Domain + '/files/' + $scope.site.PayPalLogoUrl;
-		}
-		
-		if($scope.site.IconUrl != null){
-			$scope.iconUrl = '//' + $scope.site.Domain + '/files/' + $scope.site.IconUrl;
-		}
-		
-	});
+	if($scope.site.IconUrl != null){
+		$scope.iconUrl = $scope.site.ImagesURL + 'files/' + $scope.site.IconUrl;
+	}
 	
 	// shows the images dialog
 	$scope.showAddImage = function(type){
@@ -1564,14 +1576,21 @@ angular.module('triangulate.controllers', [])
 			
 			// update image
 			if($scope.type == 'logo'){
-				$scope.logoUrl = '//' + $scope.site.Domain + '/files/' + image.filename;
+				$scope.logoUrl = $scope.site.ImagesURL + 'files/' + image.filename;
 			}
 			else if($scope.type == 'paypal'){
-				$scope.payPalLogoUrl = '//' + $scope.site.Domain + '/files/' + image.filename;
+				$scope.payPalLogoUrl = $scope.site.ImagesURL + 'files/' + image.filename;
 			}
 			else if($scope.type == 'icon'){
-				$scope.iconUrl = '//' + $scope.site.Domain + '/files/' + image.filename;
+				$scope.iconUrl = $scope.site.ImagesURL + 'files/' + image.filename;
 			}
+			
+			// update site in session
+			Site.retrieve(function(data){
+				// set site to $rootScope
+				$rootScope.site = data;
+				$window.sessionStorage.site = JSON.stringify(data);					
+			});
 			
 		});
 	

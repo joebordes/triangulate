@@ -975,7 +975,7 @@ angular.module('triangulate.site.directives', [])
 					data['item_name_'+c] = item.name;
 					data['quantity_'+c] = item.quantity;
 					data['amount_'+c] = parseInt(item.price).toFixed(2);
-					data['item_number_'+c] = item.sku + '-' + $.trim(item.shipping.toUpperCase());
+					data['item_number_'+c] = item.sku;
 		
 					if($.trim(item.shipping.toUpperCase()) == 'SHIPPED'){
 						noshipping = 2;

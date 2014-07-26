@@ -711,7 +711,7 @@ triangulate.editor.getPrimaryImage = function(){
 	}
 	
 	// get the first image
-	var imgs = $(el).find('div.block .img img');
+	var imgs = $(el).find('div.block img');
 	
 	if(imgs.length==0){
 		imgs = $(el).find('div.block span.image img');
@@ -719,12 +719,14 @@ triangulate.editor.getPrimaryImage = function(){
 	
 	var image = '';
 	
-	if(imgs && imgs.length>0){
+	if(imgs.length>0){
+	
 		var parts = imgs[0].src.split('/');
 		
 		if(parts.length>0){
 			image = parts[parts.length-1];
 		}
+		
 	}
 	
 	if(image.substr(0,2)=='t-'){

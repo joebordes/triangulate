@@ -103,20 +103,29 @@ triangulate.component.slideshow = {
 					'<button type="button" class="add-slideshow-image"><i class="fa fa-picture-o"></i></button>';
 		
 		// get images			
-		var imgs = $(node).find('img');			
-					
+		var imgs = $(node).find('img');	
+				
 		for(var y=0; y<imgs.length; y++){
 		
 			// get caption
-			var caption = $(imgs[y]).attr('title');
+			var title = $(imgs[y]).attr('title');
+			var src = $(imgs[y]).attr('ng-src');
+		
+			// get scope from page
+			var scope = angular.element($("section.main")).scope();
 			
-			// get image html
-			var imghtml = $('<div>').append($(imgs[y]).clone()).remove().html();
+			// get domain from scope
+			var url = scope.site.ImagesURL;
+			
+			// replace the images URL with the URL from the site
+			src = utilities.replaceAll(src, '{{site.ImagesURL}}', url);
+			
+			var image = '<img src="' + src + '" title="' + title + '">';
 			
 			// build html
-			html +=	'<span class="image">' + imghtml + 
+			html +=	'<span class="image">' + image + 
 					'<span class="caption">' +
-					'<input type="text" value="' + caption + '" placeholder="Enter caption" maxwidth="140">' +
+					'<input type="text" value="' + title + '" placeholder="Enter caption" maxwidth="140">' +
 					'</span>' +
 					'<a class="remove-image fa fa-minus-circle"></a>' +
 					'</span>';
@@ -148,8 +157,19 @@ triangulate.component.slideshow = {
   		var imgs = $(node).find('img');
   		
   		for(var y=0; y<imgs.length; y++){
-			var imghtml = $('<div>').append($(imgs[y]).clone()).remove().html();
-			html += '<div>'+imghtml+'</div>';
+  		
+  			var title = $(imgs[y]).attr('title');
+  			var src = $(imgs[y]).attr('src');
+  		
+  			// removes the domain from the img
+	  		if(src != ''){
+		  		var parts = src.split('files/');
+		  		src = 'files/' + parts[1];
+	  		}
+  			
+  			var image = '<img ng-src="{{site.ImagesURL}}' + src + '" title="' + title + '">';
+  			
+			html += '<div>' + image + '</div>';
 		}
   		
 		// tag attributes
@@ -255,7 +275,7 @@ triangulate.component.form = {
 			
 			// add temp field
 			node.find('.field-list').append(
-				triangulate.component.form.buildMock('text', 'Field', 'field-1', 'field1', 'false', '', '', '', '')
+				triangulate.component.form.buildMock('text', 'Field', 'field-1', 'false', '', '', '', '')
 			);
 			
 		});

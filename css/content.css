@@ -534,7 +534,7 @@ body.content{
 	height: 100%;
 	height: calc(100% - 109px);
 	border-left: 1px solid #ddd;
-	background-color: #f0f0f0;
+	background-color: #f8f8f8;
 	overflow: scroll;
 }
 
@@ -581,7 +581,7 @@ body.content{
 		font-size: 13px;
 		vertical-align: top;
 		border-radius: 50%;
-		background-color: #f0f0f0;
+		background-color: transparent;
 	}	
 	
 	.content .context-text-events{
@@ -589,7 +589,7 @@ body.content{
 	}
 	
 	.content .context-text-events .context-block  a:hover{
-		background-color: #ddd;
+		background-color: #f0f0f0;
 	}
 	
 	.content .context-menu label, .content .context-menu .form-control{

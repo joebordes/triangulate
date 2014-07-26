@@ -9,19 +9,20 @@
 			
 		        <ul>
 		        	<li ng-repeat="pageType in pageTypes"
-		        		ng-class="{'active': (pageType.PageTypeId == pageTypeId), 'has-action':(pageType.PageTypeId != -1)}"> 
+		        		ng-class="{'active': (pageType.PageTypeId == pageTypeId), 'has-action':(pageType.PageTypeId != -1 && canEditTypes)}"> 
 		    			<a ng-click="setPageType(pageType)">
 		    				/{{pageType.FriendlyId}}
 		    				<span ng-show="(pageType.IsSecure == 1)" class="fa fa-lock"></span>
 		    			</a> 
 						
-			    		<i ng-show="(pageType.PageTypeId != -1)"
+			    		<i 	ng-if="canEditTypes"
+			    			ng-show="(pageType.PageTypeId != -1)"
 							ng-click="showRemovePageType(pageType)"
 			    			class="fa fa-minus-circle" 
 			    			title="{{'Remove Page Type' | i18next}}"></i>
 		    		</li>
 		    		
-		    		<li class="add">
+		    		<li class="add" ng-if="canEditTypes">
 		    			<i ng-click="showAddPageType()"
 		    				class="fa fa-plus-circle" title="{{'Add Page Type' | i18next}}"></i>
 		    		</li>
@@ -52,7 +53,7 @@
 				ng-class="{'active': (predicate == 'Name')}">
 				<i class="fa fa-sort-alpha-asc"></i></a>
 			
-			<a ng-show="(pageTypeId != -1)"
+			<a ng-show="(pageTypeId != -1 && canEditTypes)"
 				ng-click="showEditPageType()">
 				<i class="fa fa-cog"></i>
 			</a>
@@ -67,15 +68,23 @@
     		
             <span class="image" ng-show="page.Thumb != ''"><img height="75" width="75" ng-src="{{page.Thumb}}"></span>
             
-    		<a 	ng-click="showRemovePage(page)"
+    		<a 	ng-if="canRemovePage"
+    			ng-click="showRemovePage(page)"
     			class="remove">
                 <i class="fa fa-minus-circle"></i>
             </a>
             
     		<h2>
-    			<a ng-show="(page.CanEdit || page.CanPublish)" ng-href="#/app/content/{{page.PageId}}">{{page.Name}}</a>
-				<span ng-show="!(page.CanEdit || page.CanPublish)">{{page.Name}}</span>
-				
+    			<a 	ng-class="{hasDraft:page.HasDraft}"
+    				ng-show="(page.CanEdit || page.CanPublish)" 
+    				ng-href="#/app/content/{{page.PageId}}">
+    				<span class="draft-tag" ng-show="page.HasDraft">*</span>
+    				{{page.Name}}
+    			</a>
+				<span ng-show="!(page.CanEdit || page.CanPublish)">
+					<span class="draft-tag" ng-show="page.HasDraft">*</span>
+					{{page.Name}}
+				</span>
     		</h2>
     		
     		<small>
@@ -87,17 +96,22 @@
     		
     		</small>
     		
-			<span class="draft-tag" ng-show="page.HasDraft">{{'Draft' | i18next}}</span></h2>
-			<p>{{page.Description}}</p>
-			<em>{{'Last updated' | i18next}} {{page.LastModifiedDate | fromNow}} {{'by' | i18next}} {{page.LastModifiedFullName}}</em>
-		
-    		<span class="status"
-    			ng-click="togglePublished(page)"
-    			ng-show="(page.CanPublish == true)"
-    			ng-class="{'published': (page.IsActive == 1), 'not-published': (page.IsActive == 0)}">
-    			<i class="not-published fa fa-circle-o"></i>
-    			<i class="published fa fa-check-circle"></i>
-    		</span>
+			</h2>
+			
+			<em>
+				<span class="status" 
+					ng-show="(page.CanPublish == true)">
+					<a 	ng-show="page.IsActive == 1"
+						ng-click="togglePublished(page)">
+						{{'Published' | i18next}}	
+					</a>
+					<a 	ng-show="page.IsActive == 0"
+						ng-click="togglePublished(page)">
+						{{'Not Published' | i18next}}	
+					</a>
+				</span>
+				{{'Updated' | i18next}} {{page.LastModifiedDate | fromNow}} {{'by' | i18next}} {{page.LastModifiedFullName}}
+			</em>
     		
     	</div>
     	<!-- /.listItem -->

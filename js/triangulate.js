@@ -192,10 +192,18 @@ angular.module('triangulate', ['ui.router',
   
 })
 
-.run(function($rootScope, $i18next, $window, Setup, $sce) {
+.run(function($rootScope, $i18next, $window, Setup, $sce, Site) {
 
 	// set app title
 	$rootScope.title = Setup.app;
+	
+	// set site from session storage
+	if($window.sessionStorage.site != null){
+	
+		var str = $window.sessionStorage.site;
+		
+		$rootScope.site = JSON.parse(str);
+	}
 		
 });
 

@@ -13,6 +13,10 @@ var utilities = {
             $('body').toggleClass('show-nav'); 
         });
         
+         $(document).on('click', '.signout', function(){
+            $('body').removeClass('show-nav'); 
+        });
+        
         // segmented control
         $(document).on('click', '.segmented-control li', function(){
         

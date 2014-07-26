@@ -315,12 +315,13 @@ header{
     left: 0;
 	margin-left: -350px;
 	width: 350px;
-	background-color: #333;
+	background-color: #f8f8f8;
+	color: #333;
 	min-width: 35px;
 	z-index: 10000;
 	height: 100%;
 	overflow: scroll;
-	border-right: 5px solid #3299bb;
+	border-right: 1px solid #f0f0f0;
     -webkit-transition: .2s all ease;
 	-moz-transition: .2s all ease;
 	-o-transition: .2s all ease;    
@@ -330,25 +331,26 @@ header{
 	
 	header .profile{
 		position: absolute;
-		top: 10px;
-		left: 10px;
-		height: 40px;
-		line-height: 40px;
+		top: 5px;
+		left: 5px;
+		height: 45px;
+		line-height: 45px;
 		z-index: 10;
 	}
 	
 		header .profile .photo{
 			float: left;
 			display: inline-block;
-			width: 40px;
-			height: 40px;
+			width: 45px;
+			height: 45px;
 			background-size: cover;
 			border-radius: 50%;
 			margin-right: 5px;
+			border: 2px solid #f0f0f0;
 		}
 	
 		header .profile a{
-			color: #ddd;
+			color: #111;
 			text-transform: uppercase;
 		}
 
@@ -359,7 +361,7 @@ header{
         height: 40px;
         line-height: 40px;
         text-align: center;
-        color: #ccc;
+        color: #aaa;
         font-size: 1em;
         margin-left: 0;
 		border-radius: 50%;
@@ -367,13 +369,12 @@ header{
     
          header .sub-menu a:hover{
              text-decoration: none;
-             background-color: #3299bb;
-			 border-color: #3299bb;
-             color: #fff;
+             color: #1111;
          }
          
          header .sub-menu a.signout:hover{
 	         background-color: #A4110A;
+	         color: #fff;
          }
          
          header .sub-menu a.republish:hover{
@@ -382,16 +383,20 @@ header{
          
 	header .sub-menu{
 		position: absolute;
-		top: 10px;
-		right: 10px;
+		top: 5px;
+		right: 5px;
 		z-index: 10;
 	}
 	
 	header .sub-menu a.hide-menu{
-		background-color: #555;
+		background-color: #ddd;
 		color: #fff;
 		border-color: #555;
 	}
+	
+		header .sub-menu a.hide-menu:hover{
+			background-color: #aaa;
+		}
 
     body.show-nav header{
         margin-left: 0;
@@ -401,13 +406,14 @@ header{
         list-style: none;
         margin: 0;
         padding: 0;
-        border-bottom: 1px solid #444;
+        border-bottom: 1px solid #f0f0f0;
     }
     
     header h2{
     	position: relative;
-	    color: #888;
-	    font-size: 15px;
+	    color: #aaa;
+	    font-size: 13px;
+	    font-weight: normal;
 	    padding: 0 0 0 10px;
 	    margin: 0;
 	    text-transform: uppercase;
@@ -418,13 +424,14 @@ header{
     		bottom: 10px;
     		right: 10px;
     		display: inline-block;
-	    	color: #777;
-	    	font-size: 12px;
+	    	color: #aaa;
+	    	font-size: 11px;
+	    	font-weight: normal;
 	    	text-transform: uppercase;
     	}
     	
     	header h2 a i{
-	    	color: #777;
+	    	color: #888;
 	    	font-size: 11px;
 	    	margin-left: 5px;
     	}
@@ -438,7 +445,7 @@ header{
 	    }
     
     header ul{
-        border-top: 1px solid #444;
+        border-top: 1px solid #ccc;
     }
     
     header li a{
@@ -447,13 +454,13 @@ header{
         font-size: 16px;
         display: block;
         padding: 10px 15px;
-        color: #ccc;
+        color: #111;
         font-size: 1.1em;
     }
     
         header li a i{
             display: inline-block !important;
-            color: #ccc;
+            color: #aaa;
             margin-right: 10px;
             width: 20px !important;
         }
@@ -517,7 +524,7 @@ section.main{
 
 /* nav */
 section.main nav{
-    background-color: #666;
+    background-color: #3299bb;
     height: 50px;
     margin: 0;
     padding: 0;
@@ -580,6 +587,10 @@ section.main nav{
         vertical-align: top;
     }
     
+    	section.main nav li:hover{
+	    	background-color: #1d7b9a;
+    	}
+    
         section.main nav li.root a{
             width: 45px;
         }
@@ -622,15 +633,15 @@ section.main nav{
             cursor: pointer;
             font-size: 18px;
             padding-top: 17px;
-            margin: 0 10px;
+            margin: 0 20px;
         }
         
-            section.main nav li.add i:hover{
-                color: #FF9900;
+            section.main nav li.add:hover{
+                background-color: #1d7b9a;
             }
     
     section.main nav li.active{
-        background: #888;
+        background: rgba(255,255,255,0.2);
         height: 50px;
         line-height: 50px;
     }
@@ -644,7 +655,7 @@ section.main nav{
             top: 17px;
             right: 5px;
             display: inline-block;
-            color: #ddd;
+            color: rgba(255,255,255,0.5);
             cursor: pointer;
             margin: 0 ;
             padding: 0;
@@ -662,7 +673,7 @@ section.main nav{
         top: 0;
         height: 50px;
         font-size: 1em;
-        background: #FF9900;
+        background: #1d7b9a;
         padding: 0 5px;
         color: #fff;
         font-size: 14px;
@@ -672,7 +683,7 @@ section.main nav{
     
         section.main nav a.primary-action:hover{
             text-decoration: none;
-            background: #ffb648;
+            background: #3299bb;
         }
         
         section.main nav a.primary-action i{
@@ -712,7 +723,7 @@ section.main nav{
 		a.fs-next, a.fs-prev{
 		    position: absolute;
 		    color: #fff;
-		    background-color: #777;
+		    background-color: rgba(255,255,255,0.2);
 		    height: 50px;
 		    line-height: 50px;
 		    z-index: 100;

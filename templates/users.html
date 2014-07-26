@@ -26,26 +26,13 @@
 				<span>{{'Update Photo'}}</span></button>
     		<h2>
     			<a ng-click="showEditUser(user)">{{user.FirstName}} {{user.LastName}}</a>
-				
-				<span class="role admin" ng-show="user.Role=='Admin'">{{'Administrator'}}
-					<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span>
-				</span>
-				
-				<span class="role contributor" ng-show="user.Role=='Contributor'">{{'Contributor'}}
-					<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span>
-				</span>
-				
-				<span class="role member" ng-show="user.Role=='Member'">{{'Member'}}
-					<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span>
-				</span>
-				
-				<span class="role contributor" ng-show="(user.Role!=='Member' && user.Role!=='Contributor' && user.Role!=='Admin')">
-					<span>{{user.Role}}</span>
-					<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span>
-				</span>
     		</h2>
     		<p><span class="email">{{user.Email}}</span></p>
-            <em>{{'Created'}} {{user.Created | fromNow}}</em>
+            <em>
+            	<span class="status">{{user.Role}}
+				<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span></span> 
+            	{{'Created'}} {{user.Created | fromNow}}
+            </em>
     	</div>
     	<!-- /.listItem -->
     
