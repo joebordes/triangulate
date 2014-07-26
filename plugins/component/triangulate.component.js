@@ -209,6 +209,7 @@ triangulate.component.map = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-map';
 		attrs['data-cssclass'] = '';
+		attrs['data-zoom'] = 'auto';
 		
 		// append element to the editor
 		triangulate.editor.append(
@@ -225,6 +226,7 @@ triangulate.component.map = {
 		// get params
 		var id = $(node).attr('id');
 		var address = $(node).attr('address');
+		var zoom = $(node).attr('zoom');
 		
 		// build html
 		var html = triangulate.editor.defaults.elementMenu +
@@ -237,6 +239,7 @@ triangulate.component.map = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-map';
 		attrs['data-cssclass'] = $(node).attr('class');
+		attrs['data-zoom'] = $(node).attr('zoom');
 		
 		// return element
 		return utilities.element('div', attrs, html);
@@ -251,6 +254,7 @@ triangulate.component.map = {
 		attrs['id'] = $(node).attr('data-id');
 		attrs['class'] = $(node).attr('data-cssclass');
 		attrs['address'] = $(node).find('input').val();
+		attrs['zoom'] = $(node).attr('data-zoom');
 		
 		// return element
 		return utilities.element('triangulate-map', attrs, '');

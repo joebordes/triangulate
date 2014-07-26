@@ -97,6 +97,7 @@ angular.module('triangulate.site.directives', [])
 		
 		restrict: 'E',
 		scope: {
+			zoom: '@',
 			address: '@',
 			id: '@',		
 		},
@@ -106,7 +107,8 @@ angular.module('triangulate.site.directives', [])
 			new triangulate.Map({
 				el: $(element),
 				id: scope.id,
-				address: scope.address
+				address: scope.address,
+				zoom: scope.zoom
 			});
 			
 		}
@@ -154,7 +156,7 @@ angular.module('triangulate.site.directives', [])
 									'</div>';
 				
 				// add point
-				triangulate.Map.CreatePoint(mapId, latitude, longitude, content);
+				triangulate.Map.CreatePoint(mapId, 'auto', latitude, longitude, content);
 				
 			}
 				

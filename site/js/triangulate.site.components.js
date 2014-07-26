@@ -10,6 +10,13 @@ triangulate.Map = function(config){
 
 	this.el = config.el;
 	this.address = config.address;
+	this.zoom = config.zoom;
+	
+	var defaultZoom = 8;	
+	
+	if(this.zoom != 'auto'){
+		defaultZoom = parseInt(this.zoom);
+	}
 	
 	// get DOM id of map
 	var mapId = config.id;
@@ -17,7 +24,7 @@ triangulate.Map = function(config){
 	// create the map
 	var mapOptions = {
       center: new google.maps.LatLng(38.6272, 90.1978),
-      zoom: 8,
+      zoom: defaultZoom,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -39,11 +46,13 @@ triangulate.Map = function(config){
 	    // geo-code the address
 	    var geocoder = new google.maps.Geocoder();
 	    
+	    var context = this;
+	    
 	    geocoder.geocode({'address': this.address}, function(results, status){
 	    
 	        if (status == google.maps.GeocoderStatus.OK){
 	            // #ref: https://developers.google.com/maps/documentation/javascript/reference#LatLng
-	            triangulate.Map.CreatePoint(mapId, results[0].geometry.location.lat(), results[0].geometry.location.lng(), results[0].formatted_address);
+	            triangulate.Map.CreatePoint(mapId, context.zoom, results[0].geometry.location.lat(), results[0].geometry.location.lng(), results[0].formatted_address);
 	        }
 	    
 	    });
@@ -53,7 +62,7 @@ triangulate.Map = function(config){
 }
 
 // creates and adds a point to a map
-triangulate.Map.CreatePoint = function(mapId, latitude, longitude, content){
+triangulate.Map.CreatePoint = function(mapId, zoom, latitude, longitude, content){
 	
     // create coords
     var coords = new google.maps.LatLng(latitude, longitude);
@@ -84,12 +93,17 @@ triangulate.Map.CreatePoint = function(mapId, latitude, longitude, content){
 	google.maps.event.addListener(marker, 'click', function() {
     	infowindow.open(map, marker);
 		});
+	
+    if(zoom == 'auto'){
+    	// extend the bounds based on the new marker
+		triangulate.maps[mapId].bounds.extend(marker.position);
     
-    // extend the bounds based on the new marker
-    triangulate.maps[mapId].bounds.extend(marker.position);
-    
-    // fit the map to the bounds
-    triangulate.maps[mapId].reference.fitBounds(triangulate.maps[mapId].bounds);
+		// fit the map to the bounds
+    	triangulate.maps[mapId].reference.fitBounds(triangulate.maps[mapId].bounds);
+    }
+    else{
+	    triangulate.maps[mapId].reference.setCenter(coords);
+    }
 
 }
 

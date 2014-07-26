@@ -123,7 +123,7 @@
 		"class":	"triangulate-map",
 		"icon":		"fa fa-map-marker draggable",
 		"text":		"",
-		"config":	"plugins/component/config/default.html"
+		"config":	"plugins/component/config/map.html"
 	},
 	{
 		"action":	"triangulate.component.content",
