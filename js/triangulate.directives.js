@@ -106,9 +106,14 @@ angular.module('triangulate.directives', [])
 				keyed = keyed.substring(0,25);
 				
 	        	scope.$apply(function() {
-		          scope.friendlyId = keyed;
-		        });
 	        	
+		          	scope.friendlyId = keyed;
+			        
+			        if(scope.temp){
+			       		scope.temp.FriendlyId = keyed;
+			        }
+		        });
+		     	
         	});  	
           
         }
