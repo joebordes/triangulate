@@ -78,6 +78,10 @@ triangulate.component.slideshow = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-slideshow';
 		attrs['data-cssclass'] = '';
+		attrs['data-indicators'] = 'true';
+		attrs['data-arrows'] = 'true';
+		attrs['data-interval'] = '5000';
+		attrs['data-wrap'] = 'true';
 		
 		// append element to the editor
 		triangulate.editor.append(
@@ -141,6 +145,10 @@ triangulate.component.slideshow = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-slideshow';
 		attrs['data-cssclass'] = $(node).attr('class');
+		attrs['data-indicators'] = $(node).attr('indicators');
+		attrs['data-arrows'] = $(node).attr('arrows');
+		attrs['data-interval'] = $(node).attr('interval');
+		attrs['data-wrap'] = $(node).attr('wrap');
 		
 		// return element
 		return utilities.element('div', attrs, html);
@@ -176,6 +184,10 @@ triangulate.component.slideshow = {
 		var attrs = [];
 		attrs['id'] = $(node).attr('data-id');
 		attrs['class'] = $(node).attr('data-cssclass');
+		attrs['indicators'] = $(node).attr('data-indicators');
+		attrs['arrows'] = $(node).attr('data-arrows');
+		attrs['interval'] = $(node).attr('data-interval');
+		attrs['wrap'] = $(node).attr('data-wrap');
 		
 		// return element
 		return utilities.element('triangulate-slideshow', attrs, html);

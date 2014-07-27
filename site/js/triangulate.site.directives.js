@@ -396,32 +396,71 @@ angular.module('triangulate.site.directives', [])
 	
 })
 
-// form
+// slideshow
 .directive('triangulateSlideshow', function($rootScope){
 	
 	return{
 		
 		restrict: 'E',
 		scope: {
-			id: '@'
+			id: '@',
+			interval: '@',
+			wrap: '@',
+			indicators: '@',
+			arrows: '@'
 		},
 		templateUrl: 'templates/triangulate/slideshow.html',
 		transclude: true,
+		replace: true,
 		link: function(scope, element, attr){
 
 			// setup slideshow
-			$el = $(element);
+			var $el = $(element);
+			
+			var containers = $el.find('.carousel-inner>div');
+			
+			// contains a simple count of images
+			scope.images = [];
+			
+			// build indicators
+			for(x=0; x<containers.length; x++){
+				
+				// simple count of images
+				scope.images.push(x);
+				
+				var image = $(containers[x]).find('img');
+				var title = $(image).attr('title') || '';
+				
+				// append the title
+				if(title != ''){
+					$(containers[x]).append('<div class="carousel-caption"><p>' + title +'</p></div>');
+				}
+				
+			}
+		
+			
+			// add item and active classes to slideshow
+			$el.find('.carousel-inner>div').addClass('item');
+			$el.find('.carousel-inner>div:first-child').addClass('active');
 	
-			$($el).find('.owl-carousel').owlCarousel({
-				autoPlay : 3000,
-			    stopOnHover : true,
-			    navigation:true,
-			    paginationSpeed : 1000,
-			    goToFirstSpeed : 2000,
-			    singleItem : true,
-			    autoHeight : true,
-			    transitionStyle:"fade"
+			// create carousel
+			$($el).carousel({
+				interval: scope.interval,
+				wrap: scope.wrap
 			});
+	
+			// add next/previous events
+			scope.previous = function(){
+				$($el).carousel('prev');
+			}
+			
+			scope.next = function(){
+				$($el).carousel('next');
+			}
+			
+			scope.go = function(index){
+				$($el).carousel(index);
+			}
 			
 		
 		}
