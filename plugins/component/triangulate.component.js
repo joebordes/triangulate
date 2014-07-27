@@ -145,6 +145,10 @@ triangulate.component.slideshow = {
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-slideshow';
 		attrs['data-cssclass'] = $(node).attr('class');
+		attrs['data-indicators'] = $(node).attr('indicators');
+		attrs['data-arrows'] = $(node).attr('arrows');
+		attrs['data-interval'] = $(node).attr('interval');
+		attrs['data-wrap'] = $(node).attr('wrap');
 		
 		// return element
 		return utilities.element('div', attrs, html);
@@ -180,6 +184,10 @@ triangulate.component.slideshow = {
 		var attrs = [];
 		attrs['id'] = $(node).attr('data-id');
 		attrs['class'] = $(node).attr('data-cssclass');
+		attrs['indicators'] = $(node).attr('data-indicators');
+		attrs['arrows'] = $(node).attr('data-arrows');
+		attrs['interval'] = $(node).attr('data-interval');
+		attrs['wrap'] = $(node).attr('data-wrap');
 		
 		// return element
 		return utilities.element('triangulate-slideshow', attrs, html);
@@ -396,7 +404,7 @@ triangulate.component.form = {
 			
 	  			html += '<label class="checkbox"><input name="' + id + '" type="checkbox" value="' + $.trim(arr[x]) + '"' + 
 	  				' ng-model="temp.' + model + '.' + val + 
-	  				'" ng-true-value="' + $.trim(arr[x]) + '"' +
+	  				'" ng-true-value="' + $.trim(arr[x]) + '"' +
 	  				'" ng-false-value=""' +
 	  				'>' + $.trim(arr[x]) + '</label>';
 			}
@@ -1014,7 +1022,7 @@ triangulate.component.shelf = {
 	
 		// adds a field
 		$(document).on('click', '.add-sku', function(){
-			
+		
 			var node = $(triangulate.editor.currNode);
 			
 			// add temp shelf item
@@ -1085,7 +1093,7 @@ triangulate.component.shelf = {
 					triangulate.component.shelf.buildMock('NEWSKU', 'New Product', '9.99', 'not shipped', '') +
 					'</div>';
 					
-		html += '<button type="button" class="add-field"><i class="fa fa-plus-circle"></i></button>';
+		html += '<button type="button" class="add-sku"><i class="fa fa-plus-circle"></i></button>';
 					
 		// tag attributes
 		var attrs = [];
@@ -1181,5 +1189,4 @@ triangulate.component.shelf = {
 };
 
 triangulate.component.shelf.init();
-
 
