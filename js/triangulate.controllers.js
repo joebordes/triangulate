@@ -117,6 +117,9 @@ angular.module('triangulate.controllers', [])
 			$scope.siteLanguage, $scope.userLanguage, $scope.themeId, 
 			function(){  // success
 				message.showMessage('success');
+				
+				$('#create-form').addClass('hidden');
+				$('#create-confirmation').removeClass('hidden');
 			},
 			function(){  // failure
 				message.showMessage('error');
