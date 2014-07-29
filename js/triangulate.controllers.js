@@ -1,6 +1,5 @@
 angular.module('triangulate.controllers', [])
 
-
 // login controller
 .controller('LoginCtrl', function($scope, $window, $rootScope, $i18next, Setup, User, Site) {
 	
@@ -18,6 +17,8 @@ angular.module('triangulate.controllers', [])
 		User.login(user.email, user.password, 
 			function(data){		// success
 			
+				console.log(data);
+			
 				// make sure the user has admin permissions
 				if(data.user.CanEdit != '' || data.user.CanPublish != ''  || data.user.CanRemove != ''  || data.user.CanCreate != ''){
 				
@@ -27,6 +28,10 @@ angular.module('triangulate.controllers', [])
 					// set language to the users language
 					$i18next.options.lng =  data.user.Language;
 					
+					// set user in $rootScope, session
+					$rootScope.user = data.user;
+					$window.sessionStorage.user = JSON.stringify(data.user);
+					
 					// set start
 					var start = data.start;
 					
@@ -35,7 +40,7 @@ angular.module('triangulate.controllers', [])
 					
 						message.showMessage('success');
 					
-						// set site to $scope and $rootScope
+						// set site in $rootScope, session
 						$rootScope.site = data;
 						$window.sessionStorage.site = JSON.stringify(data);
 						
@@ -132,8 +137,9 @@ angular.module('triangulate.controllers', [])
 .controller('MenuCtrl', function($scope, $rootScope, $state, Setup, Site, User) {
 
 	// get user from session
-	$scope.user = User.retrieve();
+	$scope.user = $rootScope.user;
 	$scope.site = $rootScope.site;
+	$scope.sites = Setup.sites;
 	
 	// publishes a site
 	$scope.republish = function(){
@@ -171,7 +177,7 @@ angular.module('triangulate.controllers', [])
 .controller('PagesCtrl', function($scope, $rootScope, $i18next, Setup, PageType, Page, Stylesheet, Layout, User) {
 
 	// retrieve user
-	$scope.user = User.retrieve();
+	$scope.user = $rootScope.user;
 	$rootScope.template = 'pages';
 	$scope.canEditTypes = false;
 	$scope.canRemovePage = false;
@@ -198,6 +204,7 @@ angular.module('triangulate.controllers', [])
 	$scope.setPageType = function(pageType){
 		$scope.current = pageType;
 		$scope.pageTypeId = pageType.PageTypeId;
+		$rootScope.currentPageType = pageType;
 		
 		// set canremove for pagetype
 		if($scope.user.CanRemove == 'All' || $scope.user.CanRemove.indexOf($scope.pageTypeId) != -1){
@@ -379,7 +386,11 @@ angular.module('triangulate.controllers', [])
 		
 		$scope.pageTypes = data;
 		
-		if($scope.pageTypes.length > 0){
+		// set current page type to the last one
+		if($rootScope.currentPageType != null){
+			$scope.setPageType($rootScope.currentPageType);
+		}
+		else if($scope.pageTypes.length > 0){
 			$scope.setPageType($scope.pageTypes[0]);
 		}
 		
@@ -1178,6 +1189,107 @@ angular.module('triangulate.controllers', [])
 	
 })
 
+// scripts controller
+.controller('ScriptsCtrl', function($scope, $rootScope, Setup, Script) {
+
+	$rootScope.template = 'scripts';
+	
+	// setup
+	$scope.setup = Setup;
+	$scope.loading = true;
+	$scope.content = '';
+	
+	// set code mirror options
+	$scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+		mode: 'text/javascript',
+    };
+	
+	// set name
+	$scope.setName = function(name){
+		$scope.name = name;
+		
+		// retrieve content for layout
+		Script.retrieve(name, function(data){
+			$scope.content = data;
+		});
+	}
+	
+	// list files
+	Script.list(function(data){
+	
+		// debugging
+		if(Setup.debug)console.log('[triangulate.debug] Script.list');
+		console.log(data);
+		
+		$scope.files = data;
+		
+		// retrieve content for first layout
+		if(data.length > 0){
+			
+			$scope.setName(data[0]);
+		}
+	});
+	
+	// shows the add file dialog
+	$scope.showAddFile = function(){
+	
+		// set temporary model
+		$scope.temp = null;
+	
+		$('#addDialog').modal('show');
+	}
+	
+	// adds a file
+	$scope.addFile = function(file){
+	
+		message.showMessage('progress');
+	
+		Script.add(file, function(){
+			message.showMessage('success');
+		});
+	
+		$('#addDialog').modal('hide');
+	}
+	
+	// shows the remove file dialog
+	$scope.showRemoveFile = function(file){
+	
+		// set temporary model
+		$scope.temp = file;
+	
+		$('#removeDialog').modal('show');
+	}
+	
+	// removes the file
+	$scope.removeFile = function(file){
+	
+		message.showMessage('progress');
+	
+		Script.remove(file, function(){
+			$scope.file = '';  // #todo
+			
+			message.showMessage('success');
+		});
+	
+		$('#removeDialog').modal('hide');
+	}
+	
+	// publishes a script
+	$scope.publish = function(){
+		
+		message.showMessage('progress');
+		
+		Script.publish($scope.name, $scope.content, function(){
+			message.showMessage('success');
+		});
+		
+	}
+	
+})
+
+
 // styles controller
 .controller('StylesCtrl', function($scope, $rootScope, Setup, Stylesheet) {
 
@@ -1334,6 +1446,7 @@ angular.module('triangulate.controllers', [])
 		if(Setup.debug)console.log(data);
 		
 		$scope.site = data;
+		$scope.site.SMTPPassword = 'temppassword';
 		
 		var calc = $scope.site.ShippingCalculation;
 		var tiers = $scope.site.ShippingTiers;
@@ -2257,6 +2370,38 @@ angular.module('triangulate.controllers', [])
 		}
 		
 	}
+	
+})
+
+// profile controller
+.controller('ProfileCtrl', function($scope, $rootScope, Setup, User, Language) {
+
+	$rootScope.template = 'profile';
+	
+	// setup
+	$scope.user = $rootScope.user;
+	$scope.user.Password = 'temppassword';
+	
+	// get languages
+	Language.list(function(data){
+	
+		// debugging
+		if(Setup.debug)console.log('[triangulate.debug] Language.list');
+		console.log(data);
+		
+		$scope.languages = data;
+	});
+
+	
+	// save profile
+	$scope.save = function(){
+		message.showMessage('progress');
+	
+		User.editProfile($scope.user, function(){
+			message.showMessage('success');
+		});
+	}
+
 	
 })
 ;

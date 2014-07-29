@@ -137,7 +137,7 @@ body textarea.form-control{
 	margin: 20px;
 }
 
-	.main .form-group div, .main .form-group table{
+	.main .form-group{
 		max-width: 450px;
 	}
 	

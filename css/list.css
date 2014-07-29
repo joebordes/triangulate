@@ -134,6 +134,9 @@ div.placeholder{
 .listItem span.image img{
     width: 75px;
     height: 75px;
+    border-radius: 50%;
+    border: 2px solid #f8f8f8;
+    margin-top: -2px;
 }
 
 .listItem span.icon{
@@ -172,7 +175,7 @@ div#pageFileList .listItem span.icon{
 	right: 20px;
 }
 
-.listItem button.update-photo{
+button.update-photo{
 	box-sizing: border-box;
 	right: auto;
 	left: 20px;
@@ -188,16 +191,16 @@ div#pageFileList .listItem span.icon{
 	outline: none;
 }
 
-	.listItem button.update-photo.has-photo{
+	button.update-photo.has-photo{
 		border: none;
 		background-size:cover;
 	}
 
-	.listItem button.update-photo.has-photo span{
+	button.update-photo.has-photo span{
 		display: none;
 	}
 
-	.listItem button.update-photo:hover{
+	button.update-photo:hover{
 		border-color: #3299BB;
 	}
 
@@ -333,7 +336,7 @@ div#imageList .listItem img{
 	
 	.list-menu .active i{
 		background-color: #fff;
-		color: #FF9900;
+		color: #81b841;
 	}
 	
 	.list-menu a:hover i{

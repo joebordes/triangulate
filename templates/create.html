@@ -442,7 +442,7 @@
 	
 	</div>
 	
-	<div id="create-confirmation">
+	<div id="create-confirmation" class="hidden">
 
 	<fieldset>
 		<p>
@@ -451,12 +451,12 @@
 
 		<p>
 			{{'Login here to update your site' | i18next}}<br>
-			<a id="loginLink" ng-href="setup.url">{{setup.url}}</a>
+			<a id="loginLink" href="{{setup.url}}">{{setup.url}}</a>
 		</p>
 		
 		<p>
 			{{'You can already view your site here' | i18next}} <br>
-			<a id="siteLink" ng-href="setup.url + '/sites/' + friendlyId">{{setup.url}}/sites/{{friendlyId}}</a>
+			<a id="siteLink" href="{{setup.sites}}/{{friendlyId}}">{{setup.sites}}/{{friendlyId}}</a>
 		</p>
 		
 		<p>

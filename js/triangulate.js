@@ -157,6 +157,16 @@ angular.module('triangulate', ['ui.router',
 		  }
 		})
 		
+		.state('app.profile', {
+		  url: "/profile",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/profile.html",
+		      controller: 'ProfileCtrl'
+		    }
+		  }
+		})
+		
 		.state('app.roles', {
 		  url: "/roles",
 		  views: {
@@ -203,6 +213,14 @@ angular.module('triangulate', ['ui.router',
 		var str = $window.sessionStorage.site;
 		
 		$rootScope.site = JSON.parse(str);
+	}
+	
+	// set user from session storage
+	if($window.sessionStorage.site != null){
+	
+		var str = $window.sessionStorage.user;
+		
+		$rootScope.user = JSON.parse(str);
 	}
 		
 });
