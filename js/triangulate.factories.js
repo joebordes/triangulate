@@ -18,7 +18,9 @@ angular.module('triangulate.factories', [])
 				
 				// if a request is not authorized, set token to null and logout
 				$window.sessionStorage.token = null;
-				$location.path('login');
+				//$location.path('login');
+				
+				$state.go('login', {'id': $rootScope.loginId});
 			}
 			
 			return $q.reject(rejection);
@@ -211,12 +213,13 @@ angular.module('triangulate.factories', [])
 	user.data = [];
 	
 	// login API call
-	user.login = function(email, password, successCallback, failureCallback){
+	user.login = function(email, password, friendlyId, successCallback, failureCallback){
 	
 		// set params
 		var params = {
 			email: email,
-			password: password
+			password: password,
+			friendlyId: friendlyId
 		}
 	
 		// set post to URL Encoded

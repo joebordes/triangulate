@@ -35,7 +35,7 @@
 							<label for="email">{{'Email' | i18next}}</label>
 							<input id="email" type="text"
 								ng-model="email"
-								class="form-control" triangulate-validate-site-email>
+								class="form-control">
 							
 							<i class="triangulate-validating fa fa-spinner fa-spin"></i>
 							<i class="triangulate-valid fa fa-check"></i>
@@ -451,7 +451,7 @@
 
 		<p>
 			{{'Login here to update your site' | i18next}}<br>
-			<a id="loginLink" href="{{setup.url}}">{{setup.url}}</a>
+			<a id="loginLink" ui-sref="login({ id: friendlyId })">{{setup.url}}</a>
 		</p>
 		
 		<p>

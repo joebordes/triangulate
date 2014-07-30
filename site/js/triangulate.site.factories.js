@@ -94,51 +94,27 @@ angular.module('triangulate.site.factories', [])
 .factory('User', function($http, $rootScope, $window){
 
 	var user = {};
-
-	// retrieves a user
-	user.retrieve = function(){
-	
-		if($window.sessionStorage.user){
-			return JSON.parse($window.sessionStorage.user);
-		}
-		else{
-			return null;
-		}
-
-	}
 	
 	// login API call
-	user.login = function(email, password, successCallback, failureCallback){
+	user.login = function(email, password, siteId, successCallback, failureCallback){
 	
 		// set params
 		var params = {
 			email: email,
-			password: password
+			password: password,
+			siteId: siteId
 		}
+		
+		console.log(params);
 	
 		// set post to URL Encoded
 		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 	
 		// post to API
 		$http.post($rootScope.site.API + '/user/login', $.param(params))
-			.success(function(data){
-				
-				// set user in session
-				$window.sessionStorage.user = JSON.stringify(data.user);
-				
-				// call callback
-				successCallback(data);
-				
-			})
+			.success(successCallback)
 			.error(failureCallback);
 					
-	}
-	
-	// logs out a user
-	user.logout = function(){
-		
-		$window.sessionStorage.user = null;
-		
 	}
 	
 	// add a user

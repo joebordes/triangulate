@@ -5,7 +5,7 @@
 		<a class="pull-left thumbnail"
 			 ui-sref="{{page.Url}}"
 			 ng-show="page.HasImage">
-				 <img ng-src="page.Thumb">
+				 <img src="{{site.ImagesURL}}{{page.Thumb}}">
 		</a>
 		<h4><a ui-sref="{{page.Url}}">{{page.Name}}</a></h4>
 		<h5 ng-show="page.Callout">{{page.Callout}}</h5>

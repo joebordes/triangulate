@@ -3,7 +3,7 @@
 
     <h1><span class="brand"><img src="{{setup.logo}}" title="{{setup.brand}}"></span></h1>
 
-    <form>
+    <form novalidate ng-submit="login(user)">
 	<fieldset class="login">
 
 		<div class="form-group">
@@ -19,7 +19,7 @@
 		</div>
 		
 		<span class="actions">
-			<button class="primary-button" type="submit" tabindex="3" ng-click="login(user)">{{'Login' | i18next}} <i class="fa fa-angle-right fa-white"></i></button>
+			<button class="primary-button" type="submit" tabindex="3">{{'Login' | i18next}} <i class="fa fa-angle-right fa-white"></i></button>
 		</span>
 	</fieldset>
     </form>

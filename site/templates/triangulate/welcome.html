@@ -1,7 +1,7 @@
 <span class="welcome-message" ng-if="user != null">
 	{{'Welcome' | i18next}} 
 	<span class="welcome-name">{{user.FirstName}} {{user.LastName}}</span>
-	<a ng-click="logout">{{'Logout' | i18next}}</a> 
+	<a ng-click="logout()">{{'Logout' | i18next}}</a> 
 </span>
 <span class="welcome-message" ng-if="user == null">
 	<a ui-sref="login">{{'Sign In' | i18next}}</a> 

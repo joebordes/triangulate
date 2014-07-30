@@ -212,6 +212,20 @@ triangulate.editor.setupPlugins = function(){
 	  	var containerId = triangulate.editor.currBlock.attr('data-containerid') || '';
 	  	var containerCssClass = triangulate.editor.currBlock.attr('data-containercssclass') || '';
 	  	
+	  	var column1Id = triangulate.editor.currBlock.find('.col:nth-child(1)').attr('data-id') || '';
+	  	var column1CssClass = triangulate.editor.currBlock.find('.col:nth-child(1)').attr('data-cssclass') || '';
+	  	
+	  	var column2Id = triangulate.editor.currBlock.find('.col:nth-child(2)').attr('data-id') || '';
+	  	var column2CssClass = triangulate.editor.currBlock.find('.col:nth-child(2)').attr('data-cssclass') || '';
+	  	
+	  	var column3Id = triangulate.editor.currBlock.find('.col:nth-child(3)').attr('data-id') || '';
+	  	var column3CssClass = triangulate.editor.currBlock.find('.col:nth-child(3)').attr('data-cssclass') || '';
+	  	
+	  	var column4Id = triangulate.editor.currBlock.find('.col:nth-child(4)').attr('data-id') || '';
+	  	var column4CssClass = triangulate.editor.currBlock.find('.col:nth-child(4)').attr('data-cssclass') || '';
+	  	
+	  	var numColumns = triangulate.editor.currBlock.find('.col').length;
+	  	
 	  	// set scope
   		var scope = angular.element($("section.main")).scope();
   		
@@ -222,6 +236,20 @@ triangulate.editor.setupPlugins = function(){
 		    scope.block.nested = nested;
 		    scope.container.id = containerId;
 		    scope.container.cssClass = containerCssClass;
+		    
+		    scope.column1.id = column1Id;
+		    scope.column1.cssClass = column1CssClass;
+		    
+		    scope.column2.id = column2Id;
+		    scope.column2.cssClass = column2CssClass;
+		    
+		    scope.column3.id = column3Id;
+		    scope.column3.cssClass = column3CssClass;
+		    
+		    scope.column4.id = column4Id;
+		    scope.column4.cssClass = column4CssClass;
+		    
+		    scope.numColumns = numColumns;
 		});
 	
 	});
@@ -318,9 +346,48 @@ triangulate.editor.parseHTML = function(){
 		  	var cols = $(blocks[y]).find('.col');
   
 			for(var z=0; z<cols.length; z++){
-				var className = $(cols[z]).attr('class'); 
-
-		  		html += '<div class="'+className+' sortable">';
+				var colId = $(cols[z]).attr('id') || ''; 
+				var colClassName = $(cols[z]).attr('class') || ''; 
+				
+				// build custom class
+				var customColClassName = colClassName;
+				customColClassName = utilities.replaceAll(customColClassName, 'ui-sortable', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-12', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-11', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-10', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-1', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-2', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-3', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-4', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-5', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-6', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-7', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-8', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col-md-9', '');
+				customColClassName = utilities.replaceAll(customColClassName, 'col', '');
+				
+				// allowed columns 12, 6, 3, 4, 9
+		  		if(colClassName.indexOf('col-md-12') != -1){
+			  		colClassName = 'col col-md-12';
+		  		}
+		  		else if(colClassName.indexOf('col-md-6') != -1){
+			  		colClassName = 'col col-md-6';
+		  		}
+		  		else if(colClassName.indexOf('col-md-3') != -1){
+			  		colClassName = 'col col-md-3';
+		  		}
+		  		else if(colClassName.indexOf('col-md-4') != -1){
+			  		colClassName = 'col col-md-4';
+		  		}
+		  		else if(colClassName.indexOf('col-md-9') != -1){
+			  		colClassName = 'col col-md-9';
+		  		}
+				
+				// trim whitespace
+				customColClassName = $.trim(customColClassName);
+				
+				// set for column
+		  		html += '<div class="'+colClassName+' sortable" data-id="' + colId + '" data-cssclass="' + customColClassName + '">';
 		  		html += parseModules(cols[z]);
 		  		html += '</div>';
 		  }
@@ -768,36 +835,7 @@ triangulate.editor.getTranslations = function(content){
 	}
 	
 	return translations;
-	
-	/*
-	
-	var el = triangulate.editor.el;
-	
-	var els = $(el).find('.triangulate-h1, .triangulate-h2, .triangulate-h3, .triangulate-h4, .triangulate-h5, .triangulate-p, .triangulate-q, .triangulate-translate');
-	
-	var translations = {};
-	
-	// set translations
-	for(x=0; x<els.length; x++){
-	
-		var id = $(els[x]).attr('id');
-	
-		// add to array
-		if(id != '' && id != undefined){
-		
-			// get content to be translated
-			var html = $(els[x]).find('[contentEditable=true]').html();
-		
-			// trim content
-			html = $.trim(html);
-			
-			// create translation 
-			translations[prefix + id] = html;
-		}
-		
-	}
-	
-	return translations;*/
+
 }
 
 
@@ -922,9 +960,38 @@ triangulate.editor.getContent = function(){
 	  	}
 	  	else{
 			for(var z=0; z<cols.length; z++){
-		  		var className = $(cols[z]).attr('class').replace(' sortable', '').replace(' ui-sortable', '');
+		  		var className = $.trim($(cols[z]).attr('class'));
+		  		var customClass = $.trim($(cols[z]).attr('data-cssclass'));
+		  		var customId = $.trim($(cols[z]).attr('data-id'));
+		  		
+		  		// allowed columns 12, 6, 3, 4, 9
+		  		if(className.indexOf('col-md-12') != -1){
+			  		className = 'col col-md-12';
+		  		}
+		  		else if(className.indexOf('col-md-6') != -1){
+			  		className = 'col col-md-6';
+		  		}
+		  		else if(className.indexOf('col-md-3') != -1){
+			  		className = 'col col-md-3';
+		  		}
+		  		else if(className.indexOf('col-md-4') != -1){
+			  		className = 'col col-md-4';
+		  		}
+		  		else if(className.indexOf('col-md-9') != -1){
+			  		className = 'col col-md-9';
+		  		}
+		  		
+		  		// append custom class to class
+		  		className = $.trim(className + ' ' + customClass);
+		  		
+		  		var id = '';
+		  		
+		  		// create id
+		  		if(customId != ''){
+			  		id = 'id="' + customId + '" ';
+		  		}
 		  
-		  		html += '<div class="'+className+'">';
+		  		html += '<div ' + id + ' class="'+className+'">';
 		  		html += getBlockHtml(cols[z]);
 		  		html += '</div>';
 			}

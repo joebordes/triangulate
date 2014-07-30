@@ -1,23 +1,25 @@
 angular.module('triangulate.controllers', [])
 
 // login controller
-.controller('LoginCtrl', function($scope, $window, $rootScope, $i18next, Setup, User, Site) {
+.controller('LoginCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, User, Site) {
 	
 	$rootScope.template = 'login';
 	
 	// setup
 	$scope.setup = Setup;
 	
+	// get friendlyId
+	$scope.friendlyId = $stateParams.id;
+	$rootScope.loginId = $stateParams.id;
+	
 	// login
 	$scope.login = function(user){
 	
 		message.showMessage('progress');
-	
+		
 		// login user
-		User.login(user.email, user.password, 
+		User.login(user.email, user.password, $scope.friendlyId,
 			function(data){		// success
-			
-				console.log(data);
 			
 				// make sure the user has admin permissions
 				if(data.user.CanEdit != '' || data.user.CanPublish != ''  || data.user.CanRemove != ''  || data.user.CanCreate != ''){
@@ -443,6 +445,11 @@ angular.module('triangulate.controllers', [])
 	$scope.element = {};
 	$scope.block = {};
 	$scope.container = {};
+	$scope.column1 = {};
+	$scope.column2 = {};
+	$scope.column3 = {};
+	$scope.column4 = {};
+	$scope.numColumns = 1;
 	
 	// watch for changes in the block collection
     $scope.$watchCollection('block', function(newValues, oldValues){
@@ -473,6 +480,70 @@ angular.module('triangulate.controllers', [])
 	  		if(newValues[index] != oldValues[index]){
 	  		
 	  			$(triangulate.editor.currBlock).attr('data-container' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
+    
+    // watch for changes to the column
+    $scope.$watchCollection('column1', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			$(triangulate.editor.currBlock).find('.col:nth-child(1)').attr('data-' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
+    
+    // watch for changes to the column
+    $scope.$watchCollection('column2', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			$(triangulate.editor.currBlock).find('.col:nth-child(2)').attr('data-' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
+    
+    // watch for changes to the column
+    $scope.$watchCollection('column3', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			$(triangulate.editor.currBlock).find('.col:nth-child(3)').attr('data-' + index.toLowerCase(), attr);
+		  		
+	  		}
+	  		
+  		});
+    	
+    });
+    
+    // watch for changes to the column
+    $scope.$watchCollection('column4', function(newValues, oldValues){
+    	
+    	$.each(newValues, function(index, attr){	
+	  		
+	  		// check for changes
+	  		if(newValues[index] != oldValues[index]){
+	  		
+	  			$(triangulate.editor.currBlock).find('.col:nth-child(4)').attr('data-' + index.toLowerCase(), attr);
 		  		
 	  		}
 	  		

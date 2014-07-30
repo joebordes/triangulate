@@ -39,10 +39,7 @@ angular.module('triangulate.site', dependencies)
   	
 })
 
-.run(function($rootScope, $i18next, Site) {
-	
-	// init user
-	$rootScope.user = null;
+.run(function($rootScope, $i18next, $window, Site) {
 	
 	// get cart from sessionStorage
 	if(sessionStorage['triangulate-cart'] != null){
@@ -54,13 +51,38 @@ angular.module('triangulate.site', dependencies)
 		$rootScope.cart = [];
 	}
 	
-	// init site
-	Site.retrieve(function(data){
 	
-		// set site to $scope and $rootScope
-		$rootScope.site = data;
+	// set site from session storage
+	if($window.sessionStorage.site != null){
+	
+		var str = $window.sessionStorage.site;
+		$rootScope.site = JSON.parse(str);
+	
+	}
+	else{
 		
-	});
+		// init site
+		Site.retrieve(function(data){
+		
+			// set site to $scope and $rootScope
+			$rootScope.site = data;
+			$window.sessionStorage.site = JSON.stringify(data);
+			
+		});
+		
+	}
+	
+	// init user
+	$rootScope.user = null;
+	
+	// set user from session storage
+	if($window.sessionStorage.user != null){
+	
+		var str = $window.sessionStorage.user;
+		$rootScope.user = JSON.parse(str);
+		
+	}
+
 	
 });
 

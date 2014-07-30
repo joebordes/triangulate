@@ -266,7 +266,7 @@ angular.module('triangulate.site.directives', [])
 })
 
 // list
-.directive('triangulateList', function(Page){
+.directive('triangulateList', function($rootScope, Page){
 	
 	return{
 		
@@ -279,6 +279,8 @@ angular.module('triangulate.site.directives', [])
 			return 'templates/triangulate/' + attr.display + '.html';
 		},
 		link: function(scope, element, attr){
+		
+			scope.site = $rootScope.site;
 		
 			// get inputs from attributes
 			var type = attr.type;
@@ -499,7 +501,7 @@ angular.module('triangulate.site.directives', [])
 			
 			// handle logged in user
 			scope.loggedIn = false;
-			scope.user = User.retrieve();
+			scope.user = $rootScope.user;
 			
 			if(scope.user != null){
 				scope.loggedIn = true;
@@ -514,11 +516,15 @@ angular.module('triangulate.site.directives', [])
 				scope.showError = false;
 				
 				// login user
-				User.login(toLogin.Email, toLogin.Password, 
+				User.login(toLogin.Email, toLogin.Password, $rootScope.site.SiteId,
 					function(data){		// success
 					
+						// set user in session
+						$window.sessionStorage.user = JSON.stringify(data.user);
+						$rootScope.user = data.user;
+					
 						// set logged in user
-						scope.user = User.retrieve();
+						scope.user = data.user
 						
 						if(scope.user != null){
 							scope.loggedIn = true;
@@ -544,8 +550,8 @@ angular.module('triangulate.site.directives', [])
 			
 			// logout user
 			scope.logout = function(){
-				
-				User.logout();
+				$rootScope.user = null;
+				$window.sessionStorage.user = null;
 				scope.loggedIn = false;
 				
 			}
@@ -623,7 +629,7 @@ angular.module('triangulate.site.directives', [])
 })
 
 // welcome
-.directive('triangulateWelcome', function(User){
+.directive('triangulateWelcome', function(User, $rootScope, $window){
 	
 	return{
 		
@@ -633,7 +639,7 @@ angular.module('triangulate.site.directives', [])
 		link: function(scope, element, attr){
 	
 			scope.loggedIn = false;
-			scope.user = User.retrieve();
+			scope.user = $rootScope.user;
 			
 			if(scope.user != null){
 				scope.loggedIn = true;
@@ -641,10 +647,11 @@ angular.module('triangulate.site.directives', [])
 			
 			// logs a user out
 			scope.logout = function(){
-				User.logout();
+				$rootScope.user = null;
+				$window.sessionStorage.user = null;
 				scope.loggedIn = false;
+				scope.user = null;
 			}
-			
 		}
 		
 	}

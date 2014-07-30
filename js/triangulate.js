@@ -39,7 +39,7 @@ angular.module('triangulate', ['ui.router',
 	// set states
 	$stateProvider
 		.state('login', {
-		  url: "/login",
+		  url: "/login/:id",
 		  templateUrl: "templates/login.html",
 		  controller: 'LoginCtrl'
 		})
@@ -198,7 +198,7 @@ angular.module('triangulate', ['ui.router',
 		});
 	
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/login');
+	$urlRouterProvider.otherwise('/create');
   
 })
 
@@ -216,7 +216,7 @@ angular.module('triangulate', ['ui.router',
 	}
 	
 	// set user from session storage
-	if($window.sessionStorage.site != null){
+	if($window.sessionStorage.user != null){
 	
 		var str = $window.sessionStorage.user;
 		

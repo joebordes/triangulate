@@ -239,6 +239,93 @@
 			</div>
 			<!-- /.context-body -->
 			
+			<h2>{{'Column 1' | i18next}}</h2>
+			
+			<div class="context-block">
+				
+				<div class="form-group block-nested">
+					<label for="blockCol1Id" class="control-label">{{'Id' | i18next}}</label>
+					<input name="blockCol1Id" type="text" maxlength="128" value="" 
+						ng-model="column1.id"
+						class="form-control">
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockCol1CssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input name="blockCol1CssClass" type="text" maxlength="128" value="" 
+						ng-model="column1.cssClass"
+						class="form-control">
+				</div>
+		
+			</div>
+			<!-- /.context-block -->
+			
+			<h2 ng-show="numColumns > 1">{{'Column 2' | i18next}}</h2>
+			
+			<div ng-show="numColumns > 1" class="context-block">
+				
+				<div class="form-group block-nested">
+					<label for="blockCol2Id" class="control-label">{{'Id' | i18next}}</label>
+					<input name="blockCol2Id" type="text" maxlength="128" value="" 
+						ng-model="column2.id"
+						class="form-control">
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockCol2CssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input name="blockCol2CssClass" type="text" maxlength="128" value="" 
+						ng-model="column2.cssClass"
+						class="form-control">
+				</div>
+		
+			</div>
+			<!-- /.context-block -->
+			
+			<h2 ng-show="numColumns > 2">{{'Column 3' | i18next}}</h2>
+			
+			<div ng-show="numColumns > 2" class="context-block">
+				
+				<div class="form-group block-nested">
+					<label for="blockCol3Id" class="control-label">{{'Id' | i18next}}</label>
+					<input name="blockCol3Id" type="text" maxlength="128" value="" 
+						ng-model="column3.id"
+						class="form-control">
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockCol3CssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input name="blockCol3CssClass" type="text" maxlength="128" value="" 
+						ng-model="column3.cssClass"
+						class="form-control">
+				</div>
+		
+			</div>
+			<!-- /.context-block -->
+			
+			<h2 ng-show="numColumns > 3">{{'Column 4' | i18next}}</h2>
+			
+			<div ng-show="numColumns > 3" class="context-block">
+				
+				<div class="form-group block-nested">
+					<label for="blockCol4Id" class="control-label">{{'Id' | i18next}}</label>
+					<input name="blockCol4Id" type="text" maxlength="128" value="" 
+						ng-model="column4.id"
+						class="form-control">
+				</div>
+				
+				<div class="form-group block-nested">
+					<label for="blockCol4CssClass" class="control-label">{{'CSS Class' | i18next}}</label>
+					<input name="blockCol4CssClass" type="text" maxlength="128" value="" 
+						ng-model="column4.cssClass"
+						class="form-control">
+				</div>
+		
+			</div>
+			<!-- /.context-block -->
+						
+			</div>
+			<!-- /.context-body -->
+			
 		</div>
 		<!-- /.config -->
 			
