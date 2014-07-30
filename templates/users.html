@@ -1,15 +1,30 @@
 <section class="main">
 
-    <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
-    
-        <ul>
-            <li class="static active"><a>{{'Users'}}</a></li>
-            <li class="static"><a ui-sref="app.roles">{{'Roles'}}</a></li>
-        </ul>
+	<nav>
+        <a class="show-menu"></a>
         
-        <a class="primary-action show-tooltip" ng-click="showAddUser()" title="{{'Add User'}}"><i class="fa fa-plus-circle"></i></span></a>
+        <h1>{{'Users' | i18next}}</h1>
+        
+        <button ng-click="showAddUser()"
+       		class="primary-action">
+	   		{{'Add User' | i18next}}
+       </button>  
+        
+        <div class="dropdown more">
+		  <button class="dropdown-toggle" type="button" id="more-menu" data-toggle="dropdown">
+		    <i class="fa fa-ellipsis-v"></i>
+		  </button>
+		  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more-menu">
+		  	<li role="presentation"> 
+    			<a ui-sref="app.roles"
+    				tabindex="-1">
+    				{{'Roles' | i18next}}
+    			</a>
+		  	</li>
+		  </ul>
+		</div>
     </nav>
+    <!-- /nav -->
 
     <div id="usersList" class="list has-photo">
     

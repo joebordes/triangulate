@@ -1,13 +1,11 @@
 <section class="main">
 
     <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
-    
-        <ul>
-    	    <li class="static active"><a>{{'Files'}}</a></li>
-        </ul>
+        <a class="show-menu"></a>
+        
+        <h1>{{'Files' | i18next}}</h1>
     </nav>
-    
+    <!-- /nav -->
     
     <div id="drop" class="dropzone dark fixed" drop-zone target="files" filename="{{temp.filename}}" callback="updateFiles()">
         <span class="dz-message">
@@ -21,8 +19,9 @@
         	ng-repeat="file in files"
         	ng-class="{'has-thumb': (file.isImage == true)}">
         
+			<!--
         	<a class="edit" 
-        		ng-click="edit(file, $event)"><i class="fa fa-pencil fa-lg"></i></a>
+        		ng-click="edit(file, $event)"><i class="fa fa-pencil fa-lg"></i></a> -->
         		
     		<a class="remove" 
     			ng-click="showRemove(file)"><i class="fa fa-minus-circle fa-lg"></i></a>

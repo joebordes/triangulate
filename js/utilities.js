@@ -62,6 +62,18 @@ var utilities = {
 	        $(node).toggleClass('hidden');
 	        
         });
+        
+        // create sticky header for editor
+        $(window).scroll(function() {
+			if ($(this).scrollTop() > 63){  
+				$('#editor-menu').addClass("sticky");
+				$('#context-menu').addClass("sticky");
+			}
+			else{
+				$('#editor-menu').removeClass("sticky");
+				$('#context-menu').removeClass("sticky");
+			}
+		});
        
     },
     

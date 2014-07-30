@@ -1,37 +1,56 @@
 <section class="main">
 
     <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+        <a class="show-menu"></a>
         
-        <div class="fs-container full">
+        <h1>{{'Styles' | i18next}}</h1>
+         
+       <button ng-click="showAddFile()"
+       		class="primary-action">
+	   		{{'Add Style' | i18next}}
+       </button>  
+       
+       <div class="dropdown more">
+		  <button class="dropdown-toggle" type="button" id="more-menu" data-toggle="dropdown">
+		    <i class="fa fa-ellipsis-v"></i>
+		  </button>
+		  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more-menu">
+		  	<li role="presentation"> 
+    			<a ng-click="showRemoveFile(name)"
+    				tabindex="-1">
+    				{{'Remove' | i18next}} {{name}}
+    			</a> 	
+		  	</li>
+		  </ul>
+		</div>
     
-			<div class="fs">
-    
-		        <ul>
-		            <li
-		            	ng-repeat="file in files"
-		            	ng-class="{'active': (file == name), 'has-action': (file == name)}">
-		             	<a ng-click="setName(file)">{{file}}</a>
-		             	<i ng-click="showRemoveFile(file)" class="fa fa-minus-circle fa-lg"></i>
-		             </li>
-		            <li class="add">
-		            	<i 
-		            		ng-click="showAddFile()"
-		            		class="fa fa-plus-circle"></i>
-		            </li>
-		        </ul>
-        
-			</div>
-			<!-- /.fs -->
-        
-        </div>
-        <!-- /.fs-container -->
-        
     </nav>
+    <!-- /nav -->
+    
+    <menu>
+    
+    	<div class="dropdown">
+		  <button class="btn btn-default dropdown-toggle" type="button" id="page-types" data-toggle="dropdown">
+		    {{name}}
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="page-types">
+		  	<li ng-repeat="file in files" 
+        		role="presentation"> 
+    			<a ng-click="setName(file)"
+    				tabindex="-1">
+    				{{file}}
+    			</a> 
+		  	</li>
+		  </ul>
+		</div>
+
+    </menu>
+    <!-- /menu -->
    
-    	<div class="codemirror-block">
-	    	<ui-codemirror ng-model="content" ui-codemirror-opts="editorOptions"></ui-codemirror>
-    	</div>
+	<div class="codemirror-block">
+    	<ui-codemirror ng-model="content" ui-codemirror-opts="editorOptions"></ui-codemirror>
+	</div>
     
     <div class="actions">
         <button class="primary-button" type="button"

@@ -1,7 +1,37 @@
 <section class="main" data-pageid="{{pageId}}">
+	
+	<nav>
+        <a ng-click="back()" 
+        	class="back"></a>
+        
+        <h1>{{page.Name}}</h1>
+       
+        <div class="dropdown more">
+		  <button class="dropdown-toggle" type="button" id="more-menu" data-toggle="dropdown">
+		    <i class="fa fa-ellipsis-v"></i>
+		  </button>
+		  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more-menu">
+		  	<li role="presentation"> 
+    			<a ng-click="showPageSettings()"
+    				tabindex="-1">
+    				{{'Page Settings' | i18next}}
+    			</a>
+		  	</li>
+		  	<li role="presentation"> 
+    			<a target="_blank" 
+    				ng-href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}">{{'Live Page' | i18next}}</a>
+		  	</li>
+		  	<li role="presentation"> 
+    			<a target="_blank" 
+    				ng-href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}?preview=true">{{'Preview Page' | i18next}}</a>
+		  	</li>
+		  </ul>
+		</div>
+  
+    </nav>
 
-	<div id="editor-menu">
-		<nav class="editor-menu">
+	<menu id="editor-menu">
+		<div class="editor-menu">
 			<div class="editor-actions">
 				<div>
 					<a ng-repeat="item in editorItems" class="{{item.class}} {{item.icon}}" title="{{item.title}}" data-action="{{item.action}}">
@@ -9,17 +39,13 @@
 					</a>
 				</div>
 			</div>
-			<a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
 			<a class="next fs-next"><i class="fa fa-chevron-right"></i></a>
 			<a class="previous fs-prev"><i class="fa fa-chevron-left"></i></a>
-			<a class="primary-action" title="Page Settings"
-				ng-click="showPageSettings()"><i class="fa fa-cog"></i></a>
-		</nav>
-		
-	</div>
+		</div>
+	</menu>
 	<!-- /#editor-menu -->
 	
-	<aside class="context-menu">
+	<aside id="context-menu" class="context-menu">
 	
 		<div class="page-settings config active">
 	
@@ -248,16 +274,6 @@
         	ng-click="revertDraft()"
         	ng-show="(page.CanPublish || page.CanEdit) && page.HasDraft"
         	type="button">{{'Revert Draft' | i18next}}</button>
-        
-        <button class="tertiary-button offset-left" 
-        	ng-click="back()"
-        	type="button"><i class="fa fa-reply"></i> {{'Return' | i18next}}</button>
-    
-		<div class="alternate">
-			<a class="live" target="_blank" ng-href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}">{{'Live' | i18next}}</a>
-			<a class="preview" target="_blank" 
-				ng-click="generatePreview()" href="{{sites}}/{{site.FriendlyId}}/#/{{page.Url}}?preview=true">{{'Preview' | i18next}}</a>
-		</div>
 		
     </div>
     <!-- /#actions -->

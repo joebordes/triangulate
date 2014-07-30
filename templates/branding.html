@@ -1,66 +1,55 @@
 <section class="main">
 
     <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
-    
-        <ul>
-		    <li class="static active"><a href="branding">{{'Branding'}}</a></li>
-        </ul>
+        <a class="show-menu"></a>
         
+        <h1>{{'Branding' | i18next}}</h1>
     </nav>
 
-  <div class="row-fluid">
-    <div class="span12">
 	
-		<form class="form-horizontal">
+	<form id="form-vertical">
 
-			<div class="form-group">
-				<label class="col-lg-2 control-label">{{'Site:'}}</label>
-	
-				<div class="col-lg-10">
-	                <span
-	                	ng-click="showAddImage('logo')"
-	                	class="placeholder">
-	                    <img ng-if="logoUrl != null" 
-	                    	ng-src="{{logoUrl}}">
-	                </span>
-				</div>
+		<div class="form-group">
+			<label class="control-label">{{'Site:'}}</label>
+
+			<div>
+                <span
+                	ng-click="showAddImage('logo')"
+                	class="placeholder">
+                    <img ng-if="logoUrl != null" 
+                    	ng-src="{{logoUrl}}">
+                </span>
 			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-2 control-label">{{'Touch / Tile / Favorite:'}}</label>
-	
-				<div class="col-lg-10">
-	                <span
-	                	ng-click="showAddImage('icon')"
-	                	class="placeholder touch">
-	                    <img ng-if="iconUrl != null" 
-	                    	ng-src="{{iconUrl}}">
-	                </span>
-	                <small>200px x 200px ({{'PNG format, we will convert it to .ico)'}}</small>
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-2 control-label">{{'Tile Background:'}}</label>
-	
-				<div class="col-lg-10">
-					<input id="iconBg" type="text" 
-						ng-model="site.IconBg" class="form-control inline">
-					<button class="btn btn-default" 
-						ng-click="updateIconBg()">{{'Update'}}</button>
-	                <small>{{'The background color for a pinned Windows 8 tile'}}</small>
-				</div>
-			</div>
-	
-		</form>
-		<!-- /.form-horizontal -->
+		</div>
 		
-	</div>
-	<!-- /.span12 -->	
+		<div class="form-group">
+			<label class="control-label">{{'Touch / Tile / Favorite:'}}</label>
+
+			<div>
+                <span
+                	ng-click="showAddImage('icon')"
+                	class="placeholder touch">
+                    <img ng-if="iconUrl != null" 
+                    	ng-src="{{iconUrl}}">
+                </span>
+                <small>200px x 200px ({{'PNG format, we will convert it to .ico)'}}</small>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">{{'Tile Background:'}}</label>
+
+			<div>
+				<input id="iconBg" type="text" 
+					ng-model="site.IconBg" class="form-control inline">
+				<button class="btn btn-default" 
+					ng-click="updateIconBg()">{{'Update'}}</button>
+                <small>{{'The background color for a pinned Windows 8 tile'}}</small>
+			</div>
+		</div>
 	
-  </div>
-  <!-- /.row-fluid -->
+	</form>
+	<!-- /.form-horizontal -->
 
 </section>
 <!-- /.main -->

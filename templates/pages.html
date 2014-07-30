@@ -1,48 +1,58 @@
 <section class="main">
 
     <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
+        <a class="show-menu"></a>
         
-        <div class="fs-container">
-    
-			<div class="fs">
-			
-		        <ul>
-		        	<li ng-repeat="pageType in pageTypes"
-		        		ng-class="{'active': (pageType.PageTypeId == pageTypeId), 'has-action':(pageType.PageTypeId != -1 && canEditTypes)}"> 
-		    			<a ng-click="setPageType(pageType)">
-		    				/{{pageType.FriendlyId}}
-		    				<span ng-show="(pageType.IsSecure == 1)" class="fa fa-lock"></span>
-		    			</a> 
-						
-			    		<i 	ng-if="canEditTypes"
-			    			ng-show="(pageType.PageTypeId != -1)"
-							ng-click="showRemovePageType(pageType)"
-			    			class="fa fa-minus-circle" 
-			    			title="{{'Remove Page Type' | i18next}}"></i>
-		    		</li>
-		    		
-		    		<li class="add" ng-if="canEditTypes">
-		    			<i ng-click="showAddPageType()"
-		    				class="fa fa-plus-circle" title="{{'Add Page Type' | i18next}}"></i>
-		    		</li>
-		        </ul>
-	        
-			</div>
-			<!-- /.fs -->
+        <h1>{{'Pages' | i18next}}</h1>
+         
+       <button ng-click="showAddPage()"
+       		class="primary-action">
+	   		{{'Add Page' | i18next}}
+       </button>  
         
-        </div>
-        <!-- /.fs-container -->
-        
-        <a id="add-page" 
-        	ng-click="showAddPage()"
-        	class="primary-action" title="{{'Add Page' | i18next}}"><i class="fa fa-plus-circle"></i></a>
+        <div class="dropdown more">
+		  <button class="dropdown-toggle" type="button" id="more-menu" data-toggle="dropdown">
+		    <i class="fa fa-ellipsis-v"></i>
+		  </button>
+		  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more-menu">
+		  	<li role="presentation"> 
+    			<a ng-click="showAddPageType()"
+    				tabindex="-1">
+    				{{'Add Type' | i18next}}
+    			</a>
+		  	</li>
+		  	<li ng-if="current.PageTypeId != -1"
+		  		role="presentation"> 
+    			<a ng-click="showRemovePageType(current)"
+    				tabindex="-1">
+    				{{'Remove' | i18next}} /{{current.FriendlyId}}
+    			</a> 	
+		  	</li>
+		  </ul>
+		</div>
   
     </nav>
     
-    <div class="list-menu">
+    <menu>
+    
+    	<div class="dropdown">
+		  <button class="btn btn-default dropdown-toggle" type="button" id="page-types" data-toggle="dropdown">
+		    {{setup.sites}}/#/{{current.FriendlyId}}
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="page-types">
+		  	<li ng-repeat="pageType in pageTypes" 
+        		role="presentation"> 
+    			<a ng-click="setPageType(pageType)"
+    				tabindex="-1">
+    				/{{pageType.FriendlyId}}
+    				<span ng-show="(pageType.IsSecure == 1)" class="secure fa fa-lock"></span>
+    			</a> 
+		  	</li>
+		  </ul>
+		</div>
     	
-		<div class="list-menu-actions">
+		<div class="menu-actions">
 
     		<a title="{{'Sort by Last Modified' | i18next}}" 
     			ng-click="setPredicate('LastModifiedDate')"
@@ -58,7 +68,8 @@
 				<i class="fa fa-cog"></i>
 			</a>
 		</div>
-    </div>
+		
+    </menu>
 
     <div class="list">
     

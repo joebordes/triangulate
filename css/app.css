@@ -70,7 +70,6 @@ body textarea.form-control{
     display: inline-block;
     background-color: #3299bb;
     border: 1px solid #3299bb;
-    border-radius: 25px;
     font-family: "Ubuntu", sans-serif;
     font-weight: normal;
     color: #fff;
@@ -80,6 +79,8 @@ body textarea.form-control{
     cursor: pointer; 
     padding: 8px 20px;
     font-weight: 100;
+    outline: none;
+    border-radius: 20px;
 }
 
 	.primary-button[disabled=disabled]{
@@ -96,16 +97,16 @@ body textarea.form-control{
 .secondary-button{
     background-color: #fff;
     color: #3299bb;
+    border-color: #ddd;
 }
-    .secondary-button: hover{
-        background-color: #f0f0f0;
-        border-color: #1d7b9a;
+    .secondary-button:hover{
+        border-color: #3299bb;
     }
     
 .tertiary-button{
     background-color: #fff;
     color: #3299bb;
-    border-color: #ccc;
+    border-color: #ddd;
     color: #888;
 }
     .tertiary-button: hover{
@@ -308,7 +309,7 @@ body .modal-header{
 				padding-bottom: 5px;
 			}
 
-
+/* header */
 header{
     position: fixed;
     top: 0;
@@ -318,7 +319,6 @@ header{
 	background-color: #f8f8f8;
 	color: #333;
 	min-width: 35px;
-	z-index: 10000;
 	height: 100%;
 	overflow: scroll;
 	border-right: 1px solid #f0f0f0;
@@ -327,7 +327,19 @@ header{
 	-o-transition: .2s all ease;    
 	-ms-transition: .2s all ease;
 	transition: .2s all ease;
+	z-index: 1000;
 }
+
+	#header-overlay{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,.25);
+		z-index: 999;
+		display: none;	
+	}
 	
 	header .profile{
 		position: absolute;
@@ -383,7 +395,7 @@ header{
          
 	header .sub-menu{
 		position: absolute;
-		top: 5px;
+		top: 7px;
 		right: 5px;
 		z-index: 10;
 	}
@@ -400,6 +412,11 @@ header{
 
     body.show-nav header{
         margin-left: 0;
+		box-shadow: 30px 30px 100px rgba(0,0,0,.2);
+    }
+    
+    body.show-nav #header-overlay{
+        display: block;
     }
     
     header ul, header li{
@@ -521,39 +538,116 @@ section.main{
 		text-align: right;
 	}
 
+/* menu */
+section.main menu{
+	position: relative;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #f0f0f0;	
+	margin: 0;
+	padding: 0 20px;
+	line-height: 50px;
+	height: 50px;
+}
+
+	section.main menu .menu-actions{
+		position: absolute;
+		top: 2px;
+		right: 13px;
+	}
+
+	section.main menu i{
+		margin-left: 5px;
+		color: #888;	
+		padding: 4px 5px 0 5px;
+		font-size: 16px;
+	}
+	
+	section.main menu .active i{
+		color: #81b841;
+	}
+	
+	section.main menu a:hover i{
+		color: #81b841;
+	}
+		
+	section.main menu .dropdown-menu{
+		border-radius: 0;
+		box-shadow: none;
+		border: 1px solid #f0f0f0;
+	}
+	
+		section.main menu .dropdown-menu a{
+			color: #aaa;
+			font-size: 13px;
+		}
+		
+	section.main menu .dropdown{
+		margin: 0;
+	}
+	
+	section.main menu .dropdown .btn{
+		border-radius: 0;
+		border-color: #ddd;
+	}
+	
+	section.main menu .dropdown .caret{
+		margin-left: 5px;
+		color: #ddd;
+	}
+	
+	section.main menu .dropdown-menu .secure{
+		margin-left: 5px;
+		color: #ddd;
+	}
+	
+	section.main menu .dropdown-menu a{
+		color: #888;
+		padding: 10px 15px;
+		min-width: 205px;
+	}
 
 /* nav */
 section.main nav{
     background-color: #3299bb;
-    height: 50px;
+    height: 64px;
     margin: 0;
     padding: 0;
     position: relative;
 }   
     
-    section.main nav .show-menu{
+    section.main nav .show-menu, section.main nav .back{
         position: absolute;
         display: block;
         top: 0;
         left: 0;
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
+        width: 64px;
+        height: 64px;
+        line-height: 64px;
         text-align: center;
-        background: #3299bb url('../images/menu.png') no-repeat 15px 15px;
-        background-size: 20px;
+        background: #3299bb url('../images/menu.png') no-repeat 18px 18px;
+        background-size: 25px;
     }
     
-        section.main nav .show-menu:hover{
+    	section.main nav .back{
+	        background: #3299bb url('../images/back.png') no-repeat 20px 20px;
+	        background-size: 15px;
+		}
+    
+    	section.main nav .show-menu:hover, section.main nav .back:hover{
             background-color: #1d7b9a;
             text-decoration: none;
         }
-
-        section.main nav .show-menu i{
-            color: #fff;
-            display: none;
-        }
-
+    
+	section.main h1{
+		margin: 0;
+		padding: 0 0 0 68px;
+		line-height: 64px;
+		height: 64px;
+		font-size: 18px;
+		color: #fff;
+		font-family: "Roboto", sans-serif;
+		font-weight: 100;
+	}
 
 	section.main nav .static-title{
         display: inline-block;
@@ -570,126 +664,82 @@ section.main nav{
 			margin: 0 7px;
 		}
 
-    section.main nav ul{
-        list-style: none;
-        vertical-align: top;
-        height: 50px;
-        margin: 0 0 0 50px;
-        padding: 0;
-    }
-
-    section.main nav li{
-        position: relative;
-        display: inline-block;
+    section.main nav .primary-action{
+        position: absolute;
+        display: block;
+        right: 52px;
+        top: 15px;
+        height: 35px;
+        white-space: nowrap;
+        font-size: 15px;
+        padding: 0 15px;
+        color: #fff;
+        background-color: transparent;
+        border: 1px solid rgba(255,255,255,0.25);
+        font-size: 14px;
+        font-weight: 100;
+        width: auto;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
-        vertical-align: top;
     }
     
-    	section.main nav li:hover{
-	    	background-color: #1d7b9a;
+    	section.main nav .primary-action:hover{
+	    	border: 1px solid #fff;
     	}
-    
-        section.main nav li.root a{
-            width: 45px;
-        }
-    
-        section.main nav li i{
-            display: none;
-        }
-        
-        section.main nav li a{
-            display: inline-block;
-            font-size: 1em;
-            height: 50px;
-            line-height: 50px;
-            padding: 0 20px 0 20px;
-            color: #fff;
-            text-align: center;
-        }
-        
-        	section.main nav li.has-action.active a{
-	        	padding-right: 30px;
-        	}
-        
-            section.main nav li.static a{
-                padding: 0 30px;   
-            }
-        
-        section.main nav li.root a{
-            padding: 0 15px;
-        }
-        
-        section.main nav li.add{
-	     	padding: 0;  
-	     	vertical-align: top;
-	     	line-height: normal;
-        } 
-        
-        section.main nav li.add i{
-            display: inline-block;
-            color: #fff;
-            cursor: pointer;
-            font-size: 18px;
-            padding-top: 17px;
-            margin: 0 20px;
-        }
-        
-            section.main nav li.add:hover{
-                background-color: #1d7b9a;
-            }
-    
-    section.main nav li.active{
-        background: rgba(255,255,255,0.2);
-        height: 50px;
-        line-height: 50px;
-    }
-    
-        section.main nav li.active a{
-            color: #fff;
-        }
-        
-        section.main nav li.active i{
-            position: absolute;
-            top: 17px;
-            right: 5px;
-            display: inline-block;
-            color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            margin: 0 ;
-            padding: 0;
-            font-size: 18px;
-        }
-        
-            section.main nav li.active i:hover{
-                color: #fff;
-            }
-    
-    section.main nav a.primary-action{
+    	
+    section.main nav .more{
         position: absolute;
         display: block;
         right: 0;
         top: 0;
-        height: 50px;
+        height: 65px;
         font-size: 1em;
-        background: #1d7b9a;
-        padding: 0 5px;
+        padding: 0;
         color: #fff;
         font-size: 14px;
         width: 50px;
         text-align: center;
     }
     
-        section.main nav a.primary-action:hover{
+    	 section.main nav .more button{
+	    	 height: 65px;
+	    	 line-height: 75px;
+	    	 width: 50px;
+	    	 margin: 0;
+	    	 padding: 0;
+			 background-color: transparent;
+			 border: none;
+		}
+    
+        section.main nav .more.open{
             text-decoration: none;
-            background: #3299bb;
+			background: #1d7b9a;
         }
         
-        section.main nav a.primary-action i{
-            font-size: 18px;
-            padding-top: 17px;
+        section.main nav .more i{
+            font-size: 22px;
         }
+        
+        section.main nav .dropdown-menu{
+	        border-radius: 0;
+	        border: 0;
+			background: #1d7b9a;
+			margin: -1px 0 0 0;
+        }
+        
+        	section.main nav .dropdown-menu li:hover, section.main nav .dropdown-menu a:hover{
+	        	background: none !important;
+        	}
+        	
+        	section.main nav .dropdown-menu li a{
+	        	color: #fff;
+        	}
+        	
+        	section.main nav .dropdown-menu li a{
+	        	padding: 10px 15px;
+	        	font-size: 14px;
+	        	font-weight: 100;
+        	}
+    
     
     section.main .actions{
         position: fixed;
@@ -723,13 +773,17 @@ section.main nav{
 		a.fs-next, a.fs-prev{
 		    position: absolute;
 		    color: #fff;
-		    background-color: rgba(255,255,255,0.2);
+		    background-color: rgba(255,255,255,0.1);
 		    height: 50px;
 		    line-height: 50px;
-		    z-index: 100;
+		    z-index: 10;
 		    padding: 0 10px;
 		    text-decoration: none;
 		}
+		
+			a.fs-next i, a.fs-prev i{
+				color: #fff !important;
+			}
 		
 		    a.fs-next:hover, a.fs-previous:hover{
 		        opacity: 1;
@@ -737,7 +791,7 @@ section.main nav{
 		    
 		    a.fs-next{
 		        top: 0;
-		        right: 50px;
+		        right: 0;
 		    }
 		    
 		    .main nav .fs-container.full a.fs-next{
@@ -746,7 +800,7 @@ section.main nav{
 		    
 		    a.fs-prev{
 		        top: 0;
-		        left: 50px;
+		        left: 0;
 		        display: none;
 		    }
 

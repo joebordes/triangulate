@@ -1,3 +1,9 @@
+.modal-content{
+	border-radius: 0 !important;
+	box-shadow: none;
+	border-color: #888;
+}
+
 /* begin immersive dialog */
 .immersive{
     box-sizing: border-box;

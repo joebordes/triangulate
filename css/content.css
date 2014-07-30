@@ -1,15 +1,4 @@
-.content section.main{
-	padding-right: 250px;
-}
-
-	.content section.main .container{
-		width: auto !important;
-	}
-
-
-body.content{
-	background: #fff;
-}
+body.content{}
 
 	body.content .inline-status{
 		display: inline-block;
@@ -526,17 +515,24 @@ body.content{
 
 /* aside */
 .content .context-menu{
-	position: fixed;
+	position: absolute;
 	box-sizing: border-box;
-	top: 50px;
+	top: 114px;
 	right: 0;
 	width: 250px;
 	height: 100%;
-	height: calc(100% - 109px);
+	height: calc(100% - 114px);
 	border-left: 1px solid #ddd;
 	background-color: #f8f8f8;
 	overflow: scroll;
 }
+
+	.content .context-menu.sticky{
+	    position: fixed;
+	    top: 50px;
+	    right: 0;
+		height: calc(100% - 50px);
+	}
 
 	.content .context-menu h2{
 		margin: -1px 0 0 0;

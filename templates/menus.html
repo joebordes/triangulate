@@ -1,5 +1,70 @@
 <section class="main">
 
+
+	<nav>
+        <a class="show-menu"></a>
+        
+        <h1>{{'Menus' | i18next}}</h1>
+         
+       <button ng-click="showAddMenuItem()"
+       		class="primary-action">
+	   		{{'Add Item' | i18next}}
+       </button>  
+        
+        <div class="dropdown more">
+		  <button class="dropdown-toggle" type="button" id="more-menu" data-toggle="dropdown">
+		    <i class="fa fa-ellipsis-v"></i>
+		  </button>
+		  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more-menu">
+		  	<li role="presentation"> 
+    			<a ng-click="showAddMenuType()"
+    				tabindex="-1">
+    				{{'Add Menu' | i18next}}
+    			</a>
+		  	</li>
+		  	<li ng-if="current.PageTypeId != -1"
+		  		role="presentation"> 
+    			<a 
+    				ng-if="(friendlyId != 'primary' && friendlyId != 'footer')"
+    				ng-click="showRemoveMenuType(current)"
+    				tabindex="-1">
+    				{{'Remove' | i18next}} {{friendlyId}}
+    			</a> 	
+		  	</li>
+		  </ul>
+		</div>
+  
+    </nav>
+    
+    <menu>
+    
+    	<div class="dropdown">
+		  <button class="btn btn-default dropdown-toggle" type="button" id="page-types" data-toggle="dropdown">
+		    {{friendlyId}}
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="page-types">
+		  	<li ng-click="setFriendlyId('primary')"
+		  		role="presentation">
+            		<a>{{'Primary'}}</a>
+            </li>
+            <li ng-click="setFriendlyId('footer')"
+            	role="presentation">
+            	<a>{{'Footer'}}</a>
+            </li>
+		        		
+		  	<li ng-repeat="menuType in menuTypes" 
+		  		role="presentation"> 
+    			<a ng-click="setMenuType(menuType)">
+    				{{menuType.Name}}
+    			</a>
+		    </li>      		
+		  </ul>
+		</div>
+    	
+		
+    </menu>
+<!--
     <nav>
         <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
         
@@ -33,15 +98,14 @@
 		        </ul>
 		        
 			</div>
-			<!-- /.fs -->
         
         </div>
-        <!-- /.fs-container -->
         
         <a class="primary-action show-tooltip" 
         	ng-click="showAddMenuItem()"
         	title="{{'Add Menu Item' | i18next}}"><i class="fa fa-plus-circle"></i></a>
     </nav>
+    -->
 	
 	<div id="menuItemsList" class="list">
     
@@ -219,7 +283,7 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Add Menu Type'}}</h3>
+				<h3>{{'Add Menu'}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
@@ -232,14 +296,16 @@
 				<input id="menuTypeName" 
 					ng-model="temp.Name"
 					ng-keyup="createFriendlyId(temp)"
-					value="" maxlength="50" class="form-control">
+					type="text"
+					maxlength="50" class="form-control">
 			</div>
 			
 			<div class="form-group">
 				<label for="menuTypeFriendlyId" class="control-label">{{'Friendly Id'}}</label>
 				<input id="menuTypeFriendlyId" 
 					ng-model="temp.FriendlyId"
-					value="" maxlength="50" class="form-control">
+					type="text"
+					maxlength="50" class="form-control">
 				<span class="help-block">{{'Lowercase, no spaces, must be unique'}}</span>
 			</div>
 			

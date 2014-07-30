@@ -882,6 +882,13 @@ angular.module('triangulate.controllers', [])
 	// set friendlyId
 	$scope.setFriendlyId = function(friendlyId){
 		$scope.friendlyId = friendlyId;
+		$scope.current = null;
+	}
+	
+	// set menutype
+	$scope.setMenuType = function(menuType){
+		$scope.friendlyId = menuType.FriendlyId;
+		$scope.current = menuType;
 	}
 	
 	// creates a friendlyId
