@@ -46,11 +46,11 @@
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="page-types">
 		  	<li ng-click="setFriendlyId('primary')"
 		  		role="presentation">
-            		<a>{{'Primary'}}</a>
+            		<a>{{'Primary' | i18next}}</a>
             </li>
             <li ng-click="setFriendlyId('footer')"
             	role="presentation">
-            	<a>{{'Footer'}}</a>
+            	<a>{{'Footer' | i18next}}</a>
             </li>
 		        		
 		  	<li ng-repeat="menuType in menuTypes" 
@@ -64,48 +64,6 @@
     	
 		
     </menu>
-<!--
-    <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
-        
-        <div class="fs-container">
-    
-			<div class="fs">
-    
-		        <ul>
-		            <li 
-		            	ng-class="{'active': (friendlyId == 'primary')}"
-		            	ng-click="setFriendlyId('primary')"><a>{{'Primary'}}</a></li>
-		        	<li ng-class="{'active': (friendlyId == 'footer')}"
-		        		ng-click="setFriendlyId('footer')"><a>{{'Footer'}}</a></li>           
-		            
-		            <li ng-repeat="menuType in menuTypes"
-		        		ng-class="{'active': (menuType.FriendlyId == friendlyId), 'has-action': (menuType.FriendlyId == friendlyId)}"> 
-		    			<a ng-click="setFriendlyId(menuType.FriendlyId)">
-		    				{{menuType.Name}}
-		    			</a> 
-						
-			    		<i ng-click="showRemoveMenuType(menuType)"
-			    			class="fa fa-minus-circle" 
-			    			title="{{'Remove Menu Type' | i18next}}"></i>
-		    		</li>
-		    		
-		    		<li class="add">
-		    			<i ng-click="showAddMenuType()"
-		    				class="fa fa-plus-circle" title="{{'Add Menu Type' | i18next}}"></i>
-		    		</li>
-		            
-		        </ul>
-		        
-			</div>
-        
-        </div>
-        
-        <a class="primary-action show-tooltip" 
-        	ng-click="showAddMenuItem()"
-        	title="{{'Add Menu Item' | i18next}}"><i class="fa fa-plus-circle"></i></a>
-    </nav>
-    -->
 	
 	<div id="menuItemsList" class="list">
     
@@ -151,7 +109,7 @@
     
     <div class="actions">
         <button class="primary-button" type="button"
-        	ng-click="publish()">{{'Publish'}}</button>
+        	ng-click="publish()">{{'Publish' | i18next}}</button>
     </div>
 </section>
 <!-- /.main -->
@@ -165,8 +123,8 @@
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3 class="add">{{'Add Menu Item'}}</h3>
-				<h3 class="edit">{{'Update Menu Item'}}</h3>
+				<h3 class="add">{{'Add Menu Item' | i18next}}</h3>
+				<h3 class="edit">{{'Update Menu Item' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
@@ -175,7 +133,7 @@
 			<div class="modal-body">
 			
 				<div class="form-group">
-					<label for="url" class="control-label">{{'Url'}}</label>
+					<label for="url" class="control-label">{{'URL' | i18next}}</label>
 					<input id="url" 
 						ng-model="temp.Url"
 						type="text" class="form-control" required>
@@ -197,14 +155,14 @@
 				</div>
 	
 				<div class="form-group">
-					<label for="name" class="control-label">{{'Name'}}</label>
+					<label for="name" class="control-label">{{'Name' | i18next}}</label>
 					<input id="name" type="text" 
 						ng-model="temp.Name"
 						maxlength="140" class="form-control" required>
 				</div>
 			
 				<div class="form-group">
-					<label for="cssClass" class="control-label">{{'CSS Class'}}</label>
+					<label for="cssClass" class="control-label">{{'CSS Class' | i18next}}</label>
 					<input id="cssClass" type="text" 
 						ng-model="temp.CssClass"
 						maxlength="140" class="form-control">
@@ -215,12 +173,12 @@
 			<!-- /.modal-body -->
 
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button add"
 					ng-click="addMenuItem(temp)"
-					ng-disabled="menuTypeForm.$invalid || isUnchanged(temp)">{{'Add Menu Item'}}</button>
+					ng-disabled="menuTypeForm.$invalid || isUnchanged(temp)">{{'Add Menu Item' | i18next}}</button>
 				<button class="primary-button edit"
-					ng-click="editMenuItem(temp)">{{'Update Menu Item'}}</button>
+					ng-click="editMenuItem(temp)">{{'Update Menu Item' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 			
@@ -246,20 +204,20 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>{{'Remove Menu Item'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			
 			<div class="modal-body">
 			
 				<p>
-					{{'Confirm that you want to remove'}} <strong>{{temp.Name}}</strong>
+					{{'Confirm that you want to remove' | i18next}} <strong>{{temp.Name}}</strong>
 				</p>
 			
 			</div>
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button" 
-					ng-click="removeMenuItem(temp)">{{'Remove Menu Item'}}</button>
+					ng-click="removeMenuItem(temp)">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 
@@ -283,7 +241,7 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Add Menu'}}</h3>
+				<h3>{{'Add Menu' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
@@ -292,7 +250,7 @@
 			<div class="modal-body">
 			
 			<div class="form-group">
-				<label for="menuTypeName" class="control-label">{{'Name'}}</label>
+				<label for="menuTypeName" class="control-label">{{'Name' | i18next}}</label>
 				<input id="menuTypeName" 
 					ng-model="temp.Name"
 					ng-keyup="createFriendlyId(temp)"
@@ -301,22 +259,22 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="menuTypeFriendlyId" class="control-label">{{'Friendly Id'}}</label>
+				<label for="menuTypeFriendlyId" class="control-label">{{'Friendly Id' | i18next}}</label>
 				<input id="menuTypeFriendlyId" 
 					ng-model="temp.FriendlyId"
 					type="text"
 					maxlength="50" class="form-control">
-				<span class="help-block">{{'Lowercase, no spaces, must be unique'}}</span>
+				<span class="help-block">{{'Lowercase, no spaces, must be unique' | i18next}}</span>
 			</div>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button" class="form-control"
 					ng-click="addMenuType(temp)"
-					ng-disabled="menuTypeForm.$invalid || isUnchanged(temp)">{{'Add Menu Type'}}</button>
+					ng-disabled="menuTypeForm.$invalid || isUnchanged(temp)">{{'Add Menu' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 			
@@ -342,23 +300,23 @@
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Remove Menu Type'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
 			<div class="modal-body">
 			
 				<p>
-					{{'Are you sure that you want to delete'}} <strong>{{temp.Name}}</strong>?
+					{{'Confirm you want to remove' | i18next}} <strong>{{temp.Name}}</strong>?
 				</p>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button"
-					ng-click="removeMenuType(temp)">{{'Remove Menu Type'}}</button>
+					ng-click="removeMenuType(temp)">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 			

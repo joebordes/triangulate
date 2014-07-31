@@ -29,23 +29,23 @@
     <div id="rolesList" class="list">
     	<div class="listItem" data-id="Admin">
     		<h2>
-    			<a ng-click="showDefault('Admin')">Admin</a>
+    			<a ng-click="showDefault('Admin')">{{'Admin' | i18next}}</a>
     		</h2>
-            <em>Default</em>
+            <em>{{'Default' | i18next}}</em>
     	</div>
     	
     	<div class="listItem" data-id="Contributor">
     		<h2>
-    			<a ng-click="showDefault('Contributor')">Contributor</a>
+    			<a ng-click="showDefault('Contributor')">{{'Contributor' | i18next}}</a>
     		</h2>
-            <em>Default</em>
+            <em>{{'Default' | i18next}}</em>
     	</div>
     	
     	<div class="listItem" data-id="Member">
     		<h2>
-    			<a ng-click="showDefault('Member')">Member</a>
+    			<a ng-click="showDefault('Member')">{{'Member' | i18next}}</a>
     		</h2>
-            <em>Default</em>
+            <em>{{'Default' | i18next}}</em>
     	</div>
     	
     
@@ -56,13 +56,13 @@
     		<h2>
     			<a ng-click="showEditRole(role)">{{role.Name}}</a>
     		</h2>
-            <em>Custom</em>
+            <em>{{'Custom' | i18next}}</em>
     	</div>
     
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...'}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
     
 
 </section>
@@ -76,8 +76,8 @@
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3 class="add">{{'Add Role'}}</h3>
-				<h3 class="edit">{{'Update Role'}}</h3>
+				<h3 class="add">{{'Add Role' | i18next}}</h3>
+				<h3 class="edit">{{'Update Role' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 
@@ -88,17 +88,17 @@
 				<div id="custom-name" 
 					ng-show="isDefault==false"
 					class="form-group no-border">
-					<label for="name">{{'Name:'}}</label>
+					<label for="name">{{'Name' | i18next}}</label>
 					<input id="name" type="text" 
 						ng-model="temp.Name"
 						class="form-control" required>
-					<span class="help-block">{{'Uppercase first letter, e.g. Admin'}}</span>
+					<span class="help-block">{{'Uppercase first letter, e.g. Admin' | i18next}}</span>
 				</div>
 				
 				<p id="default-message" 
 					ng-show="isDefault"
 					class="alert alert-info">
-					{{'Access for default roles cannot be changed; create a new role for custom access rules.'}}
+					{{'Access for default roles cannot be changed; create a new role for custom access rules.' | i18next}}
 				</p>
 				
 				<table class="role-table table table-striped table-bordered">
@@ -110,12 +110,12 @@
 					<col width="15%">
 					<thead>
 						<tr>
-							<th>{{'Page Type'}}</th>
-							<th class="text-center">{{'View'}}<small>{{'On Site'}}</small></th>
-							<th class="text-center">{{'Edit'}}<small>{{'In App'}}</small></th>
-							<th class="text-center">{{'Publish'}}<small>{{'In App'}}</small></th>
-							<th class="text-center">{{'Remove'}}<small>{{'In App'}}</small></th>
-							<th class="text-center">{{'Create'}}<small>{{'In App'}}</small></th>
+							<th>{{'Page Type' | i18next}}</th>
+							<th class="text-center">{{'View' | i18next}}<small>{{'On Site' | i18next}}</small></th>
+							<th class="text-center">{{'Edit' | i18next}}<small>{{'In App' | i18next}}</small></th>
+							<th class="text-center">{{'Publish' | i18next}}<small>{{'In App' | i18next}}</small></th>
+							<th class="text-center">{{'Remove' | i18next}}<small>{{'In App' | i18next}}</small></th>
+							<th class="text-center">{{'Create' | i18next}}<small>{{'In App' | i18next}}</small></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -200,17 +200,17 @@
 			<!-- /.modal-body -->
 
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button add"
 					ng-click="addRole(temp)"
 					ng-show="isDefault==false"
 					ng-disabled="addEditForm.$invalid || isUnchanged(temp)"
-					type="button">{{'Add'}}</button>
+					type="button">{{'Add' | i18next}}</button>
 				<button id="update-role-btn" class="primary-button edit" 
 					ng-click="editRole(temp)"
 					ng-show="isDefault==false"
 					ng-disabled="addEditForm.$invalid || isUnchanged(temp)"
-					type="button">{{'Update'}}</button>
+					type="button">{{'Update' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 		
@@ -234,22 +234,22 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Remove Role'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
 			<div class="modal-body">
 			
 				<p>
-				{{'Confirm you want to remove:'}} <strong>{{temp.Name}}</strong>
+				{{'Confirm you want to remove:' | i18next}} <strong>{{temp.Name}}</strong>
 				</p>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
-				<button class="primary-button" ng-click="removeRole(temp)">{{'Remove'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" ng-click="removeRole(temp)">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 		

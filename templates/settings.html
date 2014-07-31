@@ -6,21 +6,13 @@
         <h1>{{'Settings' | i18next}}</h1>
     </nav>
     <!-- /nav -->
-    
-    <div class="list-menu hidden">
-		<p>
-			{{'Updates to settings will not be reflected until the site is re-published.'}}
-			<a class="publish-site">{{'Re-publish now'}}</a>
-		</p>
-	</div>
-	<!-- /.list-menu -->
    
 	<ul class="segmented-control">
-		<li class="active" data-target="#section-site"><a>{{'Site'}}</a></li>
-		<li data-target="#section-display"><a>{{'Display'}}</a></li>
-		<li data-target="#section-payments"><a>{{'Payments'}}</a></li>
-		<li data-target="#section-email"><a>{{'Email'}}</a></li>
-		<li data-target="#section-advanced"><a>{{'Advanced'}}</a></li>
+		<li class="active" data-target="#section-site"><a>{{'Site' | i18next}}</a></li>
+		<li data-target="#section-display"><a>{{'Display' | i18next}}</a></li>
+		<li data-target="#section-payments"><a>{{'Payments' | i18next}}</a></li>
+		<li data-target="#section-email"><a>{{'Email' | i18next}}</a></li>
+		<li data-target="#section-advanced"><a>{{'Advanced' | i18next}}</a></li>
 	</ul>
 	<!-- /.segmented-control -->
 	
@@ -29,7 +21,7 @@
 		<div id="section-site">
 	
 			<div class="form-group">
-				<label for="name" class="control-label">{{'Site Name'}}</label>
+				<label for="name" class="control-label">{{'Site Name' | i18next}}</label>
 				<div>
 					<input id="name" type="text" 
 						ng-model="site.Name"
@@ -38,27 +30,27 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="domain" class="control-label">{{'Domain'}}</label>
+				<label for="domain" class="control-label">{{'Domain' | i18next}}</label>
 				<div>
 					<input id="domain" type="text"  
 						ng-model="site.Domain"
 						class="form-control">
-					<span class="help-block">{{'e.g. domain.com, sub.domain.com (leave off www, http://, and trailing /)'}}</span>
+					<span class="help-block">{{'e.g. domain.com, sub.domain.com (leave off www, http://, and trailing /)' | i18next}}</span>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="primaryEmail" class="control-label">{{'Primary Email'}}</label>
+				<label for="primaryEmail" class="control-label">{{'Primary Email' | i18next}}</label>
 				<div>
 					<input id="primaryEmail" type="text" 
 						ng-model="site.PrimaryEmail"
 						class="form-control">
-					<span class="help-block">{{'Forms submitted on your site will be sent to this email address'}}</span>
+					<span class="help-block">{{'Forms submitted on your site will be sent to this email address' | i18next}}</span>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="timeZone" class="control-label">{{'Time Zone'}}</label>
+				<label for="timeZone" class="control-label">{{'Time Zone' | i18next}}</label>
 				<div>
 					<select id="timeZone" 
 						ng-model="site.TimeZone"
@@ -158,7 +150,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="language" class="control-label">{{'Default Language'}}</label>
+				<label for="language" class="control-label">{{'Default Language' | i18next}}</label>
 				<div>
 					<select id="language-select" 
 						ng-model="site.Language"
@@ -341,7 +333,7 @@
 		<div id="section-display" class="hidden">
 		
 			<div class="form-group">
-				<label for="showCart" class="control-label">{{'Show Cart'}}</label>
+				<label for="showCart" class="control-label">{{'Show Cart' | i18next}}</label>
 				<div>
 					<select id="showCart" 
 						ng-model="site.ShowCart"
@@ -353,13 +345,13 @@
 			</div>
 		
 			<div class="form-group">
-				<label for="showSettings" class="control-label">{{'Show Settings'}}</label>
+				<label for="showSettings" class="control-label">{{'Show Settings' | i18next}}</label>
 				<div>
 					<select id="showSettings" 
 						ng-model="site.ShowSettings"
 						class="form-control">
-						<option value="1">Yes</option>
-				    	<option value="0">No</option>
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
 					</select>
 				</div>
 			</div>
@@ -370,7 +362,7 @@
 		<div id="section-payments" class="hidden">
 		
 			<div class="form-group">
-				<label for="payPalId" class="control-label">{{'PayPal ID'}}</label>
+				<label for="payPalId" class="control-label">{{'PayPal ID' | i18next}}</label>
 				<div>
 					<input id="payPalId" type="text"
 						ng-model="site.PayPalId"
@@ -379,7 +371,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing)'}}</label>
+				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing)' | i18next}}</label>
 				<div>
 					<select id="payPalUseSandbox" 
 						ng-model="site.PayPalUseSandbox"
@@ -391,7 +383,7 @@
 			</div>
 		
 			<div class="form-group">
-				<label for="currency" class="control-label">{{'Currency'}}</label>
+				<label for="currency" class="control-label">{{'Currency' | i18next}}</label>
 				<div>
 					<select id="currency" class="form-control" 
 							ng-model="site.Currency"
@@ -401,7 +393,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="weightUnit" class="control-label">{{'Weight Unit'}}</label>
+				<label for="weightUnit" class="control-label">{{'Weight Unit' | i18next}}</label>
 				<div>
 					<select id="weightUnit" 
 						ng-model="site.WeightUnit"
@@ -409,12 +401,12 @@
 				    	<option value="kgs">kgs</option>
 				    	<option value="lbs">lbs</option>
 					</select>
-					<span class="help-block">{{'Optionally used to calculate shipping costs'}}</span>
+					<span class="help-block">{{'Optionally used to calculate shipping costs' | i18next}}</span>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="taxRate" class="control-label">{{'Tax Rate'}}</label>
+				<label for="taxRate" class="control-label">{{'Tax Rate' | i18next}}</label>
 				<div>
 					<input id="taxRate" type="text" 
 						ng-model="site.TaxRate"
@@ -423,22 +415,22 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="shippingCalculation" class="control-label">{{'Shipping Calculation'}}</label>
+				<label for="shippingCalculation" class="control-label">{{'Shipping Calculation' | i18next}}</label>
 				<div>
 					<select id="shippingCalculation" 
 						ng-model="site.ShippingCalculation"
 						class="form-control">
-						<option value="free">{{'Free'}}</option>
-						<option value="flat-rate">{{'Flat Rate'}}</option>
-						<option value="amount">{{'By Order Amount'}}</option>
-						<option value="weight">{{'By Weight'}}</option>
+						<option value="free">{{'Free' | i18next}}</option>
+						<option value="flat-rate">{{'Flat Rate' | i18next}}</option>
+						<option value="amount">{{'By Order Amount' | i18next}}</option>
+						<option value="weight">{{'By Weight' | i18next}}</option>
 					</select>
 				</div>
 			</div>
 			
 			<div class="form-group" 
 				ng-show="(site.ShippingCalculation==='flat-rate')">
-				<label for="shippingRate" class="control-label">{{'Shipping Rate'}}</label>
+				<label for="shippingRate" class="control-label">{{'Shipping Rate' | i18next}}</label>
 			    <div class="input-group">
 				 	<input id="shippingRate" type="text"
 				 		ng-model="site.ShippingRate"
@@ -499,9 +491,9 @@
 					<col width="33.3%">
 					<thead>
 						<tr>
-							<th>{{'From'}} <small>({{site.Currency}})</small></th>
-							<th>{{'To'}} <small>({{site.Currency}})</small></th>
-							<th>{{'Rate'}} <small>({{site.Currency}})</small></th>
+							<th>{{'From' | i18next}} <small>({{site.Currency}})</small></th>
+							<th>{{'To' | i18next}} <small>({{site.Currency}})</small></th>
+							<th>{{'Rate' | i18next}} <small>({{site.Currency}})</small></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -540,7 +532,7 @@
 		<div id="section-email" class="hidden">
 		
 			<div class="form-group">
-				<label for="welcomeEmail" class="control-label">{{'Welcome Email'}}</label>
+				<label for="welcomeEmail" class="control-label">{{'Welcome Email' | i18next}}</label>
 				<div>
 					<textarea id="welcomeEmail" 
 						ng-model="site.WelcomeEmail"
@@ -550,7 +542,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="receiptEmail" class="control-label">{{'Receipt Email'}}</label>
+				<label for="receiptEmail" class="control-label">{{'Receipt Email' | i18next}}</label>
 				<div>
 					<textarea id="receiptEmail" 
 						ng-model="site.ReceiptEmail"
@@ -560,19 +552,19 @@
 			</div>
 		
 			<div class="form-group">
-				<label for="externalSMTP" class="control-label">{{'External SMTP'}}</label>
+				<label for="externalSMTP" class="control-label">{{'External SMTP' | i18next}}</label>
 				<div>
 					<select id="externalSMTP" 
 						ng-model="site.IsSMTP"
 						class="form-control">
-						<option value="1">Yes</option>
-				    	<option value="0">No</option>
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
 					</select>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="smtpHost" class="control-label">{{'SMTP Host'}}</label>
+				<label for="smtpHost" class="control-label">{{'SMTP Host' | i18next}}</label>
 				<div>
 					<input id="smtpHost" type="text" 
 						ng-model="site.SMTPHost" class="form-control">
@@ -580,19 +572,19 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="smtpAuth" class="control-label">{{'SMTP Auth'}}</label>
+				<label for="smtpAuth" class="control-label">{{'SMTP Auth' | i18next}}</label>
 				<div>
 					<select id="smtpAuth" 
 						ng-model="site.SMTPAuth"
 						class="form-control">
-						<option value="1">Yes</option>
-				    	<option value="0">No</option>
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
 					</select>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="smtpUsername" class="control-label">{{'SMTP Username'}}</label>
+				<label for="smtpUsername" class="control-label">{{'SMTP Username' | i18next}}</label>
 				<div>
 					<input id="smtpUsername" type="text" 
 						ng-model="site.SMTPUsername" class="form-control">
@@ -600,7 +592,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="smtpUsername" class="control-label">{{'SMTP Password'}}</label>
+				<label for="smtpUsername" class="control-label">{{'SMTP Password' | i18next}}</label>
 				<div>
 					<input id="smtpPassword" type="password" 
 						ng-model="site.SMTPPassword" class="form-control">
@@ -608,7 +600,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="smtpSecure" class="control-label">{{'SMTP Secure'}}</label>
+				<label for="smtpSecure" class="control-label">{{'SMTP Secure' | i18next}}</label>
 				<div>
 					<select id="smtpSecure" 
 						ng-model="site.SMTPSecure"
@@ -625,21 +617,21 @@
 		<div id="section-advanced" class="hidden">
 			
 			<div class="form-group">
-				<label for="formPublicId" class="control-label">{{'reCaptcha Public ID'}}</label>
+				<label for="formPublicId" class="control-label">{{'reCaptcha Public ID' | i18next}}</label>
 				<div>
 					<input id="formPublicId" type="text" 
 						ng-model="site.FormPublicId"
 						class="form-control">
-					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID'}}</label>
+				<label for="formPrivateId" class="control-label">{{'reCaptcha Private ID' | i18next}}</label>
 				<div>
 					<input id="formPrivateId" type="text" 
 						ng-model="site.FormPrivateId" class="form-control">
-					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here'}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			
@@ -652,7 +644,7 @@
     <div class="actions">
         <button class="primary-button"
          	ng-click="save()"
-         	type="button">{{'Save'}}</button>
+         	type="button">{{'Save' | i18next}}</button>
     </div>
 
 </section>

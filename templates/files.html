@@ -9,7 +9,7 @@
     
     <div id="drop" class="dropzone dark fixed" drop-zone target="files" filename="{{temp.filename}}" callback="updateFiles()">
         <span class="dz-message">
-            <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload'}}</span>
+            <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload' | i18next}}</span>
         </span>
     </div>
     
@@ -31,7 +31,7 @@
     			<i class="fa fa-undo fa-lg"></i>
     		</a>
     		
-    		<span class="editable-selected">{{'Selected'}}</span>
+    		<span class="editable-selected">{{'Selected' | i18next}}</span>
             
             <span class="image" ng-if="file.isImage == true">
             	<img height="75" width="75"
@@ -44,9 +44,9 @@
     	</div>
     	<!-- /.listItem -->
     	
-    	<p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa fa-spin"></i> {{'Loading...'}}</p>
+    	<p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa fa-spin"></i> {{'Loading...' | i18next}}</p>
     
-		<p ng-show="files.length == 0" class="list-none">{{'No files here. Click Upload File to get started.'}}</p>
+		<p ng-show="files.length == 0" class="list-none">{{'No files here. Click Upload File to get started.' | i18next}}</p>
     
     </div>
     <!-- /.list -->
@@ -63,27 +63,27 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Remove File'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
 			<div class="modal-body">
 			
 				<p>
-					{{'Confirm you want to delete:'}} <strong>{{temp.filename}}</strong>
+					{{'Confirm you want to remove:' | i18next}} <strong>{{temp.filename}}</strong>
 				</p>
 				
 				<p>
-					{{'This will completely remove it from the system.'}}
+					{{'This will completely remove it from the system.' | i18next}}
 				</p>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button"
-					ng-click="remove()">{{'Remove File'}}</button>
+					ng-click="remove()">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
   

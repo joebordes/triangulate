@@ -47,35 +47,6 @@
 
     </menu>
     <!-- /menu -->
-    
-    <!--    
-    <nav>
-        <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
-        
-        <div class="fs-container full">
-    
-			<div class="fs">
-    
-		        <ul>
-		            <li
-		            	ng-repeat="file in files"
-		            	ng-class="{'active': (file == name), 'has-action': (file == name && file != 'index')}">
-		             	<a ng-click="setName(file)">{{file}}</a>
-		             	<i ng-show="(file != 'index')"
-		             		ng-click="showRemoveFile(file)" class="fa fa-minus-circle fa-lg"></i>
-		             </li>
-		            <li class="add">
-		            	<i 
-		            		ng-click="showAddFile()"
-		            		class="fa fa-plus-circle"></i>
-		            </li>
-		        </ul>
-        
-			</div>
-        
-        </div>
-        
-    </nav>-->
    
 	<div class="codemirror-block">
     	<ui-codemirror ng-model="content" ui-codemirror-opts="editorOptions"></ui-codemirror>
@@ -83,7 +54,7 @@
     
     <div class="actions">
         <button class="primary-button" type="button"
-        	ng-click="publish()">{{'Publish'}}</button>
+        	ng-click="publish()">{{'Publish' | i18next}}</button>
     </div>
 </section>
 <!-- /.main -->
@@ -96,7 +67,7 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Add Layout'}}</h3>
+				<h3>{{'Add Layout' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
@@ -105,21 +76,21 @@
 			<div class="modal-body">
 			
 			<div class="form-group">
-				<label for="name">{{'Name:'}}</label>
+				<label for="name">{{'Name' | i18next}}</label>
 				<input id="name" type="text" 
 					ng-model="temp"
 					class="form-control" required="required">
-				<span class="help-block">{{'Lowercase, no space, leave the .html off'}}</span>
+				<span class="help-block">{{'Lowercase, no space, leave the .html off' | i18next}}</span>
 			</div>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button"
 					ng-click="addFile(temp)"
-					ng-disabled="addLayoutForm.$invalid || isUnchanged(temp)">{{'Add'}}</button>
+					ng-disabled="addLayoutForm.$invalid || isUnchanged(temp)">{{'Add' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 			
@@ -145,23 +116,23 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Remove Layout'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
 			<div class="modal-body">
 			
 			<p>
-				{{'Confirm that you want to delete'}} <strong>{{temp}}</strong>
+				{{'Confirm that you want to remove' | i18next}} <strong>{{temp}}</strong>
 			</p>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button"
-					ng-click="removeFile(temp)">{{'Remove'}}</button>
+					ng-click="removeFile(temp)">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 		

@@ -4,7 +4,7 @@
         <a class="show-menu"><i class="fa fa-bars fa-lg"></i></a>
     
         <ul>
-            <li class="static active"><a>{{'Profile'}}</a></li>
+            <li class="static active"><a>{{'Profile' | i18next}}</a></li>
         </ul>
         
     </nav>
@@ -13,39 +13,39 @@
 	<form name="addEditForm" novalidate>
 
 		<div class="form-group">
-			<label for="firstName">{{'First Name:'}}</label>
+			<label for="firstName">{{'First Name' | i18next}}</label>
 			<input id="firstName" 
 				ng-model="user.FirstName"
 				type="text" class="form-control" required>
 		</div>
 		
 		<div class="form-group">
-			<label for="lastName">{{'Last Name:'}}</label>
+			<label for="lastName">{{'Last Name' | i18next}}</label>
 			<input id="lastName"
 				ng-model="user.LastName" 
 				type="text" class="form-control" required>
 		</div>
 		
 		<div class="form-group">
-			<label for="language">{{'Language:'}}</label>
+			<label for="language">{{'Language' | i18next}}</label>
 			<select id="language" class="form-control" 
 				ng-model="user.Language"
 				ng-options="language.code as language.text for language in languages" required></select>
 		</div>
 		
 		<div class="form-group">
-			<label for="email">{{'Email:'}}</label>
+			<label for="email">{{'Email' | i18next}}</label>
 			<input id="email"
 				ng-model="user.Email" 
 				type="text" class="form-control" required>
-			<span class="help-block">{{'Also used as the login'}}</span>
+			<span class="help-block">{{'Also used as the login' | i18next}}</span>
 		</div>
 		
 		<div class="form-group">
-			<label for="password">{{'Password:'}}</label>
+			<label for="password">{{'Password' | i18next}}</label>
 			<input id="password" type="password"
 				ng-model="user.Password" class="form-control" required>
-			<span class="help-block">{{'More than 5 characters, 1 letter and 1 special character'}}</span>
+			<span class="help-block">{{'More than 5 characters, 1 letter and 1 special character' | i18next}}</span>
 		</div>
 		
 	</form>    
@@ -54,7 +54,7 @@
     <div class="actions">
         <button class="primary-button"
          	ng-click="save()"
-         	type="button">{{'Save'}}</button>
+         	type="button">{{'Save' | i18next}}</button>
     </div>
 
 </section>
