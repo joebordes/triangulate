@@ -233,26 +233,31 @@ div#imageList .listItem img{
 .listItem .remove{
 	position: absolute;
 	top: 19px;
-	right: 9px;
+	right: 20px;
 	display: inline-block;
-	width: 25px;
-	height: 25px;
-	color: #ccc;
-	line-height: 25px;
+	width: 22px;
+	height: 22px;
+	text-align: center;
+	color: #fff;
+	background-color: #ddd;
+	line-height: 22px;
+	border-radius: 50%;
 }
+
+	.listItem .remove i{
+		padding-top: 5px;
+		font-size: 14px;
+	}
+
 
 	.editing .remove{
 		display: none;
 	}
 
-.listItem .remove i{
-	font-size: 20px;
-}
-
-.listItem .remove:hover{
-    color: #B11623;
-    text-decoration: none;
-}
+	.listItem .remove:hover{
+	    background-color: #B11623;
+	    text-decoration: none;
+	}
 
 .listItem .edit{
 	position: absolute;

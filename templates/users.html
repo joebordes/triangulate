@@ -31,22 +31,22 @@
         <div class="listItem" ng-repeat="user in users">
     		<a class="remove"
     			ng-click="showRemoveUser(user)">
-                <i class="fa fa-minus-circle"></i>
+                <i class="fa fa-minus"></i>
             </a>
             
             <button class="update-photo" 
             	ng-class="{'has-photo':user.HasPhoto}"
             	ng-click="showAddImage(user)"
             	style="background-image: url({{user.FullPhotoUrl}})">
-				<span>{{'Update Photo'}}</span></button>
+				<span>{{'Update Photo' | i18next}}</span></button>
     		<h2>
     			<a ng-click="showEditUser(user)">{{user.FirstName}} {{user.LastName}}</a>
     		</h2>
     		<p><span class="email">{{user.Email}}</span></p>
             <em>
             	<span class="status">{{user.Role}}
-				<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active'}}</span></span> 
-            	{{'Created'}} {{user.Created | fromNow}}
+				<span ng-show="user.IsActive=='0'"> &ndash; {{'Not Active' | i18next}}</span></span> 
+            	{{'Created' | i18next}} {{user.Created | fromNow}}
             </em>
     	</div>
     	<!-- /.listItem -->
@@ -54,9 +54,9 @@
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...'}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
     
-    <p ng-show="users.length == 0" class="list-none">{{'No users here. Click Add User to get started.'}}</p>
+    <p ng-show="users.length == 0" class="list-none">{{'No users here. Click Add User to get started.' | i18next}}</p>
       
 
 </section>
@@ -70,8 +70,8 @@
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3 class="add">{{'Add User'}}</h3>
-				<h3 class="edit">{{'Update User'}}</h3>
+				<h3 class="add">{{'Add User' | i18next}}</h3>
+				<h3 class="edit">{{'Update User' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 
@@ -80,14 +80,14 @@
 				<form name="addEditForm" novalidate>
 			
 				<div class="form-group">
-					<label for="firstName">{{'First Name:'}}</label>
+					<label for="firstName">{{'First Name' | i18next}}</label>
 					<input id="firstName" 
 						ng-model="temp.FirstName"
 						type="text" class="form-control" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="lastName">{{'Last Name:'}}</label>
+					<label for="lastName">{{'Last Name' | i18next}}</label>
 					<input id="lastName"
 						ng-model="temp.LastName" 
 						type="text" class="form-control" required>
@@ -95,7 +95,7 @@
 				
 		
 				<div class="form-group">
-					<label for="role">{{'Role:'}}</label>
+					<label for="role">{{'Role' | i18next}}</label>
 					
 					<select id="role"
 						ng-model="temp.Role"
@@ -105,14 +105,14 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="language">{{'Language:'}}</label>
+					<label for="language">{{'Language' | i18next}}</label>
 					<select id="language" class="form-control" 
 						ng-model="temp.Language"
 						ng-options="language.code as language.text for language in languages" required></select>
 				</div>
 				
 				<div class="form-group">
-					<label for="isActive">{{'Active:'}}</label>
+					<label for="isActive">{{'Active' | i18next}}</label>
 					<select id="isActive"
 						ng-model="temp.IsActive" class="form-control">
 					    <option value="1">Yes</option>
@@ -121,18 +121,17 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="email">{{'Email:'}}</label>
+					<label for="email">{{'Email' | i18next}}</label>
 					<input id="email"
 						ng-model="temp.Email" 
 						type="text" class="form-control" required>
-					<span class="help-block">{{'Also used as the login'}}</span>
 				</div>
 				
 				<div class="form-group">
-					<label for="password">{{'Password:'}}</label>
+					<label for="password">{{'Password' | i18next}}</label>
 					<input id="password" type="password"
 						ng-model="temp.Password" class="form-control" required>
-					<span class="help-block">{{'More than 5 characters, 1 letter and 1 special character'}}</span>
+					<span class="help-block">{{'More than 5 characters, 1 letter and 1 special character' | i18next}}</span>
 				</div>
 				
 				</form>
@@ -141,13 +140,13 @@
 			<!-- /.modal-body -->
 
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 				<button class="primary-button add" type="button"
 					ng-click="addUser(temp)"
-					ng-disabled="addEditForm.$invalid || isUnchanged(temp)">{{'Add'}}</button>
+					ng-disabled="addEditForm.$invalid || isUnchanged(temp)">{{'Add' | i18next}}</button>
 				<button class="primary-button edit" type="button"
 					ng-click="editUser(temp)"
-					ng-disabled="addEditForm.$invalid || isUnchanged(temp)">{{'Update'}}</button>
+					ng-disabled="addEditForm.$invalid || isUnchanged(temp)">{{'Update' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 			
@@ -171,22 +170,22 @@
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>{{'Remove User'}}</h3>
+				<h3>{{'Remove' | i18next}}</h3>
 			</div>
 			<!-- /.modal-header -->
 			
 			<div class="modal-body">
 			
 				<p>
-				{{'Confirm you want to remove:'}} <strong>{{temp.FirstName}} {{temp.LastName}}</strong>
+				{{'Confirm you want to remove:' | i18next}} <strong>{{temp.FirstName}} {{temp.LastName}}</strong>
 				</p>
 			
 			</div>
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
-				<button class="primary-button" ng-click="removeUser(temp)">{{'Remove User'}}</button>
+				<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
+				<button class="primary-button" ng-click="removeUser(temp)">{{'Remove' | i18next}}</button>
 			</div>
 			<!-- /.modal-footer -->
 		

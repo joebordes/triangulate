@@ -34,23 +34,23 @@
 		
 		    <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">×</button>
-		        <h3>{{'Apply Theme'}}</span></h3>
+		        <h3>{{'Apply Theme' | i18next}}</span></h3>
 		    </div>
 		    <div class="modal-body">
 		    
 		    <p>
-		    	{{'Confirm you want to apply:'}} <strong>{{temp.name}}</strong>
+		    	{{'Confirm you want to apply' | i18next}} <strong>{{temp.name}}</strong>
 		    </p>
 		    
 		    <p>
-		        {{'This will completely change the look and feel of your site and remove any custom changes you made to the layout and styles of the site.'}}
+		        {{'This will completely change the look and feel of your site and remove any custom changes you made to the layout and styles of the site.' | i18next}}
 		    </p>
 		    
 		    </div>
 		    <div class="modal-footer">
-		    	<button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+		    	<button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 		    	<button class="primary-button"
-		    		ng-click="applyTheme(temp)">{{'Apply Theme'}}</button>
+		    		ng-click="applyTheme(temp)">{{'Apply' | i18next}}</button>
 		    </div>
 		    <!-- /.modal-footer -->
 		
@@ -74,23 +74,23 @@
 
 		    <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">×</button>
-		        <h3>{{'Reset Theme'}}</span></h3>
+		        <h3>{{'' | i18next}}</span></h3>
 		    </div>
 		    <div class="modal-body">
 		    
 		    <p>
-		        {{'Confirm you want to reset:'}} <strong>{{temp.name}}</strong>
+		        {{'Confirm you want to reset' | i18next}} <strong>{{temp.name}}</strong>
 		    </p>
 		    
 		    <p>
-		        {{'This will override any custom changes you made to the Layout or Styles for the site.'}}
+		        {{'This will override any custom changes you made to the Layout or Styles for the site.' | i18next}}
 		    </p>
 		    
 		    </div>
 		    <div class="modal-footer">
-		        <button class="secondary-button" data-dismiss="modal">{{'Close'}}</button>
+		        <button class="secondary-button" data-dismiss="modal">{{'Close' | i18next}}</button>
 		    	<button class="primary-button"
-		    		ng-click="resetTheme(temp)">{{'Reset Theme'}}</button>
+		    		ng-click="resetTheme(temp)">{{'Reset' | i18next}}</button>
 		    </div>
 		    <!-- /.modal-footer -->
 		
