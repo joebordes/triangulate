@@ -45,12 +45,13 @@ var utilities = {
 	        
 	        var value = $(this).attr('data-value');
 	        
-	        var input = $(this).parents('.form-group').find('input');
+	        if(value != undefined){
+	        	var input = $(this).parents('.form-group').find('input');
 	        
-	        console.log(input);
 	        
-	        $(input).val(value);
-	        $(input).trigger('change');
+				$(input).val(value);
+				$(input).trigger('change');
+	        }
 	        
         });
         

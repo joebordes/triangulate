@@ -25,10 +25,18 @@
 }
 
     .immersive-header h3{
+    	position: relative;
         color: #fff;
         padding: 10px 10px;
         position: relative;
     }
+    
+     .immersive-header h3 span.size{
+		margin-left: 25px;
+		font-weight: normal;
+		font-size: 14px;
+		margin-left: 15px;
+     }
     
     .immersive-header button.close{
         position: absolute;

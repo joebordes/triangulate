@@ -4,10 +4,14 @@
         <a class="show-menu"></a>
         
         <h1>{{'Files' | i18next}}</h1>
+        <h2>{{totalSize}} / {{fileLimit}} MB</h2>
+        
     </nav>
     <!-- /nav -->
     
-    <div id="drop" class="dropzone dark fixed" drop-zone target="files" filename="{{temp.filename}}" callback="updateFiles()">
+    <div id="drop" 
+    	ng-if="totalSize <= fileLimit"
+    	class="dropzone dark fixed" drop-zone target="files" filename="{{temp.filename}}" callback="updateFiles()">
         <span class="dz-message">
             <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload' | i18next}}</span>
         </span>

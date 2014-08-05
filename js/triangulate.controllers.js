@@ -1,7 +1,7 @@
 angular.module('triangulate.controllers', [])
 
 // login controller
-.controller('LoginCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, User, Site) {
+.controller('LoginCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, User, Site, Editor) {
 	
 	$rootScope.template = 'login';
 	
@@ -10,7 +10,7 @@ angular.module('triangulate.controllers', [])
 	
 	// get friendlyId
 	$scope.friendlyId = $stateParams.id;
-	$rootScope.loginId = $stateParams.id;
+	$window.sessionStorage.loginId = $stateParams.id;
 	
 	// login
 	$scope.login = function(user){
@@ -50,6 +50,19 @@ angular.module('triangulate.controllers', [])
 						location.href = start;
 							
 					});
+					
+					// pre-cache editor 
+					Editor.list(function(data){
+	
+						// debugging
+						if(Setup.debug)console.log('[triangulate.debug] Editor.list');
+						if(Setup.debug)console.log(data);
+						
+						$rootScope.editorItems = data;
+						$window.sessionStorage.editorItems = JSON.stringify(data);
+						
+					});
+					
 					
 				}
 				else{
@@ -432,7 +445,7 @@ angular.module('triangulate.controllers', [])
 })
 
 // content controller
-.controller('ContentCtrl', function($scope, $rootScope, $stateParams, $sce, Setup, Site, Page, PageType, Image, Icon, Theme, Layout, Stylesheet, Editor, Translation) {
+.controller('ContentCtrl', function($scope, $rootScope, $stateParams, $sce, Setup, Site, Page, PageType, Image, Icon, Theme, Layout, Stylesheet, Editor, Translation, File) {
 	
 	$rootScope.template = 'content';
 	
@@ -450,6 +463,8 @@ angular.module('triangulate.controllers', [])
 	$scope.column3 = {};
 	$scope.column4 = {};
 	$scope.numColumns = 1;
+	$scope.totalSize = 0;
+	$scope.fileLimit = $rootScope.site.FileLimit;
 	
 	// watch for changes in the block collection
     $scope.$watchCollection('block', function(newValues, oldValues){
@@ -814,63 +829,66 @@ angular.module('triangulate.controllers', [])
 		$scope.images = data;
 	});
 	
-	// list items for editor
-	Editor.list(function(data){
+	// get file size
+	File.retrieveSize(function(data){
 	
 		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Editor.list');
-		if(Setup.debug)console.log(data);
+		if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
+		console.log(data);
 		
-		$scope.editorItems = data;
-		
-		// setup flipsnap
-		var fs = Flipsnap('.editor-actions div', {distance: 400, maxPoint:3});
-        
-        $('.fs-next').on('click', function(){
-            fs.toNext(); 
-            
-            if(fs.hasPrev()){
-                $('.fs-prev').show();
-            }
-            else{
-                $('.fs-prev').hide();
-            }
-            
-            if(fs.hasNext()){
-                $('.fs-next').show();
-            }
-            else{
-                $('.fs-next').hide();
-            }
-        });
-        
-        $('.fs-prev').on('click', function(){
-            fs.toPrev(); 
-            
-            if(fs.hasPrev()){
-                $('.fs-prev').show();
-            }
-            else{
-                $('.fs-prev').hide();
-            }
-            
-            if(fs.hasNext()){
-                $('.fs-next').show();
-            }
-            else{
-                $('.fs-next').hide();
-            }
-        }); 
-        
-        // setup editor
-		var editor = triangulate.editor.setup({
-		    			el: $('#triangulate-editor'),
-		    			pageId: $stateParams.id,
-		    			api: Setup.api,
-		    			menu: data
-					});
+		$scope.totalSize = parseFloat(data);
 	});
 	
+	// retrieve pre-cached editor items
+	$scope.editorItems = $rootScope.editorItems;
+	
+	// setup flipsnap
+	var fs = Flipsnap('.editor-actions div', {distance: 400, maxPoint:3});
+    
+    $('.fs-next').on('click', function(){
+        fs.toNext(); 
+        
+        if(fs.hasPrev()){
+            $('.fs-prev').show();
+        }
+        else{
+            $('.fs-prev').hide();
+        }
+        
+        if(fs.hasNext()){
+            $('.fs-next').show();
+        }
+        else{
+            $('.fs-next').hide();
+        }
+    });
+    
+    $('.fs-prev').on('click', function(){
+        fs.toPrev(); 
+        
+        if(fs.hasPrev()){
+            $('.fs-prev').show();
+        }
+        else{
+            $('.fs-prev').hide();
+        }
+        
+        if(fs.hasNext()){
+            $('.fs-next').show();
+        }
+        else{
+            $('.fs-next').hide();
+        }
+    }); 
+    
+    // setup editor
+	var editor = triangulate.editor.setup({
+	    			el: $('#triangulate-editor'),
+	    			pageId: $stateParams.id,
+	    			api: Setup.api,
+	    			menu: $scope.editorItems
+				});
+
 	// list new images
 	$scope.updateImages = function(){
 		Image.list(function(data){
@@ -880,6 +898,12 @@ angular.module('triangulate.controllers', [])
 			
 			$scope.images = data;
 		});
+	}
+	
+	// cancel
+	$scope.cancelAddImage = function(){
+		$('#editor-placeholder').remove();
+		$('#imagesDialog').modal('hide');
 	}
 	
 	// add image
@@ -1150,9 +1174,12 @@ angular.module('triangulate.controllers', [])
 	
 	// set url from page URL dropdown
 	$scope.setUrl = function(page){
+	
 		$scope.temp.Name = page.Name
 		$scope.temp.Url = page.Url;
 		$scope.temp.PageId = page.PageId;
+		
+		return false;
 	}
 	
 	// publishes the menus
@@ -1702,7 +1729,7 @@ angular.module('triangulate.controllers', [])
 })
 
 // branding controller
-.controller('BrandingCtrl', function($scope, $rootScope, Setup, Site, Image) {
+.controller('BrandingCtrl', function($scope, $window, $rootScope, Setup, Site, Image) {
 	
 	$rootScope.template = 'branding';
 	
@@ -1802,6 +1829,8 @@ angular.module('triangulate.controllers', [])
 	$scope.setup = Setup;
 	$scope.loading = true;
 	$scope.temp = null;
+	$scope.totalSize = 0;
+	$scope.fileLimit = $rootScope.site.FileLimit;
 	
 	$scope.updateFiles = function(){
 		// list files
@@ -1813,6 +1842,16 @@ angular.module('triangulate.controllers', [])
 			
 			$scope.files = data;
 			$scope.loading = false;
+		});
+		
+		// get file size
+		File.retrieveSize(function(data){
+		
+			// debugging
+			if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
+			console.log(data);
+			
+			$scope.totalSize = parseFloat(data);
 		});
 	}
 	

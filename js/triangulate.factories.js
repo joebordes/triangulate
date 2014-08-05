@@ -18,9 +18,10 @@ angular.module('triangulate.factories', [])
 				
 				// if a request is not authorized, set token to null and logout
 				$window.sessionStorage.token = null;
-				//$location.path('login');
 				
-				$state.go('login', {'id': $rootScope.loginId});
+				$location.path('login/' + $window.sessionStorage.loginId);
+				
+				//$state.go('login', {'id': $rootScope.loginId});
 			}
 			
 			return $q.reject(rejection);
@@ -1676,6 +1677,19 @@ angular.module('triangulate.factories', [])
 	
 		// post to API
 		$http.get(Setup.api + '/file/list')
+			.then(function(res){
+				// set data for factory
+				file.data = res.data;
+				return file.data;
+			})
+			.then(callback);
+	}
+	
+	// retrieve size of files
+	file.retrieveSize = function(callback){
+	
+		// post to API
+		$http.get(Setup.api + '/file/retrieve/size')
 			.then(function(res){
 				// set data for factory
 				file.data = res.data;

@@ -406,22 +406,44 @@ triangulate.editor.setupMenuEvents = function(){
 
 	// set reference to element
 	var editor = triangulate.editor.el;
+	
+	// a flag to flip if an event should be cancelled
+	var cancel = false;
+	
+	// cancel on escape (revert draggable)
+	$(document).keyup(function(e){
+	    if(e.which=== 27 || e.keyCode === 27){
+	        $('.editor-menu a.draggable').draggable({'revert': true }).trigger( 'mouseup' );
+	        cancel = true;
+	    }
+	});
 
 	// set up draggable
 	$('.editor-menu a.draggable').draggable({
       connectToSortable: '.sortable',
       helper: 'clone',
-      revert: 'true',
       appendTo: 'body'
+    });
+    
+    // reset the draggable on dragstart
+    $('#editor-menu').on('dragstart', '.editor-menu a', function(){
+    	cancel = false;
+    	$('.editor-menu a.draggable').draggable({'revert': false });
     });
     
     // handle click/dragstop
     $('#editor-menu').on('dragstop click', '.editor-menu a', function(){
-	    var action = $(this).attr('data-action') + '.create';
+    
+    	if(cancel == false){
+	    	var action = $(this).attr('data-action') + '.create';
 	    
-	    //alert(action);
+			utilities.executeFunctionByName(action, window);
+			cancel = false;
+	    }
+	    else{
+		    $('#editor-placeholder').remove();
+	    }
 	    
-	    utilities.executeFunctionByName(action, window);
     });
     
     // setup text events

@@ -207,7 +207,7 @@ angular.module('triangulate', ['ui.router',
 	// set app title
 	$rootScope.title = Setup.app;
 	
-	// set site from session storage
+	// retrieve site from session storage
 	if($window.sessionStorage.site != null){
 	
 		var str = $window.sessionStorage.site;
@@ -215,12 +215,20 @@ angular.module('triangulate', ['ui.router',
 		$rootScope.site = JSON.parse(str);
 	}
 	
-	// set user from session storage
+	// retrieve user from session storage
 	if($window.sessionStorage.user != null){
 	
 		var str = $window.sessionStorage.user;
 		
 		$rootScope.user = JSON.parse(str);
+	}
+	
+	// retrieve editorItems from session storage
+	if($window.sessionStorage.editorItems != null){
+	
+		var str = $window.sessionStorage.editorItems;
+		
+		$rootScope.editorItems = JSON.parse(str);
 	}
 		
 });

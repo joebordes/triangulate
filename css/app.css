@@ -288,9 +288,20 @@ body .modal-header{
 		
 		body .modal .input-select{
 			position: absolute;
-			top: 30px;
+			top: 26px;
 			right: 5px;
 			z-index: 5;
+			border-left: 1px solid #ddd;
+			height: 43px;
+			width: 43px;
+			text-align: center;
+			color: #888;
+			font-weight: bold;
+		}
+		
+		body .modal .input-select .dropdown-toggle{
+			background-color: #fff;
+			font-size: 20px;
 		}
 		
 		body .modal .input-select .dropdown-menu small{
@@ -298,6 +309,15 @@ body .modal-header{
 			color: #aaa;
 			font-size: 11px;
 			text-transform: uppercase;
+		}
+		
+		body .modal .input-select .dropdown-menu{
+			border-radius: 0;
+			height: 200px;
+			width: 300px;
+			overflow: auto;
+			margin-right: -5px;
+			margin-top: 0;
 		}
 		
 		body .modal .input-select .dropdown-menu li{
@@ -645,6 +665,20 @@ section.main nav{
 		line-height: 64px;
 		height: 64px;
 		font-size: 18px;
+		color: #fff;
+		font-family: "Roboto", sans-serif;
+		font-weight: 100;
+	}
+	
+	section.main nav h2{
+		position: absolute;
+		top: 1px;
+		right: 20px;
+		margin: 0;
+		padding: 0;
+		line-height: 64px;
+		height: 64px;
+		font-size: 15px;
 		color: #fff;
 		font-family: "Roboto", sans-serif;
 		font-weight: 100;
