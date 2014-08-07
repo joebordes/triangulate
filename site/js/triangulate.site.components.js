@@ -14,7 +14,7 @@ triangulate.Map = function(config){
 	
 	var defaultZoom = 8;	
 	
-	if(this.zoom != 'auto'){
+	if(this.zoom != 'auto' && this.zoom != undefined){
 		defaultZoom = parseInt(this.zoom);
 	}
 	

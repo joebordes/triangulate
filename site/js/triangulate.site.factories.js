@@ -74,7 +74,7 @@ angular.module('triangulate.site.factories', [])
 			type: type,
 			pagesize: pagesize,
 			current: current,
-			orderby: orderby,
+			orderby: orderby
 		}
 		// set post to URL Encoded
 		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';

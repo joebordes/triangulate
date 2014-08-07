@@ -1729,7 +1729,7 @@ angular.module('triangulate.controllers', [])
 })
 
 // branding controller
-.controller('BrandingCtrl', function($scope, $window, $rootScope, Setup, Site, Image) {
+.controller('BrandingCtrl', function($scope, $window, $rootScope, Setup, Site, Image, File) {
 	
 	$rootScope.template = 'branding';
 	
@@ -1740,6 +1740,8 @@ angular.module('triangulate.controllers', [])
 	$scope.logoUrl = null;
 	$scope.payPalLogoUrl = null;
 	$scope.iconUrl = null;
+	$scope.totalSize = 0;
+	$scope.fileLimit = $rootScope.site.FileLimit;
 	
 	$scope.site = $rootScope.site;
 		
@@ -1773,6 +1775,16 @@ angular.module('triangulate.controllers', [])
 			$scope.images = data;
 		});
 	}
+	
+	// get file size
+	File.retrieveSize(function(data){
+	
+		// debugging
+		if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
+		console.log(data);
+		
+		$scope.totalSize = parseFloat(data);
+	});
 	
 	// update the images for the dialog
 	$scope.updateImages();
@@ -1904,6 +1916,8 @@ angular.module('triangulate.controllers', [])
 	$scope.setup = Setup;
 	$scope.loading = true;
 	$scope.temp = null;
+	$scope.userLimit = $rootScope.site.UserLimit;
+	$scope.canAdd = false;
 	
 	// list users
 	User.list(function(data){
@@ -1914,6 +1928,10 @@ angular.module('triangulate.controllers', [])
 		
 		$scope.users = data;
 		$scope.loading = false;
+		
+		if($scope.users.length < $scope.userLimit){
+			$scope.canAdd = true;
+		}
 	});
 	
 	// get languages

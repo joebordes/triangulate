@@ -61,7 +61,7 @@
 	<input id="msg-image-instructions" value="{{'Add your content here or click the settings icon to change the image layout' | i18next}}" type="hidden">
 
 	<div class="immersive-header">
-		<h3>{{'Select or upload a new image' | i18next}}</h3>
+		<h3>{{'Select or upload a new image' | i18next}}  <span class="size">{{totalSize}} / {{fileLimit}} MB</h3>
 		<button type="button" class="close" data-dismiss="modal">x</button>
 	</div>
 	<!-- /.modal-header -->
@@ -82,7 +82,9 @@
 		
 		</div>
 		
-		<div id="drop" class="dropzone in-dialog" drop-zone target="branding" callback="updateImages()">
+		<div id="drop" 
+			ng-if="totalSize <= fileLimit"
+			class="dropzone in-dialog" drop-zone target="branding" callback="updateImages()">
 		    <span class="dz-message">
 		        <i class="fa fa-cloud-upload fa-4x"></i> {{'Drag file here or click to upload' | i18next}}</span>
 		    </span>
