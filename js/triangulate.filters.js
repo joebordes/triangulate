@@ -3,7 +3,7 @@ angular.module('triangulate.filters', [])
 .filter('notags', function() {
     return function(text) {
     
-    	if(text === '' || text === null)return 'No tags';
+    	if(text === '' || text === null)return i18n.t('No tags');
     	else return text;
       
 	}
