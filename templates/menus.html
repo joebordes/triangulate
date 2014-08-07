@@ -103,9 +103,9 @@
 	</div>
 	<!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading' | i18next}}</p>
     
-    <p ng-show="(menuItems | filter: {Type: friendlyId}).length == 0" class="list-none">{{'No menu items here. Click Add Menu Item to get started.' | i18next}}</p>
+    <p ng-show="(menuItems | filter: {Type: friendlyId}).length == 0" class="list-none">{{'No menu items here Click Add Menu Item to get started' | i18next}}</p>
     
     <div class="actions">
         <button class="primary-button" type="button"
