@@ -35,7 +35,7 @@
 					<input id="domain" type="text"  
 						ng-model="site.Domain"
 						class="form-control">
-					<span class="help-block">{{'e.g. domain.com, sub.domain.com (leave off www, http://, and trailing /)' | i18next}}</span>
+					<span class="help-block">{{'example_domain' | i18next}}</span>
 				</div>
 			</div>
 			
@@ -52,7 +52,7 @@
 					<input id="primaryEmail" type="text" 
 						ng-model="site.PrimaryEmail"
 						class="form-control">
-					<span class="help-block">{{'Forms submitted on your site will be sent to this email address' | i18next}}</span>
+					<span class="help-block">{{'forms_email' | i18next}}</span>
 				</div>
 			</div>
 			
@@ -345,8 +345,8 @@
 					<select id="showCart" 
 						ng-model="site.ShowCart"
 						class="form-control">
-						<option value="1">Yes</option>
-				    	<option value="0">No</option>
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
 					</select>
 				</div>
 			</div>
@@ -378,13 +378,13 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="payPalId" class="control-label">{{'Use PayPal Sandbox (for testing)' | i18next}}</label>
+				<label for="payPalId" class="control-label">{{'use_paypal_sandbox' | i18next}}</label>
 				<div>
 					<select id="payPalUseSandbox" 
 						ng-model="site.PayPalUseSandbox"
 						class="form-control">
-						<option value="1">Yes</option>
-				    	<option value="0">No</option>
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
 					</select>
 				</div>
 			</div>
@@ -408,7 +408,7 @@
 				    	<option value="kgs">kgs</option>
 				    	<option value="lbs">lbs</option>
 					</select>
-					<span class="help-block">{{'Optionally used to calculate shipping costs' | i18next}}</span>
+					<span class="help-block">{{'calculate_shipping_costs' | i18next}}</span>
 				</div>
 			</div>
 			
@@ -629,7 +629,7 @@
 					<input id="formPublicId" type="text" 
 						ng-model="site.FormPublicId"
 						class="form-control">
-					<span class="help-block">{{'Allows you to put a reCaptcha field on your forms' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'recaptcha_field_on_forms' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			
@@ -638,7 +638,7 @@
 				<div>
 					<input id="formPrivateId" type="text" 
 						ng-model="site.FormPrivateId" class="form-control">
-					<span class="help-block">{{'Allows you to validate a reCaptcha field from your forms, create here' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
+					<span class="help-block">{{'recaptcha_validate_field' | i18next}} <a href="https://www.google.com/recaptcha/">https://www.google.com/recaptcha/</a></span>
 				</div>
 			</div>
 			

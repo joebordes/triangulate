@@ -32,7 +32,7 @@
                     <img ng-if="iconUrl != null" 
                     	ng-src="{{iconUrl}}">
                 </span>
-                <small>200px x 200px ({{'PNG format, we will convert it to .ico' | i18next}}</small>
+                <small>200px x 200px ({{'png_to_ico' | i18next}})</small>
 			</div>
 		</div>
 		
@@ -44,7 +44,7 @@
 					ng-model="site.IconBg" class="form-control inline">
 				<button class="btn btn-default" 
 					ng-click="updateIconBg()">{{'Update' | i18next}}</button>
-                <small>{{'The background color for a pinned Windows 8 tile' | i18next}}</small>
+                <small>{{'background_windows8' | i18next}}</small>
 			</div>
 		</div>
 	
@@ -58,7 +58,7 @@
 
 	<!-- messages -->
 	<input id="msg-enter-caption" value="{{'Enter caption' | i18next}}" type="hidden">
-	<input id="msg-image-instructions" value="{{'Add your content here or click the settings icon to change the image layout' | i18next}}" type="hidden">
+	<input id="msg-image-instructions" value="{{'add_content_change_image' | i18next}}" type="hidden">
 
 	<div class="immersive-header">
 		<h3>{{'Select or upload a new image' | i18next}}  <span class="size">{{totalSize}} / {{fileLimit}} MB</h3>

@@ -62,7 +62,7 @@
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading' | i18next}}</p>
     
 
 </section>
@@ -92,13 +92,13 @@
 					<input id="name" type="text" 
 						ng-model="temp.Name"
 						class="form-control" required>
-					<span class="help-block">{{'Uppercase first letter, e.g. Admin' | i18next}}</span>
+					<span class="help-block">{{'special_naming_username' | i18next}}</span>
 				</div>
 				
 				<p id="default-message" 
 					ng-show="isDefault"
 					class="alert alert-info">
-					{{'Access for default roles cannot be changed; create a new role for custom access rules.' | i18next}}
+					{{'cannot_change_default_roles' | i18next}}
 				</p>
 				
 				<table class="role-table table table-striped table-bordered">
@@ -120,7 +120,7 @@
 					</thead>
 					<tbody>
 						<tr class="all-row info">
-							<td>All</td>
+							<td>{{'All' | i18next}}</td>
 							<td class="text-center"><input class="chk-view-all" 
 								ng-disabled="isDefault"
 								type="checkbox" type="form-control"></td>

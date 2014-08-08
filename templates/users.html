@@ -55,9 +55,9 @@
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading' | i18next}}</p>
     
-    <p ng-show="users.length == 0" class="list-none">{{'No users here. Click Add User to get started.' | i18next}}</p>
+    <p ng-show="users.length == 0" class="list-none">{{'no_users_click_add_user' | i18next}}</p>
       
 
 </section>
@@ -116,8 +116,8 @@
 					<label for="isActive">{{'Active' | i18next}}</label>
 					<select id="isActive"
 						ng-model="temp.IsActive" class="form-control">
-					    <option value="1">Yes</option>
-					    <option value="0">No</option>
+					    <option value="1">{{'Yes' | i18next}}</option>
+					    <option value="0">{{'No' | i18next}}</option>
 				    </select>
 				</div>
 				
@@ -132,7 +132,7 @@
 					<label for="password">{{'Password' | i18next}}</label>
 					<input id="password" type="password"
 						ng-model="temp.Password" class="form-control" required>
-					<span class="help-block">{{'More than 5 characters, 1 letter and 1 special character' | i18next}}</span>
+					<span class="help-block">{{'special_naming_password' | i18next}}</span>
 				</div>
 				
 				</form>
@@ -206,7 +206,7 @@
 
 	<!-- messages -->
 	<input id="msg-enter-caption" value="{{'Enter caption' | i18next}}" type="hidden">
-	<input id="msg-image-instructions" value="{{'Add your content here or click the settings icon to change the image layout' | i18next}}" type="hidden">
+	<input id="msg-image-instructions" value="{{'add_content_change_image' | i18next}}" type="hidden">
 
 	<div class="immersive-header">
 		<h3>{{'Select or upload a new image' | i18next}}</h3>

@@ -130,9 +130,9 @@
     </div>
     <!-- /.list -->
     
-    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading...' | i18next}}</p>
+    <p ng-show="loading" class="list-loading"><i class="fa fa-spinner fa-spin"></i> {{'Loading' | i18next}}</p>
     
-    <p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length == 0" class="list-none">{{'No pages here. Click Add Page to get started.' | i18next}}</p>
+    <p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length == 0" class="list-none">{{'no_pages_click_add_page' | i18next}}</p>
       
 </section>
 <!-- /.main -->
@@ -164,7 +164,7 @@
 					<input id="friendlyId" type="text" 
 						ng-model="temp.FriendlyId"
 						maxlength="128" placeholder="page-name" class="form-control" required>
-					<span class="help-block">{{'No spaces, no special characters, dashes allowed' | i18next}}.</span>
+					<span class="help-block">{{'special_naming_pages' | i18next}}</span>
 				</div>
 				
 				<div class="form-group">
@@ -249,7 +249,7 @@
 						<input id="tag" type="text"
 							ng-model="temp.Tags"
 							value="" maxlength="100" class="form-control" required>
-						<span class="add help-block">{{'e.g.: tag1, tag2, etc.' | i18next}}</span>
+						<span class="add help-block">{{'example_tags' | i18next}}</span>
 					</div>
 				
 				</form>
@@ -290,7 +290,7 @@
 				</p>
 				
 				<p ng-show="(pages | filter: {PageTypeId: pageTypeId}).length != 0">
-					{{'Please remove all pages first.' | i18next}}</strong>
+					{{'remove_all_pages' | i18next}}</strong>
 				</p>
 				
 			</div>
@@ -334,7 +334,7 @@
 					<input id="typeFriendlyId" type="text" 
 						ng-model="temp.FriendlyId"
 						value="" maxlength="50" class="form-control" required>
-					<span class="add help-block">e.g. http://respondcms.com/[friendly-url]/. {{'Must be lowercase with no spaces.' | i18next}}</span>
+					<span class="add help-block">e.g. http://respondcms.com/[friendly-url]/. {{'Must be lowercase with no spaces' | i18next}}</span>
 				</div>
 				
 				<div class="form-group">
@@ -358,8 +358,8 @@
 					<select id="isSecure" 
 						ng-model="temp.IsSecure"
 						class="form-control" required>
-						<option value="0">No</option>
-						<option value="1">Yes</option>
+						<option value="0">{{'No' | i18next}}</option>
+						<option value="1">{{'Yes' | i18next}}</option>
 					</select>
 				</div>
 			

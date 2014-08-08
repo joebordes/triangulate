@@ -48,7 +48,7 @@
     </menu>
     <!-- /menu -->
 
-	<div ng-if="showError" class="alert alert-danger" role="alert">{{'The JSON appears to invalid. Update it and republish.' | i18next}}</div>
+	<div ng-if="showError" class="alert alert-danger" role="alert">{{'invalid_json' | i18next}}</div>
 
 	<div class="codemirror-block">
     	<ui-codemirror ng-model="content" ui-codemirror-opts="editorOptions"></ui-codemirror>
