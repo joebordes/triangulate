@@ -44,6 +44,18 @@ angular.module('triangulate', ['ui.router',
 		  controller: 'LoginCtrl'
 		})
 		
+		.state('forgot', {
+		  url: "/forgot/:id",
+		  templateUrl: "templates/forgot.html",
+		  controller: 'ForgotCtrl'
+		})
+		
+		.state('reset', {
+		  url: "/reset/:id/:token",
+		  templateUrl: "templates/reset.html",
+		  controller: 'ResetCtrl'
+		})
+		
 		.state('create', {
 		  url: "/create",
 		  templateUrl: "templates/create.html",

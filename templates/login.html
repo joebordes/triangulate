@@ -1,4 +1,4 @@
-<!-- begin content -->
+<!-- begin main -->
 <section class="main">
 
     <h1><span class="brand"><img src="{{setup.logo}}" title="{{setup.brand}}"></span></h1>
@@ -13,7 +13,7 @@
 		
 		<div class="form-group">
 			<label for="password" class="control-label">{{'Password' | i18next}} 
-				<a class="forgot-link" ui-sref="forgot" tabindex="4">{{'Forgot your Password?' | i18next}}</a>
+				<a class="forgot-link" ui-sref="forgot({ id: friendlyId })" tabindex="4">{{'Forgot your Password?' | i18next}}</a>
 			</label>
 			<input id="password" type="Password" autocomplete="off" class="form-control" tabindex="2" ng-model="user.password">
 		</div>
@@ -24,10 +24,6 @@
 	</fieldset>
     </form>
 	<!-- /.login -->
-    
-    <p class="alternate">
-   	 	<a ui-sref="create">{{'Create Site' | i18next}}</a>
-    </p>
     
     <small>{{setup.app}} {{setup.version}} &mdash; {{setup.copy}}</small>
 

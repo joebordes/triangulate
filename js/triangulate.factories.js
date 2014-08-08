@@ -21,7 +21,6 @@ angular.module('triangulate.factories', [])
 				
 				$location.path('login/' + $window.sessionStorage.loginId);
 				
-				//$state.go('login', {'id': $rootScope.loginId});
 			}
 			
 			return $q.reject(rejection);
@@ -228,6 +227,45 @@ angular.module('triangulate.factories', [])
 	
 		// post to API
 		$http.post(Setup.api + '/user/login', $.param(params))
+			.success(successCallback)
+			.error(failureCallback);
+			
+	}
+	
+	// forgot API call
+	user.forgot = function(email, friendlyId, successCallback, failureCallback){
+	
+		// set params
+		var params = {
+			email: email,
+			friendlyId: friendlyId
+		}
+	
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/user/forgot', $.param(params))
+			.success(successCallback)
+			.error(failureCallback);
+			
+	}
+	
+	// reset API call
+	user.reset = function(token, password, friendlyId, successCallback, failureCallback){
+	
+		// set params
+		var params = {
+			token: token,
+			password: password,
+			friendlyId: friendlyId
+		}
+	
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/user/reset', $.param(params))
 			.success(successCallback)
 			.error(failureCallback);
 			
