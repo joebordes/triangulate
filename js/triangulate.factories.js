@@ -202,6 +202,26 @@ angular.module('triangulate.factories', [])
 		
 	}
 	
+	// subscribe with Stripe payment provider
+	site.subscribeWithStripe = function(token, plan, domain, successCallback, failureCallback){
+		
+		// set params
+		var params = { 
+			token: token,
+			plan: plan,
+			domain: domain
+		}
+	
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/site/subscribe/stripe', $.param(params))
+			.success(successCallback)
+			.error(failureCallback);
+		
+	}
+	
 	return site;
 	
 })

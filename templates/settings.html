@@ -42,13 +42,16 @@
 			<div class="form-group" ng-if="site.CanDeploy == 1">
 				<label for="domain" class="control-label">{{'Bucket' | i18next}}</label>
 				<div>
-					{{site.Bucket}}
+					<input id="bucket" type="text"  
+						ng-model="site.Bucket"
+						class="form-control" disabled>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label for="primaryEmail" class="control-label">{{'Primary Email' | i18next}}</label>
 				<div>
+				
 					<input id="primaryEmail" type="text" 
 						ng-model="site.PrimaryEmail"
 						class="form-control">

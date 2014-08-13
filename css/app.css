@@ -62,6 +62,15 @@ body textarea.form-control{
 	-webkit-border-radius: 0px;
 }
 
+	body input.form-control[disabled]{
+		background-color: #f8f8f8;
+	}
+
+	body select.form-control{
+		background: url('../images/down.png') no-repeat right 12px;
+		background-size: 20px;
+	}
+
 	body textarea.form-control.large{
 		height: 250px !important;
 	}
@@ -132,7 +141,6 @@ body textarea.form-control{
     display: none;
 }
 
-
 /* form */
 .main form{
 	margin: 20px;
@@ -161,6 +169,11 @@ body textarea.form-control{
 	
 	.main .form-group label{
 		color: #888;
+	}
+	
+	.main p{
+		padding-bottom: 20px;
+		line-height: 25px;
 	}
 	
 	.input-2{
@@ -950,7 +963,7 @@ div#actions{
 }
 	
 	div#actions button, div#actions input, div#actions a{
-		margin-right: 5px;
+		margin-right: 10px;
 	}
 	
 	div.dialog, div.immersive, div.immersive-actions{
@@ -1384,6 +1397,38 @@ body .CodeMirror{
 		color: #aaa;
 		font-weight: normal;
 		text-transform: uppercase;
+	}
+	
+/* notice */
+section.notice a{
+	display: block;
+	background: #81b841;
+	padding: 10px 20px;
+	color: #fff;
+}
+
+section.notice a i{
+	margin-left: 5px;
+}
+
+/* signup */
+.signup .pay{
+	padding-top: 20px;
+}	
+
+.thankyou-content{
+	margin: 0 20px;
+}
+
+	.thankyou-content h2, .thankyou-content h3{
+		margin: 25px 0;
+		padding: 0;
+	}
+
+	.thankyou-content p{
+		margin: 0 0 20px 0;
+		padding: 0;
+		font-size: 15px;
 	}
 	
 	

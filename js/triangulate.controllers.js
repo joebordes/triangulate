@@ -142,6 +142,103 @@ angular.module('triangulate.controllers', [])
 	
 })
 
+// signup controller
+.controller('SignupCtrl', function($scope, $window, $stateParams, $state, $rootScope, $i18next, Setup, Site) {
+	
+	$rootScope.template = 'signup';
+	
+	// setup
+	$scope.setup = Setup;
+	
+	// temporary model
+	$scope.temp = {
+		'email': '',
+		'plan': 'triangulate-basic',
+		'payWith': 'stripe',
+		'domain': ''
+	}
+	
+	$scope.error = '';
+	
+	// set publishable key
+	Stripe.setPublishableKey($scope.setup.stripePubKey);
+
+	function stripeResponseHandler(status, response){
+      
+        var form = $('#subscribe-form');
+        
+        if (response.error) { // errors
+            message.showMessage('error');
+           
+			$scope.$apply(function(){
+				$scope.error = response.error.message;
+			});
+            
+        } 
+        else {
+        
+        	var token = response.id;
+        	
+        	// subscribe a site with Stripe
+			Site.subscribeWithStripe(token, $scope.temp.plan, $scope.temp.domain,
+				function(data){		// success
+				
+					// update the site
+					Site.retrieve(function(data){
+					
+						message.showMessage('success');
+					
+						// set site in $rootScope, session
+						$rootScope.site = data;
+						$window.sessionStorage.site = JSON.stringify(data);
+						
+						// go to start URL
+						$state.go('app.thankyou');
+							
+					});
+					
+					
+				},
+				function(){		// failure
+					message.showMessage('error');
+				});
+           
+        }
+        
+    }
+
+	// pay with Stripe
+	$scope.payWithStripe = function(){
+		$scope.stripeError = '';
+	
+		var form = $('#subscribe-form');
+        
+        message.showMessage('progress');
+        
+        Stripe.createToken(form, stripeResponseHandler);
+	}
+	
+})
+
+// Thankyou controller
+.controller('ThankyouCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup) {
+	
+	$rootScope.template = 'thankyou';
+	
+	// setup
+	$scope.setup = Setup;
+})
+
+
+// acccount controller
+.controller('AccountCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, User, Site, Editor) {
+	
+	$rootScope.template = 'signup';
+	
+	// setup
+	$scope.setup = Setup;
+	
+})
 
 // create controller
 .controller('CreateCtrl', function($scope, $rootScope, Setup, Theme, Language, Site) {

@@ -33,6 +33,10 @@
   
     </nav>
     
+    <section class="notice" ng-if="site.Status == 'Trial'">
+    	<a ui-sref="app.signup">{{'trial_message' | i18next}} <i class="fa fa-chevron-right"></i></a>
+    </section>
+    
     <menu>
     
     	<div class="dropdown">

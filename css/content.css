@@ -702,6 +702,11 @@ body.content{}
 	
 	.content .context-menu .context-footer button:hover{
 		border-color: #A4110A;
+	}
+	
+	body .context-menu select.form-control{
+		background: url('../images/down.png') no-repeat right 6px;
+		background-size: 20px;
 	}	
 
 

@@ -534,6 +534,7 @@ triangulate.editor.setupPersistentEvents = function(){
 			        }
 			    });
 			   	
+			   	/*
 		  		// execute config action for plugin
 		  		action += '.config';
 		  		
@@ -542,7 +543,8 @@ triangulate.editor.setupPersistentEvents = function(){
 		  		}
 		  		catch(e){
 			  		console.log('[triangulate.editor] config action not available for plugin');
-		  		}
+			  		console.log('[triangulate.editor] action='+action);
+		  		}*/
 	  		}
   		}
 	});

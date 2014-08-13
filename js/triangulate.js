@@ -207,6 +207,36 @@ angular.module('triangulate', ['ui.router',
 		      controller: 'TranslationsCtrl'
 		    }
 		  }
+		})
+		
+		.state('app.signup', {
+		  url: "/signup",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/signup.html",
+		      controller: 'SignupCtrl'
+		    }
+		  }
+		})
+		
+		.state('app.thankyou', {
+		  url: "/thankyou",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/thankyou.html",
+		      controller: 'ThankyouCtrl'
+		    }
+		  }
+		})
+		
+		.state('app.account', {
+		  url: "/account",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/account.html",
+		      controller: 'AccountCtrl'
+		    }
+		  }
 		});
 	
 	// if none of the above states are matched, use this as the fallback
