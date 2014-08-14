@@ -433,13 +433,26 @@
 				<input id="linkUrl" type="text" class="form-control">
 				<div class="input-select">
 				    <button class="btn dropdown-toggle" data-toggle="dropdown">
-				      <span class="caret"></span>
+				      <i class="fa fa-file"></i>
 				    </button>
 				    <ul class="dropdown-menu dropdown-menu-right">
 				    	<li ng-repeat="page in pages">
 				    		<a data-value="{{page.Url}}">
 							{{page.Name}}
 							<small>{{page.Url}}</small>
+				    		</a>
+						</li>
+				    </ul>
+				</div>
+				<div class="input-select option2">
+				    <button class="btn dropdown-toggle" data-toggle="dropdown">
+				      <i class="fa fa-folder-open"></i>
+				    </button>
+				    <ul class="dropdown-menu dropdown-menu-right">
+				    	<li ng-repeat="file in files">
+				    		<a data-value="{{file.fullUrl}}">
+							{{page.filename}}
+							<small>{{page.fullUrl}}</small>
 				    		</a>
 						</li>
 				    </ul>

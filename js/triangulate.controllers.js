@@ -950,55 +950,96 @@ angular.module('triangulate.controllers', [])
 		$scope.page = data;
 	});
 		
-	// list pages
-	Page.list(function(data){
+	
+	// retrieve pages
+	$scope.retrievePages = function(){
+	
+		// list pages
+		Page.list(function(data){
+			
+			if($scope.pages == null){
+			
+				// debugging
+				if(Setup.debug)console.log('[triangulate.debug] Page.list');
+				if(Setup.debug)console.log(data);
+				
+				$scope.pages = data;
+			}
+			
+		});
+	
+	}
+	
+	$scope.retrievePages();
+	
+	// retrieve pages for theme
+	$scope.retrievePagesForTheme = function(){
+	
+		// list pages for theme
+		Theme.listPages(function(data){
 		
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Page.list');
-		if(Setup.debug)console.log(data);
+			if($scope.themePages == null){
 		
-		$scope.pages = data;
-	});
+				// debugging
+				if(Setup.debug)console.log('[triangulate.debug] Theme.listPages');
+				if(Setup.debug)console.log(data);
+				
+				$scope.themePages = data;
+			}
+			
+		});
 	
-	// list pages for theme
-	Theme.listPages(function(data){
+	}	
 	
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Theme.listPages');
-		if(Setup.debug)console.log(data);
+	// retrieve pagetypes
+	$scope.retrievePageTypes = function(){
+	
+		// list allowed page types
+		PageType.list(function(data){
 		
-		$scope.themePages = data;
-	});
-	
-	// list allowed page types
-	PageType.list(function(data){
-	
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] PageType.listAll');
-		console.log(data);
+			if($scope.pageTypes == null){
 		
-		$scope.pageTypes = data;
-	});
+				// debugging
+				if(Setup.debug)console.log('[triangulate.debug] PageType.listAll');
+				console.log(data);
+				
+				$scope.pageTypes = data;
+			}
+			
+		});
 	
-	// list images
-	Image.list(function(data){
+	}
 	
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] Image.list');
-		console.log(data);
+	$scope.retrievePageTypes();
+	
+	// retrieve images
+	$scope.retrieveImages = function(){
+	
+		if($scope.images == null){
+	
+			// list images
+			Image.list(function(data){
+			
+				// debugging
+				if(Setup.debug)console.log('[triangulate.debug] Image.list');
+				console.log(data);
+				
+				$scope.images = data;
+			});
+			
+			// get file size
+			File.retrieveSize(function(data){
+			
+				// debugging
+				if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
+				console.log(data);
+				
+				$scope.totalSize = parseFloat(data);
+			});
 		
-		$scope.images = data;
-	});
+		}
 	
-	// get file size
-	File.retrieveSize(function(data){
-	
-		// debugging
-		if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
-		console.log(data);
-		
-		$scope.totalSize = parseFloat(data);
-	});
+	}
 	
 	// retrieve pre-cached editor items
 	$scope.editorItems = $rootScope.editorItems;

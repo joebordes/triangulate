@@ -220,8 +220,14 @@ triangulate.text.link = {
 	    $('#linkTitle').val('');
 	    $('#pageUrl li').removeClass('selected');
 	    $('#existing').attr('checked','checked');
+	    
+	    // update pages
+    	var scope = angular.element($("section.main")).scope();
+		
+		scope.retrievePages();
 
-		$('#linkDialog').modal('show'); // show modal
+		// show modal
+		$('#linkDialog').modal('show');
 		
 		return false;
 		

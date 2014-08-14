@@ -9,6 +9,12 @@ triangulate.component.slideshow = {
 	init:function(){
 		
 		$(document).on('click', '.add-slideshow-image', function(){
+		
+			// get scope from page
+			var scope = angular.element($("section.main")).scope();
+			
+			scope.retrieveImages();
+		
 			$('#imagesDialog').attr('data-plugin', 'triangulate.component.slideshow');
 			$('#imagesDialog').modal('show');
 		});
@@ -707,8 +713,10 @@ triangulate.component.content = {
 		
 	},
 	
-	// config map
-	config:function(node, form){}
+	// config content
+	config:function(node, form){
+		
+	}
 	
 };
 

@@ -112,6 +112,14 @@ triangulate.utility.load = {
 		
 		// style content
 		$('#load-code').val(style_html(content));
+		
+		
+		// get scope from page
+		var scope = angular.element($("section.main")).scope();
+		
+		scope.retrievePages();
+		scope.retrievePagesForTheme();
+		
 	
 		// show the dialog
 		$('#loadLayoutDialog').modal('show');

@@ -533,18 +533,7 @@ triangulate.editor.setupPersistentEvents = function(){
 						});
 			        }
 			    });
-			   	
-			   	/*
-		  		// execute config action for plugin
-		  		action += '.config';
-		  		
-		  		try{
-		  			utilities.executeFunctionByName(action, window, node, form);
-		  		}
-		  		catch(e){
-			  		console.log('[triangulate.editor] config action not available for plugin');
-			  		console.log('[triangulate.editor] action='+action);
-		  		}*/
+			  
 	  		}
   		}
 	});

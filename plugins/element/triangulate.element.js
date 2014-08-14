@@ -1387,6 +1387,11 @@ triangulate.element.image = {
 		
 		// show dialog
 		$('#imagesDialog').modal('show');
+		
+		// get scope from page
+		var scope = angular.element($("section.main")).scope();
+		
+		scope.retrieveImages();
 				
 	},
 	

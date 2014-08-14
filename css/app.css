@@ -312,10 +312,24 @@ body .modal-header{
 			font-weight: bold;
 		}
 		
+			body .modal .input-select button{
+				outline: none;
+			}
+		
+		body .modal .input-select.option2{
+			position: absolute;
+			top: 26px;
+			right: 40px;
+		}
+		
 		body .modal .input-select .dropdown-toggle{
 			background-color: #fff;
 			font-size: 20px;
 		}
+		
+			body .modal .input-select .dropdown-toggle i{
+				font-size: 15px;
+			}
 		
 		body .modal .input-select .dropdown-menu small{
 			display: block;
