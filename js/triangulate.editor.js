@@ -842,12 +842,14 @@ triangulate.editor.getTranslations = function(content){
 	for(x=0; x<els.length; x++){
 	
 		var id = $(els[x]).attr('id');
-	
+		
 		// add to array
 		if(id != '' && id != undefined){
 		
 			// get content to be translated
 			var html = $(els[x]).html();
+			
+			//alert('id=' + id + ' html=' + html);
 		
 			// trim content
 			html = $.trim(html);

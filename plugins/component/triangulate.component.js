@@ -354,7 +354,24 @@ triangulate.component.form = {
 		var model = utilities.toTitleCase(id);
 	
 		// set label
-		var html = '<label for="' + id + '">' + label + '</label>';
+		var html = '<label for="' + id + '"'; 
+		var prefix = '';
+		
+		if(id != null){
+		
+			// get scope
+			var scope = angular.element($("section.main")).scope();
+			
+			// get pageId
+			prefix = scope.page.PageId + '.';
+		
+			html += 'id="' + id + '-label" ng-i18next="[html]' + prefix + id + '-label">';
+		}
+		else{
+			html += '>';
+		}
+		
+		html += label + '</label>';
 		
 		var req = '';
 		
@@ -386,7 +403,13 @@ triangulate.component.form = {
 			var arr = options.split(',');
 
 			for(x=0; x<arr.length; x++){
-	  			html += '<option>' + $.trim(arr[x]) + '</option>';
+			
+				if(id != null){
+					html += '<option id="' + id + '-option' + (x+1) + '" ng-i18next="[html]' + prefix + id + '-option' + (x+1) + '">' + $.trim(arr[x]) + '</option>';
+				}
+				else{
+	  				html += '<option>' + $.trim(arr[x]) + '</option>';
+	  			}
 			}
 
 			html += '</select>'
@@ -406,7 +429,16 @@ triangulate.component.form = {
 	  				' ng-model="temp.' + model + '.' + val + 
 	  				'" ng-true-value="' + $.trim(arr[x]) + '"' +
 	  				'" ng-false-value=""' +
-	  				'>' + $.trim(arr[x]) + '</label>';
+	  				'>';
+	  			
+	  			if(id != null){
+		  			html += '<span id="' + id + '-checkbox' + (x+1) + '" ng-i18next="[html]' + prefix + id + '-checkbox' + (x+1) + '">';
+				}
+				else{
+					html += '<span>';
+				}
+	  				
+	  			html += $.trim(arr[x]) + '</span></label>';
 			}
 
 			html += '</span>';
@@ -421,7 +453,16 @@ triangulate.component.form = {
 			for(x=0; x<arr.length; x++){
 	  			html += '<label class="radio"><input name="' + id + '" type="radio" value="' + $.trim(arr[x]) + '" name="' + id + '"' +
 	  				' ng-model="temp.' + model + '"' +
-	  				'>' + $.trim(arr[x]) + '</label>';
+	  				'>';
+	  			
+	  			if(id != null){
+		  			html += '<span id="' + id + '-radio' + (x+1) + '" ng-i18next="[html]' + prefix + id + '-radio' + (x+1) + '">';
+				}
+				else{
+					html += '<span>';
+				}
+	  				
+	  			html += $.trim(arr[x]) + '</span></label>';
 			}
 
 			html += '</span>';
@@ -429,7 +470,14 @@ triangulate.component.form = {
 
 		// create helper
 		if(helper != '') {
-			html += '<span class="help-block">' + helper + '</span>';
+		
+			if(id != null){
+	  			html += '<span id="' + id + '-help" ng-i18next="[html]' + prefix + id + '-help" class="help-block">' + helper + '</span>';
+			}
+			else{
+				html += '<span class="help-block">' + helper + '</span>';
+			}
+	  		
 		}
 
 		// tag attributes
