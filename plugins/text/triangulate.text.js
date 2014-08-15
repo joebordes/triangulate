@@ -225,6 +225,7 @@ triangulate.text.link = {
     	var scope = angular.element($("section.main")).scope();
 		
 		scope.retrievePages();
+		scope.updateFiles();
 
 		// show modal
 		$('#linkDialog').modal('show');

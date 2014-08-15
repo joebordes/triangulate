@@ -7,7 +7,7 @@
 	
 	<fieldset>
 	
-		<div class="current">
+		<div ng-class="{'future': step != 1}">
 	
 			<h2 class="title"><span class="step">1</span> {{'Create Site' | i18next}} <a id="toggle-advanced">{{'Language and Timezone' | i18next}}</a></h2>
 			
@@ -20,6 +20,7 @@
 							<label for="name">{{'Site Name' | i18next}}</label>
 							<input id="name" type="text" 
 								ng-model="name"
+								ng-focus="setStep(1)"
 								data-id="{{friendlyId}}"
 								class="form-control" triangulate-validate-site-id triangulate-create-id="set">
 								
@@ -35,6 +36,7 @@
 							<label for="email">{{'Email' | i18next}}</label>
 							<input id="email" type="text"
 								ng-model="email"
+								ng-focus="setStep(1)"
 								class="form-control">
 							
 							<i class="triangulate-validating fa fa-spinner fa-spin"></i>
@@ -51,6 +53,7 @@
 							<label for="password">{{'Password' | i18next}}</label>
 							<input id="password" type="password" 
 								ng-model="password"
+								ng-focus="setStep(1)"
 								class="form-control">
 						</div>
 						<!-- /.form-group -->
@@ -69,6 +72,7 @@
 							<label for="language" class="control-label">{{'Site Language' | i18next}}</label>
 							<select id="language" 
 								ng-model="siteLanguage"
+								ng-focus="setStep(1)"
 								class="form-control">
 								<option value="">Other</option> 
 								<option value="aa">Afar (aa)</option> 
@@ -245,6 +249,7 @@
 						<div class="form-group">
 							<label for="timeZone">{{'Site Timezone' | i18next}}</label>
 							<select id="timeZone" 
+								ng-focus="setStep(1)"
 								ng-model="timeZone" class="form-control">
 									<option value="Pacific/Midway">(GMT-11:00) Midway Island, Samoa</option>
 				<option value="America/Adak">(GMT-10:00) Hawaii-Aleutian</option>
@@ -348,6 +353,7 @@
 							<label for="userLanguage">{{'Your Language' | i18next}}</label>
 							<select id="userLanguage" class="form-control" 
 								ng-model="userLanguage"
+								ng-focus="setStep(1)"
 								ng-options="language.code as language.text for language in languages">
 								    <option value="en">English</option>
 							    </select>
@@ -364,7 +370,7 @@
 		</div>
 		<!-- /.current -->
 		
-		<div class="future">
+		<div ng-class="{'future': step != 2}">
 		
 			<h2 class="title"><span class="step">2</span> {{'Select Theme' | i18next}}</h2>
 			
@@ -374,24 +380,36 @@
 				
 					<div class="col-md-12">
 					
-						<div id="themesList" class="image-list">
-    
-					        <div class="image-item" ng-repeat="theme in themes" ng-class="{'active': (theme.id == themeId)}">
-					            <h2>{{theme.name}}</h2>
-					            
-					            <img ng-src="themes/{{theme.id}}/logo.png">
-					            
-					            <div class="secondary inactive-button" ng-click="setThemeId(theme.id)">{{'Select Theme' | i18next}}</div>
-    		<div class="active-button">{{'Selected' | i18next}}</div>
-					    		
-					        </div>
-					    
-					    </div>
-					    <!-- /.image-list -->
+						<div id="select-theme" class="carousel slide">
+				
+							<!-- slides-->
+							<div class="carousel-inner">
+							
+								<div class="item" ng-repeat="theme in themes" 
+									data-id="{{theme.id}}"
+									ng-class="{'active': (theme.id == themeId)}">
+										<img ng-src="themes/{{theme.id}}/screenshot.png">
+										<div class="carousel-caption">
+											 <p><b>{{theme.name}}</b>{{theme.desc}}</p>
+										</div>
+								</div>
+							
+							</div>
+							
+							<!-- controls -->
+							<a class="left carousel-control" ng-click="previous()">
+								<i class="fa fa-chevron-left"></i>
+							</a>
+							<a class="right carousel-control"  ng-click="next()">
+								<i class="fa fa-chevron-right"></i>
+							</a>
+							
+						</div>
+						<!-- /.carousel -->
 					
 			
 					</div>
-					<!-- /.col-md-4 -->
+					<!-- /.col-md-12 -->
 				
 				</div>
 				<!-- /.row -->
@@ -402,7 +420,7 @@
 		</div>
 		<!-- /.future -->
 		
-		<div class="future">
+		<div ng-class="{'future': step != 3}">
 		
 			<h2 class="title"><span class="step">3</span> {{'Passcode' | i18next}}</h2>
 			
@@ -414,6 +432,7 @@
 						<div class="form-group">
 							<label for="passcode">{{'Passcode' | i18next}}</label>
 							<input id="passcode" type="text" 
+								ng-focus="setStep(3)"
 								ng-model="passcode"
 								class="form-control" triangulate-validate-passcode>
 							<i class="triangulate-validating fa fa-spinner fa-spin"></i>

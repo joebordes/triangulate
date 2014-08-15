@@ -247,6 +247,13 @@ angular.module('triangulate.controllers', [])
 	
 	// setup
 	$scope.setup = Setup;
+	$scope.step = 1;
+	
+	// setup carousel
+	$('#select-theme').carousel({
+		interval: false,
+		wrap: true
+	});
 	
 	// determine timezone
 	var tz = jstz.determine();
@@ -263,6 +270,22 @@ angular.module('triangulate.controllers', [])
     $(document).on('click', '#toggle-advanced', function(){
 		$('.advanced').show();
 	});
+	
+	// set step
+	$scope.setStep = function(step){
+		$scope.step = step;
+	}
+	
+	// set next
+	$scope.next = function(){
+		$('#select-theme').carousel('next');
+		$scope.step = 2;
+	}
+	
+	$scope.previous = function(){
+		$('#select-theme').carousel('prev');
+		$scope.step = 2;
+	}
     
     // sets a theme
     $scope.setThemeId = function(id){
@@ -291,6 +314,10 @@ angular.module('triangulate.controllers', [])
 	
 	// create a site
 	$scope.create = function(){
+		
+		var id = $('#select-theme .active').attr('data-id');
+		
+		$scope.themeId = id;
 		
 		message.showMessage('progress');
 		
@@ -1039,6 +1066,30 @@ angular.module('triangulate.controllers', [])
 		
 		}
 	
+	}
+	
+	// updates files
+	$scope.updateFiles = function(){
+		// list files
+		File.list(function(data){
+		
+			// debugging
+			if(Setup.debug)console.log('[triangulate.debug] File.list');
+			console.log(data);
+			
+			$scope.files = data;
+			$scope.loading = false;
+		});
+		
+		// get file size
+		File.retrieveSize(function(data){
+		
+			// debugging
+			if(Setup.debug)console.log('[triangulate.debug] File.retrieveSize');
+			console.log(data);
+			
+			$scope.totalSize = parseFloat(data);
+		});
 	}
 	
 	// retrieve pre-cached editor items
@@ -1851,6 +1902,21 @@ angular.module('triangulate.controllers', [])
 	$scope.setup = Setup;
 	
     $scope.themeId = Site.Theme;
+    
+    // setup carousel
+	$('#update-theme').carousel({
+		interval: false,
+		wrap: true
+	});
+	
+	// set next
+	$scope.next = function(){
+		$('#update-theme').carousel('next');
+	}
+	
+	$scope.previous = function(){
+		$('#update-theme').carousel('prev');
+	}
    
     // sets a theme
     $scope.setThemeId = function(id){

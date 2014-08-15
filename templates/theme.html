@@ -6,19 +6,58 @@
         <h1>{{'Theme' | i18next}}</h1>
     </nav>
 
-    <div id="themesList" class="image-list">
-    
-        <div class="image-item" ng-repeat="theme in themes" ng-class="{'active': (theme.id == themeId)}">
-            <h2>{{theme.name}}</h2>
-            
-            <img ng-src="themes/{{theme.id}}/logo.png">
-            
-            <div class="secondary inactive-button" 
-            	ng-click="showApply(theme)">{{'Select Theme' | i18next}}</div>
-			<div class="active-button"
-				ng-click="showReset(theme)">{{'Reset Theme' | i18next}}</div>
-    		
-        </div>
+
+	<div class="container-fluid">
+			
+			<div class="row">
+			
+				<div class="col-md-12">
+
+					<div id="update-theme" class="carousel slide">
+								
+						<!-- slides-->
+						<div class="carousel-inner">
+						
+							<div class="item" ng-repeat="theme in themes" 
+								data-id="{{theme.id}}"
+								ng-class="{'active': (theme.id == themeId)}">
+									<img ng-src="themes/{{theme.id}}/screenshot.png">
+									<div class="carousel-caption">
+										 <p>
+										 	<b>{{theme.name}}</b>{{theme.desc}}
+										 
+										 	<a ng-show="theme.id != themeId"
+										 		ng-click="showApply(theme)">{{'Select Theme' | i18next}}</a>
+										 	<a 
+										 		 ng-show="theme.id == themeId"
+										 		ng-click="showReset(theme)">{{'Reset Theme' | i18next}}</a>
+										 
+										 </p>
+									</div>
+							</div>
+						
+						</div>
+						
+						<!-- controls -->
+						<a class="left carousel-control" ng-click="previous()">
+							<i class="fa fa-chevron-left"></i>
+						</a>
+						<a class="right carousel-control"  ng-click="next()">
+							<i class="fa fa-chevron-right"></i>
+						</a>
+						
+					</div>
+					<!-- /.carousel -->
+
+
+				</div>
+				<!-- /.col-md-12 -->
+			
+			</div>
+			<!-- /.row -->
+		
+		</div>
+		<!-- /.container-fluid -->
     
     </div>
     <!-- /.image-list -->

@@ -227,13 +227,17 @@ angular.module('triangulate.factories', [])
 })
 
 // user factory
-.factory('User', function($http, $window, Setup){
+.factory('User', function($http, $window, $cacheFactory, Setup){
 	
 	var user = {};
 	user.data = [];
 	
 	// login API call
 	user.login = function(email, password, friendlyId, successCallback, failureCallback){
+	
+		// remove all cache on login
+		var $cache = $cacheFactory.get('$http');
+		$cache.removeAll();
 	
 		// set params
 		var params = {
@@ -552,11 +556,20 @@ angular.module('triangulate.factories', [])
 })
 
 // page type factory
-.factory('PageType', function($http, Setup){
+.factory('PageType', function($http, $cacheFactory, Setup){
 	
 	// init
 	var pageType = {};
 	pageType.data = [];
+	
+	// invalidate cache
+	pageType.invalidateCache = function(){
+		
+		var $cache = $cacheFactory.get('$http');
+		$cache.remove(Setup.api + '/pagetype/list/allowed');
+		$cache.remove(Setup.api + '/pagetype/list/all');
+		
+	}
 	
 	// add a pagetype
 	pageType.add = function(toBeAdded){
@@ -568,8 +581,6 @@ angular.module('triangulate.factories', [])
 			stylesheet: toBeAdded.Stylesheet, 
 			isSecure: toBeAdded.IsSecure};
 		
-		console.log('params');	
-		console.log(params);
 			
 		// set post to URL Encoded
 		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
@@ -582,6 +593,9 @@ angular.module('triangulate.factories', [])
 				pageType.data.push(res.data);
 				
 			});
+			
+		// invalidate cache
+		pageType.invalidateCache();
 	}
 	
 	// edit a pagetype
@@ -602,6 +616,9 @@ angular.module('triangulate.factories', [])
 		// post to API
 		$http.post(Setup.api + '/pagetype/edit', $.param(params))
 			.then(function(res){});
+		
+		// invalidate cache
+		pageType.invalidateCache();
 	}
 	
 	// removes a pagetype
@@ -623,13 +640,16 @@ angular.module('triangulate.factories', [])
 				if(i !== -1)pageType.data.splice(i, 1);
 				
 			});
+			
+		// invalidate cache
+		pageType.invalidateCache();
 	}
 	
 	// retrieve allowed pagetypes
 	pageType.listAllowed = function(callback){
-	
+
 		// get list from API, ref: http://bit.ly/1gkUW4E
-		$http.get(Setup.api + '/pagetype/list/allowed')
+		$http.get(Setup.api + '/pagetype/list/allowed', {cache:true})
 			.then(function(res){
 				// set data for factory
 				pageType.data = res.data;
@@ -642,7 +662,7 @@ angular.module('triangulate.factories', [])
 	pageType.list = function(callback){
 	
 		// get list from API, ref: http://bit.ly/1gkUW4E
-		$http.get(Setup.api + '/pagetype/list/all')
+		$http.get(Setup.api + '/pagetype/list/all', {cache:true})
 			.then(function(res){
 			
 				// set data for factory
@@ -674,16 +694,25 @@ angular.module('triangulate.factories', [])
 })
 
 // page factory
-.factory('Page', function($http, Setup){
+.factory('Page', function($http, $cacheFactory, Setup){
 	
 	var page = {};
 	page.data = [];
+	
+	// invalidate cache
+	page.invalidateCache = function(){
+		
+		var $cache = $cacheFactory.get('$http');
+		$cache.remove(Setup.api + '/page/list/allowed');
+		$cache.remove(Setup.api + '/page/list/all');
+		
+	}
 	
 	// retrieve allowed pages
 	page.listAllowed = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/page/list/allowed')
+		$http.get(Setup.api + '/page/list/allowed', {cache:true})
 			.then(function(res){
 				// set data for factory
 				page.data = res.data;
@@ -696,7 +725,7 @@ angular.module('triangulate.factories', [])
 	page.list = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/page/list/all')
+		$http.get(Setup.api + '/page/list/all', {cache:true})
 			.then(function(res){
 				// set data for factory
 				page.data = res.data;
@@ -775,7 +804,9 @@ angular.module('triangulate.factories', [])
 		// post to API
 		$http.post(Setup.api + '/page/content/save', $.param(params))
 			.success(callback);
-		
+			
+		// invalidate cache
+		page.invalidateCache();
 	}
 	
 	// retrieve content
@@ -849,6 +880,9 @@ angular.module('triangulate.factories', [])
 			.success(successCallback)
 			.error(failureCallback);
 			
+		// invalidate cache
+		page.invalidateCache();
+			
 	}
 	
 	// add page
@@ -873,7 +907,9 @@ angular.module('triangulate.factories', [])
 				return;
 			}, failureCallback)
 			.then(successCallback);
-			
+		
+		// invalidate cache
+		page.invalidateCache();
 	}
 	
 	// remove page
@@ -896,6 +932,8 @@ angular.module('triangulate.factories', [])
 			}, failureCallback)
 			.then(successCallback);
 		
+		// invalidate cache
+		page.invalidateCache();
 	}
 	
 	// toggle published
@@ -928,6 +966,9 @@ angular.module('triangulate.factories', [])
 				return;
 			}, failureCallback)
 			.then(successCallback);
+		
+		// invalidate cache
+		page.invalidateCache();
 		
 	}
 	
@@ -1684,17 +1725,25 @@ angular.module('triangulate.factories', [])
 })
 
 // images factory
-.factory('Image', function($http, Setup){
+.factory('Image', function($http, $cacheFactory, Setup){
 	
 	var image = {};
 	image.data = [];
 	image.updates = [];
 	
+	// invalidate cache
+	image.invalidateCache = function(){
+		
+		var $cache = $cacheFactory.get('$http');
+		$cache.remove(Setup.api + '/image/list/all');
+		
+	}
+	
 	// retrieve images
 	image.list = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/image/list/all')
+		$http.get(Setup.api + '/image/list/all', {cache:true})
 			.then(function(res){
 				// set data for factory
 				image.data = res.data;
@@ -1725,16 +1774,26 @@ angular.module('triangulate.factories', [])
 })
 
 // files factory
-.factory('File', function($http, Setup){
+.factory('File', function($http, $cacheFactory, Setup){
 	
 	var file = {};
 	file.data = [];
+	
+	// invalidate cache
+	file.invalidateCache = function(){
+		
+		var $cache = $cacheFactory.get('$http');
+		$cache.remove(Setup.api + '/file/list');
+		$cache.remove(Setup.api + '/file/retrieve/size');
+		$cache.remove(Setup.api + '/image/list/all');
+		
+	}
 	
 	// retrieve files
 	file.list = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/file/list')
+		$http.get(Setup.api + '/file/list', {cache:true})
 			.then(function(res){
 				// set data for factory
 				file.data = res.data;
@@ -1747,7 +1806,7 @@ angular.module('triangulate.factories', [])
 	file.retrieveSize = function(callback){
 	
 		// post to API
-		$http.get(Setup.api + '/file/retrieve/size')
+		$http.get(Setup.api + '/file/retrieve/size', {cache:true})
 			.then(function(res){
 				// set data for factory
 				file.data = res.data;
@@ -1777,6 +1836,9 @@ angular.module('triangulate.factories', [])
 				return;
 			})
 			.then(callback);
+		
+		// invalidate the cache
+		file.invalidateCache();
 	}
 	
 	// get the index by id

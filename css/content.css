@@ -716,5 +716,13 @@ body.content{}
 	body.content div.container-fluid{
 		margin: 10px 0 0 0 !important;
 	}
+	
+	body.content .context-menu{
+		display: none;
+	}
+	
+	body.content .editor.container{
+		width: 100%;
+	}
   
 }

@@ -313,7 +313,8 @@ body .modal-header{
 		}
 		
 			body .modal .input-select button{
-				outline: none;
+				outline: none !important;
+				box-shadow: none !important;
 			}
 		
 		body .modal .input-select.option2{
@@ -1445,6 +1446,79 @@ section.notice a i{
 		font-size: 15px;
 	}
 	
+/* carousel styles */
+body .carousel{
+	border: 1px solid #f0f0f0;
+}
+
+body .carousel .carousel-control{
+	background: none;
+	z-index: 100;
+}
+
+	body .carousel .carousel-control i{
+		position: absolute;
+		top: 50%;
+		left: 5px;
+		box-shadow: none;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: #aaa;
+		color: #fff;
+		border-radius: 50%;
+		text-shadow: none;
+	}
+	
+	body .carousel .carousel-control.right{
+		opacity: 1;
+	}
+	
+	body .carousel .carousel-control.right i{
+		left: auto;
+		right: 5px;
+		background-color: #81b841;
+	}
+	
+	body .carousel .carousel-caption{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-shadow: 0;
+		background-color: #aaa;
+		margin: 0;
+		padding: 0;
+		height: auto;
+	}
+	
+		body .carousel .carousel-caption p{
+			text-shadow: none;
+			color: #fff !important;
+			margin: 0 !important;
+			padding: 15px;
+			font-size: 14px !important;
+			text-align: center !important;
+		}
+		
+		body .carousel .carousel-caption p b{
+			text-transform: uppercase;
+			margin-right: 15px;
+		}
+		
+		body .carousel .carousel-caption p a{
+			color: #fff;
+			display: inline-block;
+			padding: 5px 15px;
+			margin: 0 0 0 5px;
+			border: 1px solid #fff;
+		}
+		
+	#update-theme{
+		max-width: 1000px;
+		margin: 20px;
+	}
 	
 /* Large desktop */
 @media (min-width: 1200px) { }
