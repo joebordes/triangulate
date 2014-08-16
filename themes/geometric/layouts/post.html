@@ -14,6 +14,7 @@
         <a 
            ng-if="site.ShowCart"
            ng-click="toggleCart()"
+           ng-class="{'active':cart.length>0}"
            class="cart-toggle"><i class="fa fa-shopping-cart"></i></a>
         
         <a 

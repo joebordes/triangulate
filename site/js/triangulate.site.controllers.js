@@ -64,7 +64,10 @@ angular.module('triangulate.site.controllers', [])
 	// set page to $scope and $rootScope
 	$scope.page = page
 	$rootScope.page = page;
+	
+	// set site and cart to $scope
 	$scope.site = $rootScope.site;
+	$scope.cart = $rootScope.cart
 		
 	// toggle settings
 	$scope.toggleSettings = function(){
