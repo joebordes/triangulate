@@ -68,12 +68,26 @@ angular.module('triangulate.site.controllers', [])
 		
 	// toggle settings
 	$scope.toggleSettings = function(){
+		$('body').removeClass('show-cart');
+		$('body').removeClass('show-search');
+	
 		$('body').toggleClass('show-settings');
 	}
 	
 	// toggle cart
 	$scope.toggleCart = function(){
+		$('body').removeClass('show-settings');
+		$('body').removeClass('show-search');
+	
 		$('body').toggleClass('show-cart');
+	}
+	
+	// toggle search
+	$scope.toggleSearch = function(){
+		$('body').removeClass('show-settings');
+		$('body').removeClass('show-cart');
+	
+		$('body').toggleClass('show-search');
 	}
 
 });

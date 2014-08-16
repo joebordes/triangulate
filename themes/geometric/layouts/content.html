@@ -1,4 +1,6 @@
 <triangulate-settings  ng-if="site.ShowSettings"></triangulate-settings>
+<triangulate-cart ng-if="site.ShowCart"></triangulate-cart>
+<triangulate-search></triangulate-search> 
 
 <header role="banner">
 
@@ -41,25 +43,11 @@
 	</nav>
 
 </header>
-
-<triangulate-cart ng-if="site.ShowCart"></triangulate-cart>
-<triangulate-search></triangulate-search> 
   
 <div id="content" class="container" role="main">
-    <triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>
+  <triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>
 </div>
 
-<div class="container" role="main">  
-  <div class="blog-meta">
-      <p>
-        {{page.PhotoUrl}}
-        Last modified by
-        <span class="author">{{page.FirstName}} {{page.LastName}}</span>
-        <span class="last-modified-date">{{page.LastModifiedDate}}</span>
-      </p>
-    </div> 
-</div>
- 
 <footer role="contentinfo">
   
   <div class="container">

@@ -1,15 +1,22 @@
-<section ng-if="site.ShowSettings" class="settings">
-
-	<triangulate-welcome></triangulate-welcome>
-
-	<triangulate-select-language></triangulate-select-language>
-
-</section>
-<!-- /.settings -->  
+<triangulate-settings  ng-if="site.ShowSettings"></triangulate-settings>
 
 <header role="banner">
 
 	<nav class="navbar navbar-default" role="navigation">
+      
+       <a 
+           ng-if="site.ShowSettings"
+           ng-click="toggleSettings()"
+           class="settings-toggle"><i class="fa fa-cog"></i></a>
+        
+        <a 
+           ng-if="site.ShowCart"
+           ng-click="toggleCart()"
+           class="cart-toggle"><i class="fa fa-shopping-cart"></i></a>
+        
+        <a 
+           ng-click="toggleSearch()"
+           class="search-toggle"><i class="fa fa-search"></i></a>
 	  
 	  <div class="navbar-header">
 	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -23,14 +30,9 @@
 	  </div>
 	  <!-- /.navbar-header -->
 	
-	  
-	  <div class="collapse navbar-collapse navbar-ex1-collapse">
-	    <ul class="nav navbar-nav navbar-right">
+	  <div class="collapse navbar-collapse navbar-ex1-collapse"> 
+        <ul class="nav navbar-nav navbar-right">
 			<triangulate-menu type="primary"></triangulate-menu>
-          	<triangulate-cart ng-if="site.ShowCart"></triangulate-cart>
-          	<triangulate-search></triangulate-search>
-          	<li ng-click="toggleSettings()"
-          		ng-if="site.ShowSettings"><a class="settings-toggle"><i class="fa fa-cog"></i></a></li>
 	    </ul>
         
 	  </div>
@@ -39,6 +41,9 @@
 	</nav>
 
 </header>
+
+<triangulate-cart ng-if="site.ShowCart"></triangulate-cart>
+<triangulate-search></triangulate-search> 
   
 <div id="content" class="container" role="main">
   <triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>

@@ -1065,4 +1065,23 @@ angular.module('triangulate.site.directives', [])
 	
 })
 
+// settings
+.directive('triangulateSettings', function($rootScope){
+	
+	return{
+		
+		restrict: 'E',
+		scope: {},
+		templateUrl: 'templates/triangulate/settings.html',
+		link: function(scope, element, attr){
+		
+			scope.currentPageId = $rootScope.page.PageId;
+			scope.site = $rootScope.site;
+			
+		}
+		
+	}
+	
+})
+
 ;

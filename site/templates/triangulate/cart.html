@@ -1,51 +1,52 @@
-<li class="triangulate-cart dropdown"> <!-- .open to show -->
-	<a class="dropdown-toggle cart-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i></a>
-  	<ul class="dropdown-menu">
-	  	<li>
-	  		<table class="cart">
-	  			<thead>
-	  				<tr>
-	  					<th>{{'Item' | i18next}}</th>
-	  					<th class="text-right">{{'Quantity' | i18next}}</th>
-	  					<th class="text-right">{{'Price' | i18next}}</th>
-	  					<th class="text-right">{{'Total' | i18next}}</th>
-	  				</tr>
-	  			</thead>
-	  			<tbody>
-		  			<tr ng-repeat="item in cart">
-		  				<td>
-			  				<h4>{{item.name}}</h4>
-			  				<small>{{item.sku}} <i ng-show="item.shipping == 'shipped'" class="fa fa-truck"></i></small>
-		  				</td>
-		  				<td class="text-right">
-		  					<input type="number" ng-model="item.quantity" class="form-control"></td>
-		  				<td class="text-right">{{item.price | currency: mark}} {{currency}}</td>
-		  				<td class="text-right">{{(item.price * item.quantity) | currency: mark}} {{currency}}</td>
-		  			</tr>
-	  			</tbody>
-	  			<tfoot>
-	  				<tr>
-	  					<td colspan="3" class="text-right">{{'Subtotal' | i18next}}</td>
-	  					<td class="text-right">{{ subTotal() | currency: mark}} {{currency}}</td>
-	  				</tr>
-	  				<tr ng-show="tax() > 0">
-	  					<td colspan="3" class="text-right">{{'Tax' | i18next}}</td>
-	  					<td class="text-right">{{ tax() | currency: mark}} {{currency}}</td>
-	  				</tr>
-	  				<tr ng-show="shipping() > 0">
-	  					<td colspan="3" class="text-right">{{'Shipping' | i18next}}</td>
-	  					<td class="text-right">{{ shipping() | currency: mark}} {{currency}}</td>
-	  				</tr>
-	  				<tr class="total-row">
-	  					<td colspan="3" class="text-right">{{'Total' | i18next}}</td>
-	  					<td class="total text-right">{{ total() | currency: mark}} {{currency}}</td>
-	  				</tr>
-	  			</tfoot>
-	  		</table>
-	  		<div class="text-right">
-	  			<button class="btn btn-default"
-	  				ng-click="checkoutWithPayPal()">{{'Checkout with PayPal' | i18next}}</button>
-	  		</div>
-	  	</li>
-  	</ul>
-</li>
+<div class="triangulate-cart">
+
+	<div class="triangulate-cart-header">
+		<span class="item">
+			{{'Item' | i18next}}
+		</span><span class="quantity">
+			{{'Quantity' | i18next}}
+		</span><span class="price">
+			{{'Price' | i18next}}
+		</span><span class="total">{{'Total' | i18next}}</span>
+	</div>
+	<!-- /.triangulate-cart-header -->
+	
+	<div class="triangulate-cart-container">
+		<div class="item" ng-repeat="item in cart">
+			<span class="name">
+				{{item.name}}
+				<small>{{item.sku}} <i ng-show="item.shipping == 'shipped'" class="fa fa-truck"></i></small>
+			</span><span class="quantity">
+				<input type="number" ng-model="item.quantity" class="form-control">
+			</span><span class="price">
+				{{item.price | currency: mark}} {{currency}}
+			</span><span class="total">
+				{{(item.price * item.quantity) | currency: mark}} {{currency}}</span>
+		</div>
+		<!-- /.item -->
+		
+		<div class="subtotal">
+			<label>{{'Subtotal' | i18next}}</label><span>{{ subTotal() | currency: mark}} {{currency}}</span>
+		</div>
+		<div class="tax" ng-show="tax() > 0">
+			<labe>{{'Tax' | i18next}}</span><span>{{ tax() | currency: mark}} {{currency}}</label>
+		</div>
+		<div class="shipping" ng-show="shipping() > 0">
+			<label>{{'Shipping' | i18next}}</label><span>{{ shipping() | currency: mark}} {{currency}}</span>
+		</div>
+		
+	</div>
+	<!-- /.triangulate-cart-items -->
+	
+	<div class="triangulate-cart-total">
+		<div class="total-row">
+			<label>{{'Total' | i18next}}</label><span class="total">{{ total() | currency: mark}} {{currency}}</span>
+		</div>
+	</div>
+	<!-- /.triangulate-cart-totals -->
+	
+	<div class="checkout">
+		<button class="btn btn-default"
+			ng-click="checkoutWithPayPal()">{{'Checkout with PayPal' | i18next}}</button>
+	</div>
+</div>

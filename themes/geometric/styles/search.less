@@ -1,5 +1,4 @@
-@searchbg: #f8f8f8;
-@searchtext: #555;
+@searchbg: #556270;
 
 .search-toggle{
 	float: right;
@@ -7,28 +6,27 @@
   	height: 50px;
   	line-height: 50px;
   	text-align: center;
-  	border-left: 1px solid #e7e7e7;
+  	border-left: 1px solid #ddd;
   	margin-left: 15px;
-  	color: #777;
 }
 
 body .triangulate-search{
-  	position: relative;
+  	position: fixed;
+  	top: 50px;
+  	left: 0;
+  	width: 100%;
+  	height: 300px;
+  	padding: 0;
     text-transform: uppercase;
   	z-index: 100;
-  	text-align: left;
+  	text-align: right;
+  	margin-top: -350px;
   	z-index: 5;
-  	background-color: @cartbg;
-  	color: @carttext;
-  	overflow: hidden;
-  	margin: -10px 10px 20px 10px;
-  	border-radius: 5px;
-  	border: 1px solid #ddd;
-  	display: none;
 }
 
 	body.show-search .triangulate-search{
-		display: block;
+		margin-top: 0;
+		transition: .35s all ease;
 	}
 
 /* triangulate-search */
@@ -80,7 +78,7 @@ body .triangulate-search p{
   	line-height: 19px;
   	margin: 0;
   	padding: 0 10px 10px 10px;
-  	color: @searchtext;
+  	color: #fff;
 }
 
 body .triangulate-search-results{
@@ -99,7 +97,7 @@ body .triangulate-search li{
 	border-top: 1px solid rgba(255,255,255,.25);
   	font-size: 13px;
   	text-transform: uppercase;
-  	color: @searchtext;
+  	color: #fff;
   	list-style: none;
   	text-align: left;
   	margin: 0;
@@ -110,8 +108,10 @@ body .triangulate-search li{
       border-top: none;
   }
 
+
+
 body .triangulate-search li a{
-	color: @searchtext;
+	color: #fff;
 }
 
 body .triangulate-search li p{
@@ -139,7 +139,7 @@ body .triangulate-search li.no-results{
 }
 
 body .triangulate-search li.searching i{
-	color: @searchtext;
+	color: #fff;
 }
 
 body .triangulate-search li:last-child{
@@ -148,7 +148,7 @@ body .triangulate-search li:last-child{
 
 body .triangulate-search a:hover small,
 body .triangulate-search a:hover p{
-	color: @searchtext;
+	color: #fff;
 }
 
 /* Small devices (tablets, 768px and up) */

@@ -1,0 +1,235 @@
+/* import global styles */
+@import url("global.css");
+
+/* background color for the jumbotron */
+@jumbotron: #556270;
+
+/* colors for the h3 used within the jumbtron */
+@highlight-color: #C7F464;
+@highlight-contrast: #556270;
+
+/* background color for icons within 3-column callout (.feature-group i) */
+@feature-icons: #4ECDC4;
+
+/* background colors for alternating blocks */
+@alternate-1: #556270;
+@alternate-2: #4ECDC4;
+
+#features .col-md-9 p{
+	margin-left: 57px;
+}
+
+#features .col-md-9{
+	border-right: 1px solid #f0f0f0;
+}
+
+#features p{
+	margin-bottom: 50px;
+}
+
+#features i{
+  	display: inline-block;
+  	width: 50px;
+  	margin: 0;
+	color: #aaa;
+}
+
+.container{
+	max-width: 100%;
+  	padding: 0;
+  	z-index: 1;
+}
+
+.container .row{
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.container .jumbotron{
+  	position: relative;
+  	box-sizing: border-box;
+  	background: @jumbotron url('../themes/geometric/resources/cubes-bg.png') repeat 0 0;
+  	background-size: 67px 100px;
+  	border-radius: 0 !important;
+  	color: #fff;
+  	max-width: 100%;
+  	margin: 50px 0 0 0;
+  	padding: 150px 0 0 0;
+  	z-index: 1;
+}
+
+.container .jumbotron .col-md-12{
+	margin: 0;
+  	padding: 0;
+}
+
+.jumbotron h1, .jumbotron h2{
+	color: #fff;
+  	font-size: 60px;
+  	text-align: center;
+  	margin-bottom: 25px;
+}
+
+.jumbotron h3{
+  	background-color: @highlight-color;
+  	text-align: center;
+  	margin: 150px 0 0 0;
+  	padding: 20px 0;
+  	font-size: 15px;
+  	text-transform: uppercase;
+  	color: @highlight-contrast;
+}
+
+.jumbotron p{
+	color: #fff;
+  	font-size: 20px;
+  	text-align: center;
+  	margin-bottom: 50px;
+}
+
+.jumbotron p:last-child{
+	margin-bottom: 0;
+}
+
+.jumbotron a, .jumbotron a:hover{
+	color: #fff;
+  	border: 1px solid #fff;
+  	padding: 12px 30px;
+}
+
+
+.container blockquote{
+	border-left: 0;
+  	text-align: center;
+  	font-size: 18px;
+  	line-height: 24px;
+  	color: #888;
+}
+
+.nested-container{
+	border-bottom: 1px solid #ddd;
+  	padding-bottom: 15px;
+  	padding-top: 15px;
+}
+
+.nested-container:last-child{
+	border-bottom: none;
+}
+
+.nested-container.alternate-background{
+  	background: @alternate-1 url('../themes/geometric/resources/cubes-bg.png') repeat 0 0;
+  	background-size: 67px 100px;
+}
+
+.nested-container.alternate-background-2{
+  	background: @alternate-2 url('../themes/geometric/resources/cubes-bg.png') repeat 0 0;
+  	background-size: 67px 100px;
+}
+
+.nested-container.alternate-background-3{
+  	background: #f8f8f8;
+}
+
+/* feature-group */
+.feature-group{
+	padding-top: 25px;
+  	padding-bottom: 25px;
+}
+
+
+.feature-group h1, .feature-group h2, .feature-group h3, .feature-group p{
+	text-align: center;
+}
+
+.feature-group i{
+  	width: 50px;
+  	height: 50px;
+  	line-height: 50px;
+  	text-align: center;
+  	background-color: @feature-icons;
+  	color: #fff;
+  	border-radius: 50%;
+  	font-size: 25px;
+}
+
+/* callout */
+.callout{
+	padding-top: 15px;
+  	padding-bottom: 15px;
+}
+
+.callout h1, .callout h2, .callout h3, .callout p, .callout blockquote, .callout .o-image{
+	text-align: left;
+  	color: #fff;
+}
+
+.callout h1, .callout h2, .callout h3{
+	font-size: 40px;
+}
+
+.callout img{
+  	border: none !important;
+}
+
+/* callout-2 */
+.callout-2{
+	padding-top: 15px;
+  	padding-bottom: 5px;
+}
+
+.callout-2 h1, .callout-2 h2, .callout-2 h3, .callout-2 p, .callout-2 blockquote{
+	color: #fff;
+}
+
+.callout-2 h1, .callout-2 h2, .callout-2 h3{
+	font-size: 40px;
+}
+
+.callout-2 img{
+  	border: none !important;
+}
+
+/* break */
+.break{
+	text-align: center;
+  	padding: 25px 0;
+}
+
+.break p{
+	font-size: 15px;
+}
+
+footer{
+	margin-top: 0;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	body aside.call-to-action a{
+  		display: inline-block;
+	}
+	
+	body .container{
+		width: 100%;
+	}
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+
+	body .container{
+		width: 100%;
+	}
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+
+	body .container{
+		width: 100%;
+	}
+
+}
