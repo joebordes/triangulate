@@ -1,11 +1,29 @@
-<triangulate-settings ng-if="site.ShowSettings"></triangulate-settings>
+<triangulate-settings  ng-if="site.ShowSettings"></triangulate-settings>
 <triangulate-cart ng-if="site.ShowCart"></triangulate-cart>
 <triangulate-search></triangulate-search> 
 
+<div class="toggle-nav">
+  <i class="fa fa-ellipsis-v"></i>
+</div>
+<!-- /.toggle-nav -->
+
+<nav class="side-nav" role="navigation">
+   
+  <ul>
+    <triangulate-menu type="primary"></triangulate-menu>
+  </ul>
+  
+  <ul class="social">
+    <li><a href="#twitter-url"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="#facebook-url"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="#email-url"><i class="fa fa-envelope"></i></a></li>
+  </ul>
+    
+</nav>
+<!-- /.side-nav -->
+
 <header role="banner">
 
-	<nav class="navbar navbar-default" role="navigation">
-      
        <a 
            ng-if="site.ShowSettings"
            ng-click="toggleSettings()"
@@ -20,33 +38,13 @@
         <a 
            ng-click="toggleSearch()"
            class="search-toggle"><i class="fa fa-search"></i></a>
-	  
-	  <div class="navbar-header">
-	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-	      <span class="sr-only">Toggle navigation</span>
-	      <span class="icon-bar"></span>
-	      <span class="icon-bar"></span>
-	      <span class="icon-bar"></span>
-	    </button>
-        
+	         
 		<a class="navbar-brand" href="{{site.Url}}"><img src="{{site.ImagesURL}}{{site.LogoUrl}}"></a>
-	  </div>
-	  <!-- /.navbar-header -->
-	
-	  <div class="collapse navbar-collapse navbar-ex1-collapse"> 
-        <ul class="nav navbar-nav navbar-right">
-			<triangulate-menu type="primary"></triangulate-menu>
-	    </ul>
-        
-	  </div>
-	  <!-- /.navbar-collapse -->
-      
-	</nav>
-
+     
 </header>
-  
+
 <div id="content" class="container" role="main">
-    <triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>
+	<triangulate-content id="main-content" url="{{page.Url}}"></triangulate-content>
 </div>
 
 <footer role="contentinfo">

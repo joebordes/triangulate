@@ -1,8 +1,8 @@
 <section ng-if="site.ShowSettings" class="triangulate-settings">
 
-	<triangulate-welcome></triangulate-welcome>
+	<triangulate-welcome ng-if="site.ShowLogin"></triangulate-welcome>
 
-	<triangulate-select-language></triangulate-select-language>
+	<triangulate-select-language ng-if="site.ShowLanguages"></triangulate-select-language>
   	
 </section>
 <!-- /.settings -->

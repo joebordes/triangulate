@@ -39,6 +39,19 @@
 				</div>
 			</div>
 			
+			<div class="form-group">
+				<label for="showLogin" class="control-label">{{'Url Mode' | i18next}}</label>
+				<div>
+					<select id="showLogin" 
+						ng-model="site.UrlMode"
+						class="form-control">
+						<option value="hash">#</option>
+				    	<option value="hashbang">#!</option>
+				    	<option value="html5">HTML5</option>
+					</select>
+				</div>
+			</div>
+			
 			<div class="form-group" ng-if="site.CanDeploy == 1">
 				<label for="domain" class="control-label">{{'Bucket' | i18next}}</label>
 				<div>
@@ -359,6 +372,30 @@
 				<div>
 					<select id="showSettings" 
 						ng-model="site.ShowSettings"
+						class="form-control">
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="showLanguages" class="control-label">{{'Show Languages' | i18next}}</label>
+				<div>
+					<select id="showLanguages" 
+						ng-model="site.ShowLanguages"
+						class="form-control">
+						<option value="1">{{'Yes' | i18next}}</option>
+				    	<option value="0">{{'No' | i18next}}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="showLogin" class="control-label">{{'Show Login' | i18next}}</label>
+				<div>
+					<select id="showLogin" 
+						ng-model="site.ShowLogin"
 						class="form-control">
 						<option value="1">{{'Yes' | i18next}}</option>
 				    	<option value="0">{{'No' | i18next}}</option>
