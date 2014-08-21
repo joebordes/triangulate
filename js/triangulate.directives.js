@@ -182,6 +182,8 @@ angular.module('triangulate.directives', [])
                 var image = response;
                 
                 if(attrs.target == 'editor'){
+                
+                	scope.image = response;
 
 	                // call method to update list
 	                scope.$apply(attrs.callback);

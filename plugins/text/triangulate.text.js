@@ -209,7 +209,7 @@ triangulate.text.link = {
 		
 	},
 
-	// creates bold text
+	// creates link
 	create:function(){
 
 		triangulate.text.link.selection = utilities.saveSelection();

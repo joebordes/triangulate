@@ -1162,6 +1162,10 @@ angular.module('triangulate.controllers', [])
 	// add image
 	$scope.addImage = function(image){
 	
+		console.log('$scope.addImage');
+		console.log(image);
+	
+	
 		var plugin = $('#imagesDialog').attr('data-plugin');
 		
 		// build add
