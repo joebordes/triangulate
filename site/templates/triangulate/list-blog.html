@@ -1,4 +1,4 @@
 <div class="triangulate-list-blog-item"
-	ng-repeat="page in pages">
+	ng-repeat="page in pages | filter:tag">
 	<triangulate-content url="{{page.Url}}"></triangulate-content>
 </div>

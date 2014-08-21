@@ -287,6 +287,9 @@ angular.module('triangulate.site.directives', [])
 			var pagesize = attr.pagesize;
 			var current = 0;
 			var orderby = attr.orderby;
+			var tag = attr.tag;
+			
+			scope.tag = tag;
 			
 			// list page
 			Page.list(type, pagesize, current, orderby, 

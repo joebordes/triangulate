@@ -1,7 +1,7 @@
 <ul class="triangulate-list list-group">
 	
 	<li class="list-group-item"
-		ng-repeat="page in pages">
+		ng-repeat="page in pages | filter:tag">
 		<a class="pull-left thumbnail"
 			 ui-sref="{{page.Url}}"
 			 ng-show="page.HasImage">

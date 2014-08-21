@@ -6,7 +6,8 @@
 	<ul class="triangulate-list list-group">
 		
 		<li class="list-group-item"
-			ng-repeat="page in pages" triangulate-add-point 
+				ng-repeat="page in pages | filter:tag" 
+				triangulate-add-point 
 				name="{{page.Name}}"
 				url="{{page.Url}}"
 				location="{{page.Location}}"

@@ -1,7 +1,7 @@
 <div class="triangulate-list list-group">
 	
 	<span class="thumbnail"
-		ng-repeat="page in pages">
+		ng-repeat="page in pages | filter:tag">
 		
 		<a class="pull-left thumbnail"
 			 ui-sref="{{page.Url}}"
