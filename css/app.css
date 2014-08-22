@@ -580,8 +580,20 @@ section.main{
 		}
 
     section.main table{
-	    margin-top: 20px;
+	    margin: 20px;
+	    border-bottom: 1px solid #ddd;
+	    border-left: 1px solid #ddd;
+	    border-right: 1px solid #ddd;
+	    width: calc(100% - 40px);
     }
+    
+    	section.main table th{
+	    	border-right: 1px solid #ddd;
+    	}
+    	
+    	section.main table td.status a{
+	    	margin-left: 10px;
+    	}
 
 	section.main table .number{
 		text-align: right;

@@ -231,12 +231,15 @@ angular.module('triangulate.controllers', [])
 
 
 // acccount controller
-.controller('AccountCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, User, Site, Editor) {
+.controller('AccountCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, Site) {
 	
 	$rootScope.template = 'signup';
 	
 	// setup
 	$scope.setup = Setup;
+	
+	// site
+	$scope.site = $rootScope.site;
 	
 })
 
