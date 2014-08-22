@@ -117,6 +117,15 @@
 		"config":	"plugins/component/config/slideshow.html"
 	},
 	{
+		"action":	"triangulate.component.video",
+		"tag":		"TRIANGULATE-VIDEO",
+		"title":	"Video",
+		"class":	"triangulate-video",
+		"icon":		"fa fa-video-camera draggable",
+		"text":		"",
+		"config":	"plugins/component/config/video.html"
+	},
+	{
 		"action":	"triangulate.component.map",
 		"tag":		"TRIANGULATE-MAP",
 		"title":	"Map",

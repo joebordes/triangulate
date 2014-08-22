@@ -6,7 +6,7 @@
 		href="{{item.Url}}">{{item.Name}}</a>
 		
 	<a ng-if="item.HasChildren == true"
-		class="dropdown-toggle" data-toggle="dropdown">{{item.Name}}</a>
+		class="dropdown-toggle" data-toggle="dropdown">{{item.Name}} <i class="fa fa-chevron-down"></i></a>
 		
 	<ul ng-if="item.HasChildren == true" class="dropdown-menu">
 		<li ng-repeat="child in item.Children" class="{{item.CssClass}}"> 

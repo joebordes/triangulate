@@ -1087,4 +1087,20 @@ angular.module('triangulate.site.directives', [])
 	
 })
 
+// video
+.directive('triangulateVideo', function($rootScope, Form){
+	
+	return{
+		
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'templates/triangulate/video.html',
+		link: function(scope, element, attr){}
+		
+			
+		
+	}
+	
+})
+
 ;

@@ -1246,3 +1246,101 @@ triangulate.component.shelf = {
 
 triangulate.component.shelf.init();
 
+// video component
+triangulate.component.video = {
+
+	init:function(){
+		
+		// handle html div click
+		$(document).on('click', '.triangulate-video div', function(){
+			$(this).parent().toggleClass('active');	
+		});
+		
+	},
+
+	// creates video
+	create:function(){
+	
+		// generate uniqId
+		var id = triangulate.editor.generateUniqId('video', 'video');
+		
+		// build html
+		var html = triangulate.editor.defaults.elementMenu +
+					'<div class="title triangulate-element"><i class="fa fa-video-camera"></i> '+
+					'<span node-text="description">Video</span>' +
+					'<i class="fa fa-angle-down"></i></div>' +
+					'<textarea></textarea>';
+					
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = id;
+		attrs['data-id'] = id;
+		attrs['class'] = 'triangulate-video';
+		attrs['data-cssclass'] = '';
+		attrs['data-description'] = 'Video';
+		
+		// append element to the editor
+		triangulate.editor.append(
+			 utilities.element('div', attrs, html)
+		);
+	
+		return true;
+		
+	},
+	
+	// parse video
+	parse:function(node){
+	
+		// get params
+		var id = $(node).attr('id');
+		var description = $(node).attr('description');
+		var code = $(node).html();
+		
+		// create pretty code for display
+		var pretty = utilities.replaceAll(code, '<', '&lt;');
+		pretty = utilities.replaceAll(pretty, '>', '&gt;');
+		
+		// build html
+		var html = triangulate.editor.defaults.elementMenu +
+					'<div class="title triangulate-element"><i class="fa fa-video-camera"></i> '+
+					'<span node-text="description">' + description + '</span>' +
+					'<i class="fa fa-angle-down"></i></div>' +
+					'<textarea>' + code + '</textarea>';
+					
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = id;
+		attrs['data-id'] = id;
+		attrs['class'] = 'triangulate-video';
+		attrs['data-cssclass'] = $(node).attr('class');
+		attrs['data-description'] = description;
+		
+		// return element
+		return utilities.element('div', attrs, html);
+				
+	},
+	
+	// generate video
+	generate:function(node){
+
+		// tag attributes
+		var attrs = [];
+		attrs['id'] = $(node).attr('data-id');
+		attrs['class'] = $(node).attr('data-cssclass');
+		attrs['description'] = $(node).attr('data-description');
+		
+		var html = $(node).find('textarea').val();
+		
+		// return element
+		return utilities.element('triangulate-video', attrs, html);
+		
+	},
+	
+	// config html
+	config:function(node, form){}
+	
+};
+
+triangulate.component.video.init();
+
+

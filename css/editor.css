@@ -477,19 +477,6 @@
 		.editor .block .triangulate-map input{
 			padding-left: 45px;
 		}
-
-	
-	.editor .block .triangulate-video{
-		padding: 5px 10px !important;
-	}
-	
-	.editor .block .triangulate-video textarea{
-		box-sizing: border-box;
-		height: 100px; 
-		padding: 10px;
-		width: 100%;
-		outline: none;
-	}
 	
 	/* facebook, featured, etc */
 	.editor .block .title{
@@ -535,6 +522,11 @@
 			color: #fff;
 			background-color: #AA571B;
 		}
+
+		.editor .block .triangulate-video .title i{
+			color: #fff;
+			background-color: #00A1CB;
+		}
 		
 		.editor .block .triangulate-shelf .title i{
 			color: #fff;
@@ -553,11 +545,13 @@
 
 	/* triangulate-html */
 	.editor .block .triangulate-html div,
+	.editor .block .triangulate-video div,
 	.editor .block .triangulate-pre div{
 		cursor: pointer;
 	}
 	
 	.editor .block .triangulate-html textarea,
+	.editor .block .triangulate-video textarea,
 	.editor .block .triangulate-pre textarea{
 		border: 1px solid #ccc !important;
 		margin-bottom: 20px;
@@ -567,11 +561,13 @@
 	}
 	
 		.editor .block .triangulate-html.active textarea,
+		.editor .block .triangulate-video.active textarea,
 		.editor .block .triangulate-pre.active textarea{
 			display: block;
 		}
 	
 	.editor .block .triangulate-html i.fa-angle-down,
+	.editor .block .triangulate-video i.fa-angle-down,
 	.editor .block .triangulate-pre i.fa-angle-down{
 		background-color: transparent;
 		color: #ccc;
@@ -579,6 +575,7 @@
 	}
 	
 		.editor .block .triangulate-html.active i.fa-angle-down,
+		.editor .block .triangulate-video.active i.fa-angle-down,
 		.editor .block .triangulate-pre.active i.fa-angle-down{
 			-webkit-transform: rotate(-180deg);
 			transform: rotate(-180deg);
