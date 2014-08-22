@@ -686,7 +686,7 @@ angular.module('triangulate.site.directives', [])
 			// sets the language
 			scope.setLanguage = function(locale){
 				// set language to locale specified
-				$i18next.options.lng =  locale;
+				$i18next.options.lng = locale;
 				
 				scope.language = locale;
 			}

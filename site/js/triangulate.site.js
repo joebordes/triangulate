@@ -18,7 +18,7 @@ angular.module('triangulate.site', dependencies)
 
 	// config $il8nextProvider
 	$i18nextProvider.options = {
-        lng: 'en',
+        lng: '{{language}}',
         useCookie: false,
         useLocalStorage: false,
         fallbackLng: 'en',
@@ -57,6 +57,9 @@ angular.module('triangulate.site', dependencies)
 	
 		var str = $window.sessionStorage.site;
 		$rootScope.site = JSON.parse(str);
+		
+		// set language from site
+		$i18next.options.lng =  $rootScope.site.Language;
 	
 	}
 	else{
@@ -67,6 +70,9 @@ angular.module('triangulate.site', dependencies)
 			// set site to $scope and $rootScope
 			$rootScope.site = data;
 			$window.sessionStorage.site = JSON.stringify(data);
+			
+			// set language from site
+			$i18next.options.lng =  $rootScope.site.Language;
 			
 		});
 		
