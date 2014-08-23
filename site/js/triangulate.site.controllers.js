@@ -1,7 +1,7 @@
 angular.module('triangulate.site.controllers', [])
 
 // app controller
-.controller('PageCtrl', function($scope, $state, $location, $rootScope, pageMeta, Site) {
+.controller('PageCtrl', function($scope, $state, $location, $rootScope, pageMeta, siteMeta, Site) {
 
 	// set user
 	$scope.user = $rootScope.user;
@@ -65,9 +65,15 @@ angular.module('triangulate.site.controllers', [])
 	$scope.page = page
 	$rootScope.page = page;
 	
-	// set site and cart to $scope
-	$scope.site = $rootScope.site;
-	$scope.cart = $rootScope.cart
+	console.log('site!!!!');
+	console.log(siteMeta.data);
+	
+	// set site to scope and $rootscope
+	$scope.site = siteMeta.data;
+	$rootScope.site = $scope.site;
+	
+	// set cart to scope
+	$scope.cart = $rootScope.cart;
 		
 	// toggle settings
 	$scope.toggleSettings = function(){
