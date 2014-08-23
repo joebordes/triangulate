@@ -29,6 +29,7 @@ angular.module('triangulate.controllers', [])
 					
 					// set language to the users language
 					$i18next.options.lng =  data.user.Language;
+					moment.lang(data.user.Language);
 					
 					// set user in $rootScope, session
 					$rootScope.user = data.user;
@@ -58,6 +59,9 @@ angular.module('triangulate.controllers', [])
 						if(Setup.debug)console.log('[triangulate.debug] Editor.list');
 						if(Setup.debug)console.log(data);
 						
+						for (index = 0; index < data.length; ++index) {
+							data[index].title = i18n.t(data[index].title);
+						}
 						$rootScope.editorItems = data;
 						$window.sessionStorage.editorItems = JSON.stringify(data);
 						
