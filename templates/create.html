@@ -420,7 +420,9 @@
 		</div>
 		<!-- /.future -->
 		
-		<div ng-class="{'future': step != 3}">
+		<div 
+			ng-show="setup.passcode != ''"
+			ng-class="{'future': step != 3}">
 		
 			<h2 class="title"><span class="step">3</span> {{'Passcode' | i18next}}</h2>
 			
