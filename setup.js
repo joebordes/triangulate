@@ -6,6 +6,7 @@ angular.module('triangulate.setup', [])
 	url: 			'https://app.mytriangulate.com',
 	api: 			'https://app.mytriangulate.com/api',
 	sites: 			'http://sites.mytriangulate.com',
+	site:			'http://{{friendlyId}}.mytriangulate.com',
 	
 	// default theme
 	themeId: 		'simple',
@@ -22,15 +23,15 @@ angular.module('triangulate.setup', [])
 	stripePubKey:	'',
 	
 	// pascode used by create (must match value set in API)
-	passcode: 		'ilovetriangulate',
+	passcode: 		'',
 	
-	// app branding
+	// app branding (please provide attribution if you change the branding)
 	app:			'Triangulate',
 	version:		'1.0',
 	copy: 			'Made by Matthew Smith in Manchester, MO',
 	email:			'matt@matthewsmith.com',
 	
 	//links
-	pricingLink:	'http://www.triangulate.io/#/page/pricing'
+	pricingLink:	'http://triangulate.io/page/pricing'
 	
 });
