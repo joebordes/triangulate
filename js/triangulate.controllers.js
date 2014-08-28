@@ -333,6 +333,8 @@ angular.module('triangulate.controllers', [])
 			function(){  // success
 				message.showMessage('success');
 				
+				$scope.siteLink = utilities.replaceAll(Setup.site, '{{friendlyId}}', $scope.friendlyId);
+				
 				$('#create-form').addClass('hidden');
 				$('#create-confirmation').removeClass('hidden');
 			},
@@ -973,6 +975,15 @@ angular.module('triangulate.controllers', [])
 	}
 	
 	$scope.site = $rootScope.site;
+	
+	$scope.separator = '/';
+	
+	if($scope.site.UrlMode == 'hash'){
+		$scope.separator = '/#/';
+	}
+	else if($scope.site.UrlMode == 'hashbang'){
+		$scope.separator = '/#!/';
+	}
 	
 	// retrieve page
 	Page.retrieveExtended($scope.pageId, $scope.site.Offset, function(data){

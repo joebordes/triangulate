@@ -3,7 +3,7 @@
 <html ng-app="triangulate.site" lang="{{site.Language}}">
   <head>
     
-    <title>{{site.Name}} - {{page.Name}}</title>
+    <title ng-bind="site.Name + ' - ' + page.Name"></title>
 	
     <!-- meta -->
     <meta charset="utf-8">
@@ -12,6 +12,9 @@
 	<meta name="keywords" content="{{page.Keywords}}">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	
+	<!-- set base for HTML5 mode -->
+    <base href="/">
     
     <!-- icons -->
     <link rel="icon" 

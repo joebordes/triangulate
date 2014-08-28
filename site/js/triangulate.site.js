@@ -27,7 +27,10 @@ angular.module('triangulate.site', dependencies)
 
 	// set authInterceptor
 	$httpProvider.interceptors.push('authInterceptor');
-  
+	
+	// set html5 mode
+	{{html5mode}}
+
 	$stateProvider
 
   	// #begin states
