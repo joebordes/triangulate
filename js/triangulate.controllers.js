@@ -386,7 +386,7 @@ angular.module('triangulate.controllers', [])
 })
 
 // pages controller
-.controller('PagesCtrl', function($scope, $rootScope, $i18next, Setup, PageType, Page, Stylesheet, Layout, User) {
+.controller('PagesCtrl', function($scope, $rootScope, $i18next, Setup, PageType, Page, Stylesheet, Layout, User, Translation) {
 
 	// retrieve user
 	$scope.user = $rootScope.user;
@@ -546,6 +546,20 @@ angular.module('triangulate.controllers', [])
 	
 		message.showMessage('progress');
 	
+		// remove translation for page
+		Translation.retrieveDefault(function(){
+		
+			// clear translations for the page
+			Translation.clear(page.PageId);
+			
+			// save translation
+			Translation.save(function(){
+				
+			});
+			
+		});
+	
+		// remove page
 		Page.remove(page,
 			function(data){  // success
 				message.showMessage('success');
