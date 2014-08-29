@@ -7,6 +7,8 @@
 	
 	<fieldset>
 	
+		<form name="createForm" novalidate>
+	
 		<div ng-class="{'future': step != 1}">
 	
 			<h2 class="title"><span class="step">1</span> {{'Create Site' | i18next}} <a id="toggle-advanced">{{'Language and Timezone' | i18next}}</a></h2>
@@ -22,7 +24,7 @@
 								ng-model="name"
 								ng-focus="setStep(1)"
 								data-id="{{friendlyId}}"
-								class="form-control" triangulate-validate-site-id triangulate-create-id="set">
+								class="form-control" triangulate-validate-site-id triangulate-create-id="set" required>
 								
 							<i class="triangulate-validating fa fa-spinner fa-spin"></i>
 							<i class="triangulate-valid fa fa-check"></i>
@@ -37,7 +39,7 @@
 							<input id="email" type="text"
 								ng-model="email"
 								ng-focus="setStep(1)"
-								class="form-control">
+								class="form-control" required>
 							
 							<i class="triangulate-validating fa fa-spinner fa-spin"></i>
 							<i class="triangulate-valid fa fa-check"></i>
@@ -54,7 +56,7 @@
 							<input id="password" type="password" 
 								ng-model="password"
 								ng-focus="setStep(1)"
-								class="form-control">
+								class="form-control" required>
 						</div>
 						<!-- /.form-group -->
 						
@@ -456,8 +458,11 @@
 		<span class="actions">
 			<button type="button" 
 				ng-click="create()"
+				ng-disabled="createForm.$invalid"
 				class="primary-button">{{'Create Site' | i18next}} <i class="fa fa-angle-right fa-white"></i></button>
 		</span>
+		
+		</form>
 
 	</fieldset>
 	
