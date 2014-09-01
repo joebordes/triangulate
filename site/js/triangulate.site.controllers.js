@@ -65,12 +65,12 @@ angular.module('triangulate.site.controllers', [])
 	$scope.page = page
 	$rootScope.page = page;
 	
-	console.log('site!!!!');
-	console.log(siteMeta.data);
-	
 	// set site to scope and $rootscope
 	$scope.site = siteMeta.data;
 	$rootScope.site = $scope.site;
+	
+	// set fullLogoUrl
+	$scope.fullLogoUrl = $scope.site.ImagesURL + $scope.site.LogoUrl;
 	
 	// set cart to scope
 	$scope.cart = $rootScope.cart;
