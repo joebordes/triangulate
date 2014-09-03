@@ -158,7 +158,7 @@ angular.module('triangulate.directives', [])
     };
 })
 
-.directive('dropZone', function(Image, Setup) {
+.directive('dropZone', function(File, Setup) {
   	return function(scope, element, attrs) {
  
 	  	Dropzone.autoDiscover = false;
@@ -179,6 +179,10 @@ angular.module('triangulate.directives', [])
 	            
             },
             success: function(file, response){
+            
+            	// clear cache
+				File.invalidateCache();
+            
                 var image = response;
                 
                 if(attrs.target == 'editor'){

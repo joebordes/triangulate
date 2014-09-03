@@ -14,4 +14,21 @@ angular.module('triangulate.filters', [])
     	var st = moment.utc(text, 'YYYY-MM-DD HH:mm:ss');
 		return st.fromNow();
 	}
+})
+
+.filter('daysLeft', function() {
+    return function(text) {
+    
+    	var now = moment.utc();
+    
+    	var st = moment.utc(text, 'YYYY-MM-DD HH:mm:ss');
+		
+		var difference = 30 - now.diff(st, 'days');
+		
+		if(difference < 0){
+			difference = 0;
+		}
+		
+		return difference;
+	}
 });

@@ -3,21 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>{{title}}</title>
+    <title ng-bind="title"></title>
 
 	<!-- css -->
 	<link type="text/css" href="//fonts.googleapis.com/css?family=Roboto:700,300,100|Inconsolata" rel="stylesheet">
 	<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
 	<link type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link type="text/css" href="css/app.css" rel="stylesheet">
-	<link type="text/css" href="css/messages.css" rel="stylesheet">
-	<link type="text/css" href="css/dropzone.css" rel="stylesheet">
-	<link type="text/css" href="css/list.css" rel="stylesheet">
-	<link type="text/css" href="css/login.css" rel="stylesheet">
-	<link type="text/css" href="css/dialog.css" rel="stylesheet">
-	<link type="text/css" href="css/content.css" rel="stylesheet">
-	<link type="text/css" href="css/editor.css" rel="stylesheet">
+	<link type="text/css" href="/css/app.css" rel="stylesheet">
+	<link type="text/css" href="/css/messages.css" rel="stylesheet">
+	<link type="text/css" href="/css/dropzone.css" rel="stylesheet">
+	<link type="text/css" href="/css/list.css" rel="stylesheet">
+	<link type="text/css" href="/css/login.css" rel="stylesheet">
+	<link type="text/css" href="/css/dialog.css" rel="stylesheet">
+	<link type="text/css" href="/css/content.css" rel="stylesheet">
+	<link type="text/css" href="/css/editor.css" rel="stylesheet">
+	
+	<!-- set base for HTML5 mode -->
+    <base href="/">
 
     <!-- angular / ui-* -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
@@ -47,14 +50,14 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     
     <!-- app -->
-    <script src="setup.js"></script>
-    <script src="js/triangulate.js"></script>
-    <script src="js/messages.js"></script>
-    <script src="js/triangulate.controllers.js"></script>
-    <script src="js/triangulate.factories.js"></script>
-    <script src="js/triangulate.directives.js"></script>
-    <script src="js/triangulate.filters.js"></script>
-    <script src="js/jm.i18next.js"></script>
+    <script src="/setup.js"></script>
+    <script src="/js/triangulate.js"></script>
+    <script src="/js/messages.js"></script>
+    <script src="/js/triangulate.controllers.js"></script>
+    <script src="/js/triangulate.factories.js"></script>
+    <script src="/js/triangulate.directives.js"></script>
+    <script src="/js/triangulate.filters.js"></script>
+    <script src="/js/jm.i18next.js"></script>
     
     <!-- codemirror -->
     <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.css" rel="stylesheet">
@@ -73,11 +76,11 @@
 	<script src="https://js.stripe.com/v2/"></script>
 
 	<!-- triangulate.* -->
-	<script src="js/triangulate.editor.js"></script>
-	<script src="plugins/text/triangulate.text.js"></script>
-	<script src="plugins/element/triangulate.element.js"></script>
-	<script src="plugins/component/triangulate.component.js"></script>
-	<script src="plugins/utility/triangulate.utility.js"></script>
+	<script src="/js/triangulate.editor.js"></script>
+	<script src="/plugins/text/triangulate.text.js"></script>
+	<script src="/plugins/element/triangulate.element.js"></script>
+	<script src="/plugins/component/triangulate.component.js"></script>
+	<script src="/plugins/utility/triangulate.utility.js"></script>
 	
   </head>
   

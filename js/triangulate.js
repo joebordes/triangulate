@@ -22,7 +22,7 @@ angular.module('triangulate', ['ui.router',
 }])
 
 // configure the module
-.config(function($stateProvider, $urlRouterProvider, $i18nextProvider, $httpProvider) {
+.config(function($stateProvider, $locationProvider, $urlRouterProvider, $i18nextProvider, $httpProvider) {
 
 	// config $il8nextProvider
 	$i18nextProvider.options = {
@@ -35,6 +35,9 @@ angular.module('triangulate', ['ui.router',
 	
 	// set authInterceptor
 	$httpProvider.interceptors.push('authInterceptor');
+	
+	// set html5 mode
+	$locationProvider.html5Mode(true);
 	
 	// set states
 	$stateProvider

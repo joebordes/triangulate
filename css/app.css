@@ -1432,6 +1432,15 @@ section.notice a{
 	background: #81b841;
 	padding: 10px 20px;
 	color: #fff;
+	line-height: 20px;
+}
+
+section.notice .days-left{
+	display: inline-block;
+	font-weight: bold;
+	margin-right: 5px;
+	padding-right: 10px;
+	border-right: 1px solid rgba(255,255,255,.25);
 }
 
 section.notice a i{
