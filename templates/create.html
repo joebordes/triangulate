@@ -456,6 +456,13 @@
 		<!-- /.future -->
 	
 		<span class="actions">
+		
+			<span class="terms">
+				<i class="fa fa-warning"></i>
+				{{'By creating a site with Triangulate, you are accepting our' | i18next}}
+				<a ng-href="{{setup.terms}}" target="_blank">{{'terms of service' | i18next}}</a>.
+			</span>
+		
 			<button type="button" 
 				ng-click="create()"
 				ng-disabled="createForm.$invalid"

@@ -243,5 +243,13 @@ body.login{}
 		max-height: 100px;
 	}
 
+	body.login .terms{
+		display: inline-block;
+		margin-right: 10px;
+	}
 
+	body.login .terms i{
+		color: #ccc;
+		margin-right: 5px;
+	}
 
