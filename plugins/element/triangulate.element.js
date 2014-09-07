@@ -1549,7 +1549,7 @@ triangulate.element.pre = {
 		attrs['id'] = id;
 		attrs['data-id'] = id;
 		attrs['class'] = 'triangulate-pre';
-		attrs['data-cssclass'] = 'prettyprint linenums pre-scrollable';
+		attrs['data-cssclass'] = '';
 		attrs['data-description'] = 'PRE';
 		
 		// append element to the editor
@@ -1597,7 +1597,7 @@ triangulate.element.pre = {
 		attrs['id'] = $(node).attr('data-id');
 		attrs['class'] = $(node).attr('data-cssclass');
 		attrs['description'] = $(node).attr('data-description');
-		attrs['ng-non-bindable'] = 'true';
+		attrs['triangulate-pre'] = 'true';
 		
 		var code = $(node).find('textarea').val();
 		

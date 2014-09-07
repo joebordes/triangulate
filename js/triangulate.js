@@ -240,6 +240,16 @@ angular.module('triangulate', ['ui.router',
 		      controller: 'AccountCtrl'
 		    }
 		  }
+		})
+		
+		.state('app.admin', {
+		  url: "/admin",
+		  views: {
+		    'content' :{
+		      templateUrl: "templates/admin.html",
+		      controller: 'AdminCtrl'
+		    }
+		  }
 		});
 	
 	// if none of the above states are matched, use this as the fallback

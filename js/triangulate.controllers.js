@@ -247,6 +247,50 @@ angular.module('triangulate.controllers', [])
 	
 })
 
+// admin controller
+.controller('AdminCtrl', function($scope, $window, $stateParams, $rootScope, $i18next, Setup, Site) {
+	
+	$rootScope.template = 'admin';
+	
+	// setup
+	$scope.setup = Setup;
+	
+	// site
+	$scope.site = $rootScope.site;
+	
+	// list sites
+	Site.list(function(data){
+	
+		// debugging
+		if(Setup.debug)console.log('[triangulate.debug] Site.listAll');
+		console.log(data);
+		
+		$scope.sites = data;
+	});
+	
+	// shows the site dialog for editing
+	$scope.showEditSite = function(site){
+	
+		// set temporary model
+		$scope.temp = site;
+		
+		$('#siteDialog').modal('show');
+	}
+	
+	// edits the site
+	$scope.updateSite = function(site){
+	
+		message.showMessage('progress');
+	
+		Site.editAdmin(site, function(){
+			message.showMessage('success');
+		});
+	
+		$('#siteDialog').modal('hide');
+	}
+	
+})
+
 // create controller
 .controller('CreateCtrl', function($scope, $rootScope, Setup, Theme, Language, Site) {
 	

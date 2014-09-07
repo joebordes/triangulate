@@ -487,3 +487,10 @@ div#imageList .listItem img{
 	#usersList .role.contributor{
 		background-color: #94D237;
 	}
+	
+/* sites list */
+#sitesList i{
+	color: #ccc;
+	margin-left: 5px;
+	font-size: 11px;
+}

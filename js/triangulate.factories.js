@@ -32,6 +32,7 @@ angular.module('triangulate.factories', [])
 .factory('Site', function($http, Setup){
 	
 	var site = {};
+	site.data = [];
 	
 	// retrieve site
 	site.retrieve = function(callback){
@@ -122,6 +123,28 @@ angular.module('triangulate.factories', [])
 		
 		// API call
 		$http.get(Setup.api + '/site/deploy')
+			.success(successCallback)
+			.error(failureCallback);
+	}
+	
+	// edits administrative
+	site.editAdmin = function(site, successCallback, failureCallback){
+			
+		// set params
+		var params = { 
+			siteId: site.SiteId,
+			domain: site.Domain,
+			bucket: site.Bucket, 
+			status: site.Status,
+			userLimit: site.UserLimit,
+			fileLimit: site.FileLimit
+		}
+	
+		// set post to URL Encoded
+		$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+	
+		// post to API
+		$http.post(Setup.api + '/site/edit/admin', $.param(params))
 			.success(successCallback)
 			.error(failureCallback);
 	}
@@ -223,6 +246,21 @@ angular.module('triangulate.factories', [])
 			.success(successCallback)
 			.error(failureCallback);
 		
+	}
+	
+	// retrieve a list of sites
+	site.list = function(callback){
+	
+		// get list from API, ref: http://bit.ly/1gkUW4E
+		$http.get(Setup.api + '/site/list/all')
+			.then(function(res){
+			
+				// set data for factory
+				site.data = res.data;
+				return site.data;
+				
+			})
+			.then(callback);
 	}
 	
 	return site;

@@ -1,4 +1,5 @@
 <div class="triangulate-list-blog-item"
 	ng-repeat="page in pages | filter:tag">
 	<triangulate-content url="{{page.Url}}"></triangulate-content>
+	<div class="blog-meta"><p><a ui-sref="{{page.Url}}">{{'Permanent Link'  | i18next}}</a></p></div>
 </div>
