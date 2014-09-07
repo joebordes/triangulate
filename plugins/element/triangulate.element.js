@@ -1598,6 +1598,7 @@ triangulate.element.pre = {
 		attrs['class'] = $(node).attr('data-cssclass');
 		attrs['description'] = $(node).attr('data-description');
 		attrs['triangulate-pre'] = 'true';
+		attrs['ng-non-bindable'] = 'true';
 		
 		var code = $(node).find('textarea').val();
 		
