@@ -6,6 +6,24 @@ info.php
 api/
 api/*
 
+themes/chromatic
+themes/chromatic/*
+
+themes/geometric
+themes/geometric/*
+
+themes/notion
+themes/notion/*
+
+themes/serene
+themes/serene/*
+
+themes/sidebar
+themes/sidebar/*
+
+themes/tension
+themes/tension/*
+
 #################
 ## Eclipse
 #################
