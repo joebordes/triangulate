@@ -321,6 +321,11 @@ var utilities = {
 	// gets index of array by attribute
 	getIndexByAttribute:function(arr, attr, value){
 		
+		// error checking
+		if(arr == null || arr == undefined){
+			return -1;
+		}
+		
 		for(z=0; z<arr.length; z++){
 			if(arr[z][attr] == value){
 				return z;
