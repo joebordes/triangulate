@@ -355,7 +355,7 @@
   "Thank you": "Thank you",
   "thank_you1": "Thank you for choosing Triangulate to host your site.",
   "thank_you2": "We will transition your Amazon S3 bucket to match your domain name and send you an email when it is ready.",
-  "thank_you3": "You then need to point your domain name to the Amazon S3 bucket.  This is typically done by creating a CNAME record to point to the www subdomain and using a 301 redirect from the root to www.  Confused? Don't worry, I will work with you to make sure everything is setup correctly.",
+  "thank_you3": "You then need to point your domain name to the Amazon S3 bucket.  This is typically done by creating a CNAME record to point to the www subdomain and using a 301 redirect from the root to www.  Confused? Don't worry, we will work with you to make sure everything is setup correctly.",
   "thank_you4": "If you have any questions, email me us:",
   "Theme": "Theme",
   "Thumbnails": "Thumbnails",
